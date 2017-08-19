@@ -1,0 +1,52 @@
+buildscript {
+    dependencies {
+        classpath files(mkdir('build/classes/main'))
+        classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+    }
+}
+plugins {
+  id 'org.roboscratch.robot' version '0.1.2'
+  id 'com.github.kt3k.coveralls' version '2.6.3'
+}
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'application'
+apply plugin: 'gradle-one-jar'
+
+
+version = '1.0'
+mainClassName = 'edu.wofford.Main'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Argument Parser', 
+                   'Implementation-Version': version, 
+                   'Main-Class': mainClassName
+    }
+}
+
+task uberjar(type: OneJar) {
+    mainClass = mainClassName
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4+'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
+}
+
+
+runrobot.debugfile = 'debug.log'
+runrobot.dependsOn test
+
+check.dependsOn runrobot
+
+
