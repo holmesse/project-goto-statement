@@ -1,4 +1,8 @@
 language: java
 
+script:
+- ./gradlew check
+- ./gradlew runrobot
+
 after_success:
 - ./gradlew jacocoTestReport coveralls

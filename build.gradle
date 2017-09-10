@@ -47,6 +47,5 @@ jacocoTestReport {
 runrobot.debugfile = 'debug.log'
 runrobot.dependsOn test
 
-check.dependsOn runrobot
 
 
