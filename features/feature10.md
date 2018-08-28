@@ -1,46 +1,21 @@
-# Allow argument information to be saved to an XML file.
+# Modify the current web service and GUI program to make the leaderboard functionality a part of the service.
 
-## Additional Information
+The Leaderboard component of the existing program should be moved to the web
+service, allowing the following requests.
 
-If an argument list has already been implemented in Java code, it would be helpful to be able to save the list information to a file for use later. As before with reading argument information from a file, XML provides a good format for this data. The XML file should store all of the argument information, including long-form names, short-form names, datatypes, default values, and whether an argument is positional, just as in the case of reading the argument information.
+`<root>/wordoff/leaderboard/top/{number}`
+: Returns a JSON array of dictionaries containing the top `number` of results in the leaderboard
+Example: `<root>/wordoff/leaderboard/top/5`
 
-## Use Cases
+`<root>/wordoff/leaderboard/add/{word}/{difficulty}/{secondsleft}`
+: Adds the specified (`word`, `difficulty`, `secondsleft`) entry to the leaderboard and returns a boolean representing whether it was added
+Example: `<root>/wordoff/leaderboard/add/star/3/17`
 
-Assume VolumeCalculator.java allows for three positional arguments, named `length`, `width`, and `height`, respectively, each representing float values. Assume that it also allows two optional named arguments: `type`, a string that defaults to "box" with short-form `t`, and `digits`, an integer that defaults to 4 with short-form `d`.
 
-The following XML file might represent that argument list:
+The program should take an integer as a single command-line argument, 
+representing the number of anagrams the chosen starting word should have
+(the "difficulty" for this game). The difficulty is then sent to a server
+that responds with the target word and its anagrams. Any interaction with the
+leaderboard should also happen through the web service. All other behavior of
+the main program and GUI should be the same as before.
 
-    <arguments>
-        <positional>
-            <name>length</name>
-            <type>float</type>
-            <position>1</position>
-        </positional>
-        <positional>
-            <name>width</name>
-            <type>float</type>
-            <position>2</position>
-        </positional>
-        <positional>
-            <name>height</name>
-            <type>float</type>
-            <position>3</position>
-        </positional>
-        <named>
-            <name>type</name>
-            <shortname>t</shortname>
-            <type>string</type>
-            <default>box</default>
-        </named>
-        <named>
-            <name>digits</name>
-            <shortname>d</shortname>
-            <type>integer</type>
-            <default>4</default>
-        </named>
-    </arguments>
-    
-
-## Acceptance Tests
-
-The acceptance of this feature must be done by inspection of the library and by exhibiting demonstration programs that use the functionality.

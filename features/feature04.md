@@ -1,65 +1,76 @@
-# Allow named arguments with single values, which may have help and datatype information, after all positional arguments.
+# Create a program that allows the user to enter all of the anagrams and subanagrams of a given word.
 
-## Additional Information
+The program should take a single command-line argument that determines the
+behavior.
 
-This is specifically about long-form named arguments (e.g., `--help` instead of `-h`).
-Later on, we will want to do things such as
-    --help (no values)
-or
-    --location 3 7 2
-where `3 7 2` is not a part of the `length`, `width` , and `height`; it is part of `location`.
+If the argument is an integer, it represents the *character length* the chosen
+starting word should have (a modified version of the previous "difficulty").
+The program then randomly chooses a word with that size, finds its true
+anagrams, and presents one randomly to the user as the starting word.
 
-This should allow multiple long-form arguments.
+If the argument is any other string, it represents the starting word.
 
-All optional named arguments are required to have default values specified within the argument parser (in the event that they are not given on the command line).
+The program determines the number of anagrams *and subanagrams* of the starting
+word remaining to be found (where subanagrams are grouped by character length).
+These counts do not include the starting word, since the user already knows it.
+The program then prompts the user for each (sub)anagram (case insensitive) and 
+reduces the remaining count each time until the count for all groups is 0, at
+which point the program ends. If a given user response is not a (sub)anagram of
+the chosen word or has already been chosen, the program simply reprompts without
+changing the counts.
+
+The following cases for the command-line argument result in the program ending
+immediately without producing output:
+    
+* the integer argument is not provided or is less than 3
+* there is no word in the word bank with a length of the supplied size
+* the supplied starting word is not a word in the word bank
+
+Your program should pull words from the file "commonwords.txt" that has been
+provided to you. It contains 58,110 English words, any of which should be 
+considered a valid word for (sub)anagram purposes.
+
 
 ## Use Cases
 
-Assume VolumeCalculator.java allows for three positional arguments, named `length`, `width`, and `height`, respectively. Assume that it also allows an optional named argument called `type`.
+Assume that the main program is called Feature04.
 
-    java VolumeCalculator 7 3 2 --type ellipsoid
-    
-should output the volume of the ellipsoid.
+Call: `java Feature04 4`
 
-Multiple optional named arguments are also allowed (for instance, both `type` and `digits`):
+Example Interaction:
 
-    java VolumeCalculator 7 3 2 --type ellipsoid --digits 1
-    
-In the first use case, the `digits` variable should take on its default value (since it was not specified).
+    The word is "hope".
+    There are 0 [len 4], 2 [len 3], 4 [len 2], and 0 [len 1] anagrams remaining: he
+    There are 0 [len 4], 2 [len 3], 3 [len 2], and 0 [len 1] anagrams remaining: hop
+    There are 0 [len 4], 1 [len 3], 3 [len 2], and 0 [len 1] anagrams remaining: oh
+    There are 0 [len 4], 1 [len 3], 2 [len 2], and 0 [len 1] anagrams remaining: eh
+    There are 0 [len 4], 1 [len 3], 1 [len 2], and 0 [len 1] anagrams remaining: HO
+    There are 0 [len 4], 1 [len 3], 0 [len 2], and 0 [len 1] anagrams remaining: hoe
+    There are 0 anagrams remaining.
 
-## Acceptance Tests
+Note that the user response is after the colon on each line.
 
-    | *Test Case*                  | *Action*                       | *Argument*         | *Argument*   | *Argument* | *Argument* | *Argument* | *Argument* | *Argument* |
-    | Test Named Argument Defaults | Start Program With Arguments   | 7                  | 3            | 2          |            |            |            |            |
-    |                              | ${length}=                     | Get Length         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 7                  | ${length}    |            |            |            |            |            |
-    |                              | ${width}=                      | Get Width          |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 3                  | ${width}     |            |            |            |            |            |
-    |                              | ${height}=                     | Get Height         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 2                  | ${height}    |            |            |            |            |            |
-    |                              | ${type}=                       | Get Type           |              |            |            |            |            |            |
-    |                              | Should Be Equal                | box                | ${type}      |            |            |            |            |            |
-    |                              | ${digits}=                     | Get Digits         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 4                  | ${digits}    |            |            |            |            |            |
-    | Test Named Argument Single   | Start Program With Arguments   | 7                  | 3            | 2          | --type     | ellipsoid  |            |            |
-    |                              | ${length}=                     | Get Length         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 7                  | ${length}    |            |            |            |            |            |
-    |                              | ${width}=                      | Get Width          |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 3                  | ${width}     |            |            |            |            |            |
-    |                              | ${height}=                     | Get Height         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 2                  | ${height}    |            |            |            |            |            |
-    |                              | ${type}=                       | Get Type           |              |            |            |            |            |            |
-    |                              | Should Be Equal                | ellipsoid          | ${type}      |            |            |            |            |            |
-    |                              | ${digits}=                     | Get Digits         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 4                  | ${digits}    |            |            |            |            |            |
-    | Test Named Argument Multiple | Start Program With Arguments   | 7                  | 3            | 2          | --type     | ellipsoid  | --digits   | 1          |
-    |                              | ${length}=                     | Get Length         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 7                  | ${length}    |            |            |            |            |            |
-    |                              | ${width}=                      | Get Width          |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 3                  | ${width}     |            |            |            |            |            |
-    |                              | ${height}=                     | Get Height         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 2                  | ${height}    |            |            |            |            |            |
-    |                              | ${type}=                       | Get Type           |              |            |            |            |            |            |
-    |                              | Should Be Equal                | ellipsoid          | ${type}      |            |            |            |            |            |
-    |                              | ${digits}=                     | Get Digits         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 1                  | ${digits}    |            |            |            |            |            |
+
+Call: `java Feature04 cable`
+
+Example Interaction:
+
+    The word is "cable".
+    There are 0 [len 5], 4 [len 4], 8 [len 3], 1 [len 2], and 0 [len 1] anagrams remaining: wrong
+    There are 0 [len 5], 4 [len 4], 8 [len 3], 1 [len 2], and 0 [len 1] anagrams remaining: aBLe
+    There are 0 [len 5], 3 [len 4], 8 [len 3], 1 [len 2], and 0 [len 1] anagrams remaining: ale
+    There are 0 [len 5], 3 [len 4], 7 [len 3], 1 [len 2], and 0 [len 1] anagrams remaining: bale
+    There are 0 [len 5], 2 [len 4], 7 [len 3], 1 [len 2], and 0 [len 1] anagrams remaining: be
+    There are 0 [len 5], 2 [len 4], 7 [len 3], 0 [len 2], and 0 [len 1] anagrams remaining: bel
+    There are 0 [len 5], 2 [len 4], 6 [len 3], 0 [len 2], and 0 [len 1] anagrams remaining: cab
+    There are 0 [len 5], 2 [len 4], 5 [len 3], 0 [len 2], and 0 [len 1] anagrams remaining: lab
+    There are 0 [len 5], 2 [len 4], 4 [len 3], 0 [len 2], and 0 [len 1] anagrams remaining: abe
+    There are 0 [len 5], 2 [len 4], 3 [len 3], 0 [len 2], and 0 [len 1] anagrams remaining: abel
+    There are 0 [len 5], 1 [len 4], 3 [len 3], 0 [len 2], and 0 [len 1] anagrams remaining: alb
+    There are 0 [len 5], 1 [len 4], 2 [len 3], 0 [len 2], and 0 [len 1] anagrams remaining: lab
+    There are 0 [len 5], 1 [len 4], 2 [len 3], 0 [len 2], and 0 [len 1] anagrams remaining: lace
+    There are 0 [len 5], 0 [len 4], 2 [len 3], 0 [len 2], and 0 [len 1] anagrams remaining: ace
+    There are 0 [len 5], 0 [len 4], 1 [len 3], 0 [len 2], and 0 [len 1] anagrams remaining: lea
+    There are 0 anagrams remaining.
+
+

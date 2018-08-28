@@ -1,0 +1,18 @@
+
+
+version = '1.0'
+mainClassName = 'edu.wofford.wordoff.Main'
+
+jar {
+    baseName = rootProject.name + '-' + project.name
+    manifest {
+        attributes 'Implementation-Title': 'WordOff', 
+                   'Implementation-Version': version, 
+                   'Main-Class': mainClassName
+    }
+}
+
+dependencies {
+    compile 'org.robotframework:swinglibrary:1.9.8'
+}
+

@@ -1,34 +1,60 @@
-# Allow short-form names for named arguments, in addition to long-form names.
+# Use a database to add a leaderboard to the existing graphical interface.
 
-## Additional Information
+The program should take an integer as a single command-line argument, 
+representing the number of anagrams the chosen starting word should have
+(the "difficulty" for this game). All behavior of the main program and GUI
+should be the same as before.
 
-The short-form name of an argument is a one-character abbreviated name. When entered in the command-line, short-form names always begin with a hyphen (instead of a double-hyphen for long-form names). Short-form flags (because they have no associated values) can also be combined in a single specification. For instance, `-d -a -p` is equivalent to `-dap`. Notice that the combination `-dap` is different from a long-form argument called `--dap`. Both of those should be possible (albeit confusing).
+However, when the game ends (either due to the user's guessing all anagrams
+[win] or running out of time [loss]), the program should pop up a *modeless*
+dialog box containing the top 5 best scores that have been achieved so far,
+where scores should be sorted in ascending order according to the following
+metric:
 
-This short-form name should not be auto-generated from the long-form name; it should be specified by the user. For instance, if a long-form named argument is `digits`, you should not assume that the short-form name will be `d`. This is because long-form names may share the same first letters (e.g., `precision` and `print`).
+    score = (difficulty * 10 - time_remaining) / difficulty
 
-Now that the short-form names are available, the `h` help argument should be treated as such (since that is really what it is). Also, it should be an error for the user to try to name another short-form argument `h` (taken by default to be "help").
+This score essentially captures the amount of time on average needed to solve
+each anagram, and lower values of the score are considered "better".
 
-## Use Cases
+The results of each game won should be stored in an SQLite database that can
+then be queried to produce the leaderboard. The SQLite database file should be
+stored in the same directory where the program JAR file exists. If the database
+file does not exist at the beginning of program execution, an empty database
+should be created that can then be filled on this and subsequent runs.
 
-Assume VolumeCalculator.java allows for three positional arguments, named `length`, `width`, and `height`, respectively. Assume that it also allows two optional named arguments called `type` (short-form `t`) and `digits` (short-form `d`). The following calls would be equivalent:
-
-    java VolumeCalculator --type ellipsoid 7 3 --digits 1 2
-    java VolumeCalculator 7 -t ellipsoid 3 --digits 1 2
-    java VolumeCalculator 7 3 --type ellipsoid -d 1 2
-    java VolumeCalculator 7 -d 1 3 -t ellipsoid 2
+The leaderboard dialog box should look similar to the following, with the name
+(using `setName`) of the `JTable` set to "leaderboard" and the title of the
+dialog box set to "Leaderboard". This example assumes that the database already
+has enough data to fill all 5 leaderboard slots.
 
 
-## Acceptance Tests
+    +---------------------------------------------------+
+    |   Leaderboard                         | o | - | X |
+    +---------------------------------------------------+
+    |                                                   |
+    |  -----------------------------------------------  |
+    | | Rank |  Word  |  Difficulty  |  Seconds Left  | |
+    |  -----------------------------------------------  |
+    | |    1 | hello  |            3 |             18 | |
+    |  -----------------------------------------------  |
+    | |    2 | world  |            4 |             20 | |
+    |  -----------------------------------------------  |
+    | |    3 | apple  |            2 |              8 | |
+    |  -----------------------------------------------  |
+    | |    4 | cat    |            2 |              6 | |
+    |  -----------------------------------------------  |
+    | |    5 | silly  |            6 |             12 | |
+    |  -----------------------------------------------  |
+    |                                                   |
+    +---------------------------------------------------+
 
-    | *Test Case*                  | *Action*                       | *Argument*         | *Argument*   | *Argument* | *Argument* | *Argument* | *Argument* | *Argument* |
-    | Test Short Form Arguments    | Start Program With Arguments   | -t                 | ellipsoid    | 7          | 3          | -d         | 1          | 2          |
-    |                              | ${length}=                     | Get Length         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 7                  | ${length}    |            |            |            |            |            |
-    |                              | ${width}=                      | Get Width          |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 3                  | ${width}     |            |            |            |            |            |
-    |                              | ${height}=                     | Get Height         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 2                  | ${height}    |            |            |            |            |            |
-    |                              | ${type}=                       | Get Type           |              |            |            |            |            |            |
-    |                              | Should Be Equal                | ellipsoid          | ${type}      |            |            |            |            |            |
-    |                              | ${digits}=                     | Get Digits         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 1                  | ${digits}    |            |            |            |            |            |
+
+The database should be updated on any "win" condition, but only if the current
+winning word is not already in the database with the given difficulty or if
+it exists but the seconds remaining are larger than what is already in the
+database. (Treat the primary key as a composite of the word and the difficulty.)
+
+At the end of the game (win or loss but after database update), if there are no
+entries in the database, then no leaderboard dialog box should be displayed.
+
+

@@ -1,31 +1,57 @@
-# Allow the inclusion of additional descriptive information on the program and each argument and provide named "-h" argument that shows usage and help information by default.
+# Create a program that allows the user to enter all of the anagrams of a given word.
 
-## Additional Information
+The program should take an integer as a single command-line argument, 
+representing the number of anagrams the chosen starting word should have
+(a "difficulty" of sorts). The program then randomly chooses a word with that
+number of anagrams and presents one randomly to the user, along with the number
+of anagrams remaining to be found. It then prompts the user for each anagram
+(case insensitive) and reduces the remaining count each time until the count
+is 0, at which point the program ends. If a given user response is not an
+anagram of the chosen word or has already been chosen, the program simply
+reprompts without changing the count.
 
-Each argument has a meaning in the context of a given program. That meaning is what is conveyed in the descriptive information.
+The following cases for the command-line argument result in the program ending
+immediately without producing output:
+    
+* the argument supplied is not an integer
+* the integer argument is not provided or is less than 2
+* there is no word in the word bank with a number of anagrams of the supplied size
+
+Your program should pull words from the file "allwords.txt" that has been
+provided to you. It contains 370,099 English words and abbreviations, any of
+which should be considered a valid word for anagram purposes.
+
 
 ## Use Cases
 
-Assume VolumeCalculator.java allows for three positional arguments, named `length`, `width`, and `height`, respectively.
+Assume that the main program is called Feature02.
 
-    java VolumeCalculator -h
+Call: `java Feature02 6`
 
-should produce the following output:
+Example Interaction:
 
-    usage: java VolumeCalculator length width height
-    Calculate the volume of a box.
-    positional arguments:
-       length the length of the box
-       width the width of the box
-       height the height of the box
+    The word is "risen".
+    There are 5 anagrams remaining: resin
+    There are 4 anagrams remaining: seRiN
+    There are 3 anagrams remaining: rinse
+    There are 2 anagrams remaining: SIREN
+    There are 1 anagrams remaining: reins
+    There are 0 anagrams remaining.
 
-## Acceptance Tests
+Note that the user response is after the colon on each line.
 
-    | *Variable*  | *Value*                                                                                                                                                                                                                         |
-    | ${expected} | usage: java VolumeCalculator length width height\nCalculate the volume of a box.\npositional arguments:\n   length the length of the box (float)\n   width the width of the box (float)\n   height the height of the box (float) |
-    
-    | *Test Case*        | *Action*                     | *Argument*         | *Argument*  |
-    | Test Usage Message | Start Program With Arguments | -h                 |             |
-    |                    | ${output}=                   | Get Program Output |             |
-    |                    | Should Be Equal              | ${expected}        | ${output}   |
+
+Call: `java Feature02 6`
+
+Example Interaction:
+
+    The word is "risen".
+    There are 5 anagrams remaining: hello
+    There are 5 anagrams remaining: RiNSe
+    There are 4 anagrams remaining: risen
+    There are 4 anagrams remaining: reins
+    There are 3 anagrams remaining: resin
+    There are 2 anagrams remaining: siren
+    There are 1 anagrams remaining: SEriN
+    There are 0 anagrams remaining.
 

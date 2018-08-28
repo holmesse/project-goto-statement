@@ -1,51 +1,99 @@
 buildscript {
+    repositories {
+        mavenCentral()
+    }
     dependencies {
-        classpath files(mkdir('build/classes/main'))
-        classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+        classpath files(mkdir('client/build/classes/java/main'))
+        classpath files(mkdir('client/build/resources/main'))
+        classpath files(mkdir('service/build/classes/java/main'))
+        classpath files(mkdir('service/build/resources/main'))
+        classpath 'org.robotframework:swinglibrary:1.9.8'
+        classpath 'org.xerial:sqlite-jdbc:3.23.1'
     }
 }
+
 plugins {
-  id 'org.roboscratch.robot' version '0.1.2'
-  id 'com.github.kt3k.coveralls' version '2.6.3'
+    id 'org.roboscratch.robot' version '0.1.2' apply false
 }
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'application'
-apply plugin: 'gradle-one-jar'
 
-
-version = '1.0'
-mainClassName = 'edu.wofford.Main'
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'Argument Parser', 
-                   'Implementation-Version': version, 
-                   'Main-Class': mainClassName
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'jacoco'
+    apply plugin: 'application'
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+    apply plugin: 'org.roboscratch.robot'
+    
+    repositories {
+        mavenCentral()
     }
-}
-
-task uberjar(type: OneJar) {
-    mainClass = mainClassName
-}
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testCompile 'junit:junit:4+'
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled = true // coveralls plugin depends on xml format report
-        html.enabled = true
+    
+    project.ext {
+        javaVersion = '1.8'
+        junitVersion = '4.12'
     }
+    
+    compileJava {
+        targetCompatibility = javaVersion
+        sourceCompatibility = javaVersion
+    }
+    
+    dependencies {
+        compile 'org.slf4j:slf4j-api:1.7.18'
+        compile 'org.glassfish:javax.json:1.1.2'
+        compile 'org.xerial:sqlite-jdbc:3.23.1'
+        testCompile 'junit:junit:' + junitVersion
+        testCompile "org.mockito:mockito-core:2.21.0"
+        testCompile 'org.hamcrest:hamcrest-all:1.3'
+    }
+    
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs += ['-proc:none', '-Xlint:unchecked', '-Xlint:deprecation']
+        }
+    }
+
+    task uberjar(type: Jar) {
+        manifest.from jar.manifest
+        classifier = 'all'
+        from {
+            configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
+        } {
+            exclude "META-INF/*.SF"
+            exclude "META-INF/*.DSA"
+            exclude "META-INF/*.RSA"
+        }
+        with jar
+    }
+
+    test {
+        jacoco {
+            append = false
+        }
+    }
+    
+    jacocoTestReport {
+        afterEvaluate {
+            classDirectories = files(classDirectories.files.collect {
+                fileTree(dir: it,
+                         exclude: [
+                            '**/edu/wofford/wordoff/*Main*',
+                            '**/keywords/**'
+                        ])
+            })
+        }
+    }
+    
+    javadoc {
+        options.with {
+            links 'https://docs.oracle.com/javase/8/docs/api/'
+        }
+        exclude 'edu/wofford/wordoff/*Main*'
+        exclude 'keywords/**'
+    }
+    
+    runrobot.data_sources = 'src/acceptance'
+    runrobot.outputdir = 'build/reports/robot'
+    runrobot.debugfile = 'debug.log'
+    runrobot.dependsOn build
 }
-
-
-runrobot.debugfile = 'debug.log'
-runrobot.dependsOn test
-
-
-

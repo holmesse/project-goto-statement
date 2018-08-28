@@ -1,32 +1,75 @@
-# Allow named arguments to be mixed with positional arguments in any order.
+# Create a GUI program that allows the user to enter all of the anagrams of a given word.
 
-## Additional Information
+The program should take an integer as a single command-line argument, 
+representing the number of anagrams the chosen starting word should have
+(the "difficulty" for this game).
 
-Rather than placing all named arguments at the end (after all positional arguments), they can be placed anywhere in the argument list.
+The program determines the number of anagrams (not any subanagrams) of the
+starting word remaining to be found. Then, the program opens a GUI window for
+user input. The window should look similar to the following, with the name
+(using `setName`) of each component exactly as specified. This example assumes
+that the target word has 5 additional anagrams to be guessed.
 
-## Use Cases
 
-Assume VolumeCalculator.java allows for three positional arguments, named `length`, `width`, and `height`, respectively. Assume that it also allows two optional named arguments called `type` and `digits`.
+    +--------------------------------------------------+
+    |   WordOff                            | o | - | X |
+    +--------------------------------------------------+
+    |    ------------------------------------------    |
+    |   |              JLabel: target              |   |
+    |    ------------------------------------------    |
+    |                                                  |
+    |    ------------------------------------------    |
+    |   |             JLabel: anagram0             |   |
+    |    ------------------------------------------    |
+    |                                                  |
+    |    ------------------------------------------    |
+    |   |             JLabel: anagram1             |   |
+    |    ------------------------------------------    |
+    |                                                  |
+    |    ------------------------------------------    |
+    |   |             JLabel: anagram2             |   |
+    |    ------------------------------------------    |
+    |                                                  |
+    |    ------------------------------------------    |
+    |   |             JLabel: anagram3             |   |
+    |    ------------------------------------------    |
+    |                                                  |
+    |    ------------------------------------------    |
+    |   |             JLabel: anagram4             |   |
+    |    ------------------------------------------    |
+    |                                                  |
+    |                                                  |
+    |                                                  |
+    |    ---------------------         ------------    |
+    |   |  JTextField: guess  |       |  JButton:  |   |
+    |    ---------------------        |   button   |   |
+    |                                  ------------    |
+    |                                                  |
+    |                                                  |
+    +--------------------------------------------------+
 
-    java VolumeCalculator --type ellipsoid 7 3 --digits 1 2
 
-The named argument and its value must always stay together. Thus, it would be incorrect to say something like
+The user should be able to enter a guess into the `JTextField` and then click
+the `JButton`. The program should then determine whether the guess matches any
+outstanding anagram and, if so, fill in the appropriate label. The labels should
+match the anagrams in alphabetical order from top to bottom. This means, for
+example, if the target word were "stop", then the labels from top to bottom
+should be "opts", "post", "pots", "spot", and "tops". After each button press,
+the `JTextField` should be cleared in order to enter a new guess.
 
-    java VolumeCalculator --type 7 ellipsoid 3 --digits 1 2
+Initially, the border of the target word label should be red. When all of the
+anagrams have been entered, the border should be set to green and both the 
+`JTextField` and `JButton` should be disabled.
 
-because it implies that the `type` should be 7.
-    
-## Acceptance Tests
+The following cases for the command-line argument result in the program ending
+immediately without showing a window:
 
-    | *Test Case*                  | *Action*                       | *Argument*         | *Argument*   | *Argument* | *Argument* | *Argument* | *Argument* | *Argument* |
-    | Test Named Argument Anywhere | Start Program With Arguments   | --type             | ellipsoid    | 7          | 3          | --digits   | 1          | 2          |
-    |                              | ${length}=                     | Get Length         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 7                  | ${length}    |            |            |            |            |            |
-    |                              | ${width}=                      | Get Width          |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 3                  | ${width}     |            |            |            |            |            |
-    |                              | ${height}=                     | Get Height         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 2                  | ${height}    |            |            |            |            |            |
-    |                              | ${type}=                       | Get Type           |              |            |            |            |            |            |
-    |                              | Should Be Equal                | ellipsoid          | ${type}      |            |            |            |            |            |
-    |                              | ${digits}=                     | Get Digits         |              |            |            |            |            |            |
-    |                              | Should Be Equal                | 1                  | ${digits}    |            |            |            |            |            |
+* the argument supplied is not an integer
+* the integer argument is not provided or is less than 2
+* there is no word in the word bank with a number of anagrams of the supplied size
+
+Your program should pull words from the file "commonwords.txt" that has been
+provided to you. It contains 58,110 English words, any of which should be 
+considered a valid word for anagram purposes.
+
+

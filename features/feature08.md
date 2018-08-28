@@ -1,30 +1,34 @@
-# Throw exceptions if a specified argument does not exist or has the wrong datatype.
+# Create a web service that allows a client to get word and anagram information.
 
-## Additional Information
+The web service should allow the following queries. In all cases, `source` can
+either be `all` or `common`, depending on whether the `allwords.txt` 
+or `commonwords.txt` is used.
 
-Until now, we have dealt with errors by printing directly to the command line. For example,
 
-    java VolumeCalculator 7 --myarg myval 3 2
+`<root>/wordoff/[source]/numwords`
+: Returns an integer representing the number of words in `source`
+Example: `<root>/wordoff/all/numwords`
 
-could produce the following output:
+`<root>/wordoff/[source]/isword/{word}`
+: Returns a boolean representing whether `word` is a word in `source`
+Example: `<root>/wordoff/common/isword/rats`
 
-    usage: java VolumeCalculator length width height
-    VolumeCalculator.java: error: argument myarg does not exist
+`<root>/wordoff/[source]/wordwithlength/{length}`
+: Returns a string representing a random word in `source` with a length of `length`
+Example: `<root>/wordoff/all/wordwithlength/5`
 
-Instead, throw a descriptive exception whenever a specified argument does not exist. The user can then catch that exception and take the appropriate action. Likewise, throw an exception whenever an argument has a datatype but its value does not (or cannot be made to) match that type.
+`<root>/wordoff/[source]/wordwithanagrams/{numanagrams}`
+: Returns a string representing a random word in `source` with a number of full anagrams equal to `numanagrams`
+Example: `<root>/wordoff/common/wordwithanagrams/3`
 
-## Use Cases
+`<root>/wordoff/[source]/anagrams/{word}`
+: Returns a JSON array of the full anagrams of `word` in `source`
+Example: `<root>/wordoff/all/anagrams/pets`
 
-Assume VolumeCalculator.java allows for three positional arguments, named `length`, `width`, and `height`, respectively, each representing float values. Assume further that it does not allow for a `myarg` argument.
+`<root>/wordoff/[source]/subanagrams/{word}`
+: Returns a JSON array of the subanagrams of `word` in `source`
+Example: `<root>/wordoff/common/subanagrams/parts`
 
-    java VolumeCalculator 7 --myarg myval 3 2
-
-would produce an exception specifying that `myarg` is an unknown argument, while
-
-    java VolumeCalculator 7 something 2
-
-would produce an exception specifying that `width` requires a float value and "something" is not a float.
-
-## Acceptance Tests
-
-The acceptance of this feature must be done by inspection of the library and by exhibiting demonstration programs that use the functionality.
+`<root>/wordoff/[source]/allanagrams/{word}`
+: Returns a JSON array of all anagrams and subanagrams of `word` in `source`
+Example: `<root>/wordoff/all/allanagrams/star`

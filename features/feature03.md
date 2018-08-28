@@ -1,28 +1,74 @@
-# Allow datatype information to be added to arguments so that non-string arguments can be used. 
+# Create a program that produces a set of anagrams and sub-anagrams based on command-line input.
 
-## Additional Information
+The program should take a single command-line string argument. It should then
+print out all of the anagrams and sub-anagrams (anagrams made of a subset of
+the letters) of that string (irrespective of case and including the original
+string) in alphabetical order. If no string is provided (no command-line
+argument) or if the initial string provided is not an actual word, the program
+should immediately end without producing any output.
 
-Failure of arguments to match specified datatypes results in program exit and usage information. The following datatypes should be supported: int, float, boolean, and string, which is the default value if type is left unspecified.
+Your program should pull words from the file "allwords.txt" that has been
+provided to you. It contains 370,099 English words and abbreviations, any of
+which should be considered a valid word for anagram purposes.
+
 
 ## Use Cases
 
-Assume VolumeCalculator.java allows for three positional arguments, named `length`, `width`, and `height`, respectively. Each should be a floating-point number.
+Assume that the main program is called Feature03.
 
-    java VolumeCalculator 7 something 2
+Call: `java Feature03 star`
 
-should produce the following output:
+Output:
 
-    usage: java VolumeCalculator length width height
-    VolumeCalculator.java: error: argument width: invalid float value: something
-    
-## Acceptance Tests
+    a
+    ar
+    ars
+    art
+    arts
+    as
+    ast
+    astr
+    at
+    r
+    ra
+    ras
+    rat
+    rats
+    rs
+    rt
+    s
+    sa
+    sar
+    sart
+    sat
+    sr
+    st
+    sta
+    star
+    str
+    stra
+    t
+    ta
+    tar
+    tars
+    tas
+    tr
+    tra
+    trs
+    ts
+    tsar
 
-    | *Variable*  | *Value*                                                                                                                       |
-    | ${expected} | usage: java VolumeCalculator length width height\nVolumeCalculator.java: error: argument width: invalid float value: something |
-    
-    | *Test Case*                     | *Action*                     | *Argument*         | *Argument*  | *Argument*  |
-    | Test Incorrect Datatype Message | Start Program With Arguments | 7                  | something   | 2           |
-    |                                 | ${output}=                   | Get Program Output |             |             |
-    |                                 | Should Be Equal              | ${output}          | ${expected} |             |
 
+Call: `java Feature03 notaword`
+
+Output:
+
+    <no output>
+
+
+Call: `java Feature03`
+
+Output:
+
+    <no output>
 
