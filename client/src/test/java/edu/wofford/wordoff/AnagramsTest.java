@@ -12,42 +12,42 @@ public class AnagramsTest {
 		anagrams = new Anagrams();
 	}
 
-	@Test
-	public void testDefaultConstructorBuildsHashMap() {
-		Map<String, List<String>> testMap = new HashMap();
+	// @Test
+	// public void testDefaultConstructorBuildsHashMap() {
+	// 	Map<String, List<String>> testMap = new HashMap();
 
-		assertEquals(testMap, anagrams.getHashMapOfAllWords());
-	}
+	// 	assertEquals(testMap, anagrams.getHashMapOfAllWords());
+	// }
 
-	@Test
-	public void testConstructAnagramsArrayFromInputWord() {
-		anagrams = new Anagrams("original");
-		List<String> testList = new ArrayList<>();
-		testList.add("original");
+	// @Test
+	// public void testConstructAnagramsArrayFromInputWord() {
+	// 	anagrams = new Anagrams("original");
+	// 	List<String> testList = new ArrayList<>();
+	// 	testList.add("original");
 
-		assertEquals(testList, anagrams.getAnagrams());
-	}
+	// 	assertEquals(testList, anagrams.getAnagrams());
+	// }
 
-	@Test
-	public void testConstructAnagarmsWithIntArgument() {
-		anagrams = new Anagrams(3);
-		assertTrue(anagrams.getAnagrams().size() == 3);
+	// @Test
+	// public void testConstructAnagarmsWithIntArgument() {
+	// 	anagrams = new Anagrams(3);
+	// 	assertTrue(anagrams.getAnagrams().size() == 3);
 
-		anagrams = new Anagrams(5);
-		assertTrue(anagrams.getAnagrams().size() == 5);
-	}
+	// 	anagrams = new Anagrams(5);
+	// 	assertTrue(anagrams.getAnagrams().size() == 5);
+	// }
 
-	@Test
-	public void testFindAnagramsOfAWord() {
-		String wordToTest = "sleep";
-		List<String> anagramsToTestAgainst = new ArrayList<>();
-		anagramsToTestAgainst.add("peels");
-		anagramsToTestAgainst.add("peles");
-		anagramsToTestAgainst.add("sleep");
-		anagramsToTestAgainst.add("speel");
-		anagrams = new Anagrams("sleep");
+	// @Test
+	// public void testFindAnagramsOfAWord() {
+	// 	String wordToTest = "sleep";
+	// 	List<String> anagramsToTestAgainst = new ArrayList<>();
+	// 	anagramsToTestAgainst.add("peels");
+	// 	anagramsToTestAgainst.add("peles");
+	// 	anagramsToTestAgainst.add("sleep");
+	// 	anagramsToTestAgainst.add("speel");
+	// 	anagrams = new Anagrams("sleep");
 
-		assertEquals(anagramsToTestAgainst, anagrams.getAnagrams());
+	// 	assertEquals(anagramsToTestAgainst, anagrams.getAnagrams());
 
-	}
+	// }
 }
