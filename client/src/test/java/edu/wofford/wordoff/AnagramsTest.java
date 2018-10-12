@@ -13,10 +13,10 @@ public class AnagramsTest {
 	}
 
 	@Test
-	public void testDefaultAnagramsIsEmptyList() {
-		List<String> testEmptyList = new ArrayList<>();
+	public void testDefaultConstructorBuildsHashMap() {
+		Map<String, List<String>> testMap = new HashMap();
 
-		assertEquals(testEmptyList, anagrams.getAnagrams());
+		assertEquals(testMap, anagrams.getHashMapOfAllWords());
 	}
 
 	@Test
