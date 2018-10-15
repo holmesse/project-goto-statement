@@ -9,7 +9,8 @@ public class AnagramsTest {
 
 	@Before
 	public void setUp() {
-		anagrams = new Anagrams();
+		long seed = Long.parseLong("25");
+		anagrams = new Anagrams(seed);
 	}
 
 	@Test
@@ -28,42 +29,56 @@ public class AnagramsTest {
 		assertEquals(null, anagrams.getAnagramsOfWord("epels"));
 	}
 
-	// @Test
-	// public void testDefaultConstructorBuildsHashMap() {
-	// 	Map<String, List<String>> testMap = new HashMap();
+	@Test
+	public void testUsingNumberFifteenReturnsCorrectListOfAnagrams() {
+		int numberToTest = 15;
 
-	// 	assertEquals(testMap, anagrams.getHashMapOfAllWords());
-	// }
+		List<String> listOfAnagrams = new ArrayList<>();
 
-	// @Test
-	// public void testConstructAnagramsArrayFromInputWord() {
-	// 	anagrams = new Anagrams("original");
-	// 	List<String> testList = new ArrayList<>();
-	// 	testList.add("original");
+		listOfAnagrams.add("alerts");
+		listOfAnagrams.add("alters");
+		listOfAnagrams.add("artels");
+		listOfAnagrams.add("estral");
+		listOfAnagrams.add("laster");
+		listOfAnagrams.add("lastre");
+		listOfAnagrams.add("rastle");
+		listOfAnagrams.add("ratels");
+		listOfAnagrams.add("relast");
+		listOfAnagrams.add("resalt");
+		listOfAnagrams.add("salter");
+		listOfAnagrams.add("slater");
+		listOfAnagrams.add("staler");
+		listOfAnagrams.add("stelar");
+		listOfAnagrams.add("talers");
 
-	// 	assertEquals(testList, anagrams.getAnagrams());
-	// }
+		assertEquals(listOfAnagrams, anagrams.getNumberOfAnagrams(numberToTest));
+	}
 
-	// @Test
-	// public void testConstructAnagarmsWithIntArgument() {
-	// 	anagrams = new Anagrams(3);
-	// 	assertTrue(anagrams.getAnagrams().size() == 3);
+	@Test
+	public void testUsingNumberArgumentReturnsThatManyAnagrams() {
+		int numberToTest = 6;
 
-	// 	anagrams = new Anagrams(5);
-	// 	assertTrue(anagrams.getAnagrams().size() == 5);
-	// }
+		assertTrue(anagrams.getNumberOfAnagrams(numberToTest).size() == numberToTest);
+	}
 
-	// @Test
-	// public void testFindAnagramsOfAWord() {
-	// 	String wordToTest = "sleep";
-	// 	List<String> anagramsToTestAgainst = new ArrayList<>();
-	// 	anagramsToTestAgainst.add("peels");
-	// 	anagramsToTestAgainst.add("peles");
-	// 	anagramsToTestAgainst.add("sleep");
-	// 	anagramsToTestAgainst.add("speel");
-	// 	anagrams = new Anagrams("sleep");
+	@Test
+	public void testNumberArgumentReturnsRandomListOfThatManyAnagrams() {
+		int numberToTest = 6;
 
-	// 	assertEquals(anagramsToTestAgainst, anagrams.getAnagrams());
+		List<String> listOfAnagrams = new ArrayList<>();
+		listOfAnagrams.add("skater");
+		listOfAnagrams.add("staker");
+		listOfAnagrams.add("strake");
+		listOfAnagrams.add("streak");
+		listOfAnagrams.add("takers");
+		listOfAnagrams.add("tasker");
 
-	// }
+		assertEquals(listOfAnagrams, anagrams.getNumberOfAnagrams(numberToTest));
+	}
+
+	@Test
+	public void testInputIsCaseInsensitive() {
+		assertEquals(anagrams.getAnagramsOfWord("sleep"), anagrams.getAnagramsOfWord("SleEP"));
+		assertEquals(anagrams.getAnagramsOfWord("sleep"), anagrams.getAnagramsOfWord("SLEEP"));
+	}
 }
