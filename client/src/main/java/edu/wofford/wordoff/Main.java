@@ -3,7 +3,7 @@ package edu.wofford.wordoff;
 
 public class Main {
 	public static void main(String[] args) {
-		Anagrams anagrams = new Anagrams();
-		System.out.println(anagrams.getAnagramsOfWord("sleep"));
+		Feature01Main.main(args);
+		//System.out.println(anagrams.getAnagramsOfWord("sleep"));
 	}
 }
