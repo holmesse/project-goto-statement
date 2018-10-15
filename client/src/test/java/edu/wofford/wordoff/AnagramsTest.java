@@ -23,6 +23,11 @@ public class AnagramsTest {
 		assertEquals(listOfAnagrams, anagrams.getAnagramsOfWord("sleep"));
 	}
 
+	@Test
+	public void testUsingNonWordProducesNoOutput() {
+		assertEquals(null, anagrams.getAnagramsOfWord("epels"));
+	}
+
 	// @Test
 	// public void testDefaultConstructorBuildsHashMap() {
 	// 	Map<String, List<String>> testMap = new HashMap();

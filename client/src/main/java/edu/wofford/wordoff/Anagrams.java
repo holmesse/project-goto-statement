@@ -6,9 +6,11 @@ import java.util.Scanner;
 
 public class Anagrams {
 	private Map<String, List<String>> anagrams;
+	private List<String> wordList;
 
 	public Anagrams() {
 		anagrams = new HashMap<String, List<String>>();
+		wordList = new ArrayList<>();
 		buildMapOfAnagrams();
 	}
 
@@ -19,6 +21,7 @@ public class Anagrams {
 
 			while (scanner.hasNext()) {
 				String word = scanner.next().toLowerCase();
+				wordList.add(word);
 				String sortedWord = sortWord(word);
 
 				List<String> anagramsOfSortedLetters = anagrams.getOrDefault(sortedWord, new ArrayList<>());
@@ -36,12 +39,16 @@ public class Anagrams {
 	}
 
 	public List<String> getAnagramsOfWord(String word) {
-		String sortedWord = sortWord(word);
-		System.out.println(sortedWord);
+		if (wordList.contains(word)) {
+			String sortedWord = sortWord(word);
+			System.out.println(sortedWord);
 
-		List<String> anagramsOfWord = anagrams.get(sortedWord);
+			List<String> anagramsOfWord = anagrams.get(sortedWord);
 
-		return anagramsOfWord;
+			return anagramsOfWord;
+		} else {
+			return null;
+		}
 	}
 
 	private String sortWord(String word) {
