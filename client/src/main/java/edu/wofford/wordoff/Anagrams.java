@@ -1,35 +1,54 @@
-package edu.wofford;
+package edu.wofford.wordoff;
 
 import java.util.*;
+import java.io.*;
+import java.util.Scanner;
 
 public class Anagrams {
 	private Map<String, List<String>> anagrams;
 
 	public Anagrams() {
 		anagrams = new HashMap<String, List<String>>();
+		buildMapOfAnagrams();
 	}
 
-	//public Anagrams(String originalWord) {
+	private void buildMapOfAnagrams() {
+		InputStream stream = getClass().getClassLoader().getResourceAsStream("allwords.txt");
+		try {
+			Scanner scanner = new Scanner(stream);
 
-		//findAnagramsOfWord(originalWord);
-	//}
+			while (scanner.hasNext()) {
+				String word = scanner.next().toLowerCase();
+				String sortedWord = sortWord(word);
 
-	public Map<String, List<String>> getHashMapOfAllWords() {
-		return anagrams;
-	}
-/*
-	public Anagrams(int numberOfAnagrams) {
-		anagrams = new ArrayList<>();
-		for (int i = 0; i < numberOfAnagrams; i++) {
-			anagrams.put("");
+				List<String> anagramsOfSortedLetters = anagrams.getOrDefault(sortedWord, new ArrayList<>());
+				anagramsOfSortedLetters.add(word);
+				anagrams.put(sortedWord, anagramsOfSortedLetters);
+			}
+		}
+		catch (Exception e) {
+			System.out.println("Something went wrong. Maybe the file was not found.");
 		}
 	}
 
-	public Map<String, List<Strings>> getHashMapOfAllWords() {
+	public Map<String, List<String>> getAllAnagramsOfAllWords() {
 		return anagrams;
 	}
 
-	private List<String> findAnagramsOfWord(String word) {
+	public List<String> getAnagramsOfWord(String word) {
+		String sortedWord = sortWord(word);
+		System.out.println(sortedWord);
 
-	}*/
+		List<String> anagramsOfWord = anagrams.get(sortedWord);
+
+		return anagramsOfWord;
+	}
+
+	private String sortWord(String word) {
+		char[] charsToSort = word.toCharArray();
+		Arrays.sort(charsToSort);
+		String sortedWord = new String(charsToSort);
+		return sortedWord;
+	}
+
 }

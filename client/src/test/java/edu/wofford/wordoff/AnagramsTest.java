@@ -1,4 +1,4 @@
-package edu.wofford;
+package edu.wofford.wordoff;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -8,8 +8,19 @@ public class AnagramsTest {
 	private Anagrams anagrams;
 
 	@Before
-	public void setup() {
+	public void setUp() {
 		anagrams = new Anagrams();
+	}
+
+	@Test
+	public void testConstructsFullWordsMapWithBuildMapOfAnagrams() {
+		List<String> listOfAnagrams = new ArrayList<>();
+		listOfAnagrams.add("peels");
+		listOfAnagrams.add("peles");
+		listOfAnagrams.add("sleep");
+		listOfAnagrams.add("speel");
+
+		assertEquals(listOfAnagrams, anagrams.getAnagramsOfWord("sleep"));
 	}
 
 	// @Test
