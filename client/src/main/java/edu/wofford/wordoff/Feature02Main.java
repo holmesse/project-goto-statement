@@ -4,6 +4,18 @@ import java.util.Scanner;
 import java.util.*;
 import java.io.*;
 
+/**
+* <h1>Feature 02</h1>
+* This feature accepts an integer from the command line and
+* presents the user with a word that has a number of anagrams
+* equal to the number provided.
+* <br />
+* The user then is prompted to guess anagrams of the word using
+* the command line. If the guess is correct, the program prompts
+* the user that there are x number of anagrams remaining,
+* and the user continues to guess until there are no more
+* anagrams remaining.
+*/
 public class Feature02Main {
     public static void main(String[] args) {
     	if (args.length > 0) {
