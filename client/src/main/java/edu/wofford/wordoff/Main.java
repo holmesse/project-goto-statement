@@ -3,6 +3,7 @@ package edu.wofford.wordoff;
 
 public class Main {
 	public static void main(String[] args) {
+		Feature02Main.main(args);
 		/*if(args[0] == "1"){
 			Feature01Main.main(args[1]);
 		}

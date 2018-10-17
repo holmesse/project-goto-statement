@@ -65,6 +65,7 @@ public class Anagrams {
 			anagramsOfSortedLetters.add(word);
 			anagrams.put(sortedWord, anagramsOfSortedLetters);
 		}
+		scanner.close();
 	}
 
 	/**
