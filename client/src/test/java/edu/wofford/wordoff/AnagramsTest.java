@@ -81,4 +81,16 @@ public class AnagramsTest {
 		assertEquals(anagrams.getAnagramsOfWord("sleep"), anagrams.getAnagramsOfWord("SleEP"));
 		assertEquals(anagrams.getAnagramsOfWord("sleep"), anagrams.getAnagramsOfWord("SLEEP"));
 	}
+
+	@Test
+	public void testNoListOfAnagramsExistsWithSpecifiedNumber() {
+		int numberToTest = 20;
+		assertEquals(null, anagrams.getNumberOfAnagrams(numberToTest));
+	}
+
+	@Test
+	public void testAnagramsConstructorWithNoRandomSeed() {
+		anagrams = new Anagrams();
+		assertEquals(null, anagrams.getAnagramsOfWord("epels"));
+	}
 }
