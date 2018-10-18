@@ -41,7 +41,14 @@ public class Feature02Main {
 
 		        if (difficulty >= 2) {
 
-				    	Anagrams anagrams = new Anagrams();
+				    	Anagrams anagrams;
+    					if (args.length > 1) {
+    						long random_seed = Long.parseLong(args[1]);
+    						anagrams = new Anagrams(random_seed);
+    					} else {
+    						anagrams = new Anagrams();
+    					}
+    					
 				        List<String> listOfAnagrams = anagrams.getNumberOfAnagrams(difficulty);
 
 				        if (listOfAnagrams != null) {
