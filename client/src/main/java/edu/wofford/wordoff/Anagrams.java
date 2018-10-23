@@ -20,7 +20,7 @@ public class Anagrams {
 	private Random randomGenerator;
 
 	/**
-	* <h2>Default Constructor</h2>
+	* Default Constructor.
 	* The default constructor initilizes {@code anagrams} to a HashMap
 	* of types {@code <String, List<String>>} and {@code wordList} is
 	* set as an empty {@code ArrayList<>}. The {@code randomGenerator}
@@ -34,7 +34,7 @@ public class Anagrams {
 	}
 
 	/**
-	* <h2>Constructor with Random Seed</h2>
+	* Constructor with Random Seed.
 	* This constructor is used for testing purposes or when a random
 	* number seed has already been provided.
 	* 
@@ -48,7 +48,7 @@ public class Anagrams {
 	}
 
 	/**
-	* <h2>Create anagrams data structure</h2>
+	* Create anagrams data structure.
 	* This method reads the words from the allwords.txt file and
 	* hashes them into {@code anagrams}.
 	*/
@@ -69,7 +69,7 @@ public class Anagrams {
 	}
 
 	/**
-	* <h2>Find all anagrams of word</h2>
+	* Find all anagrams of word.
 	* This method returns a list of all anagrams of the given word.
 	*
 	* @param word The word to find anagrams of.
@@ -90,7 +90,7 @@ public class Anagrams {
 	}
 
 	/**
-	* <h2>Find anagram with specified number</h2>
+	* Find anagram with specified number.
 	* Returns a random list of anagrams with the length specified.
 	*
 	* @param numberOfAnagrams The length of the list of anagrams to return.
@@ -118,7 +118,7 @@ public class Anagrams {
 	}
 
 	/**
-	* <h2>Sort letters alphabetically</h2>
+	* Sort letters alphabetically.
 	* This helper function sorts the letters of a word alphabetically
 	* and returns the result.
 	*
