@@ -26,7 +26,7 @@ public class AnagramsTest {
 
 	@Test
 	public void testUsingNonWordProducesNoOutput() {
-		assertEquals(null, anagrams.getAnagramsOfWord("epels"));
+		assertEquals(new ArrayList<>(), anagrams.getAnagramsOfWord("epels"));
 	}
 
 	@Test
@@ -85,13 +85,13 @@ public class AnagramsTest {
 	@Test
 	public void testNoListOfAnagramsExistsWithSpecifiedNumber() {
 		int numberToTest = 20;
-		assertEquals(null, anagrams.getNumberOfAnagrams(numberToTest));
+		assertEquals(new ArrayList<>(), anagrams.getNumberOfAnagrams(numberToTest));
 	}
 
 	@Test
 	public void testAnagramsConstructorWithNoRandomSeed() {
 		anagrams = new Anagrams();
-		assertEquals(null, anagrams.getAnagramsOfWord("epels"));
+		assertEquals(new ArrayList<>(), anagrams.getAnagramsOfWord("epels"));
 	}
 
 	@Test
@@ -99,8 +99,8 @@ public class AnagramsTest {
 		anagrams = new Anagrams();
 		List<String> listOfSubAnagrams = new ArrayList<>();
 		listOfSubAnagrams.add("a");
-		listOfSubAnagrams.add("x");
 		listOfSubAnagrams.add("ax");
+		listOfSubAnagrams.add("x");
 		assertEquals(listOfSubAnagrams, anagrams.getSubAnagramsOfWord("ax"));
 		//assertEquals(null, anagrams.getSubAnagramsOfWord(""));
 

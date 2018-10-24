@@ -86,7 +86,7 @@ public class Anagrams {
 
 			return anagramsOfWord;
 		} else {
-			return null;
+			return new ArrayList<>();
 		}
 	}
 
@@ -114,7 +114,7 @@ public class Anagrams {
 			return listOfAnagramsWithRightNumber.get(randomIndex);
 		}
 		else {
-			return null;
+			return new ArrayList<>();
 		}
 	}
 
@@ -124,7 +124,7 @@ public class Anagrams {
 
 		for (int i = 0; i < subsetsOfWord.size(); i++) {
 			String subsetWord = subsetsOfWord.get(i);
-			List<String> anagramsOfSubset = getAnagramsOfWord(subsetsOfWord.get(i));
+			List<String> anagramsOfSubset = getAnagramsOfWord(subsetWord);
 
 			if (anagramsOfSubset.size() > 0) {
 				subAnagramsOfWord.addAll(getAnagramsOfWord(subsetsOfWord.get(i)));
