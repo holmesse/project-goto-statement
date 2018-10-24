@@ -156,8 +156,6 @@ public class Anagrams {
 		return listOfSubsets;
 	}
 
-	//this is a test
-
 	/**
 	* Sort letters alphabetically.
 	* This helper function sorts the letters of a word alphabetically
