@@ -44,11 +44,11 @@ public class Feature02Main {
 				    	Anagrams anagrams;
     					if (args.length > 1) {
     						long random_seed = Long.parseLong(args[1]);
-    						anagrams = new Anagrams(random_seed);
+    						Random random = new Random(random_seed);
+    						anagrams = new Anagrams(random);
     					} else {
     						anagrams = new Anagrams();
     					}
-    					
 				        List<String> listOfAnagrams = anagrams.getNumberOfAnagrams(difficulty);
 
 				        if (listOfAnagrams != null) {

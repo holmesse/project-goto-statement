@@ -21,29 +21,30 @@ public class Anagrams {
 
 	/**
 	* Default Constructor.
-	* The default constructor initilizes {@code anagrams} to a HashMap
-	* of types {@code <String, List<String>>} and {@code wordList} is
-	* set as an empty {@code ArrayList<>}. The {@code randomGenerator}
-	* is initialized, and the {@link buildMapOfAnagrams} method is called.
+	* The default constructor calls the {@link Anagrams(Random randomInstance)}
+	* constructor with a new instance of {@code Random()}.
 	*/
 	public Anagrams() {
-		anagrams = new HashMap<String, List<String>>();
-		wordList = new ArrayList<>();
-		randomGenerator = new Random();
-		buildMapOfAnagrams();
+		this(new Random());
 	}
 
 	/**
-	* Constructor with Random Seed.
-	* This constructor is used for testing purposes or when a random
+	* Constructor with Random Instance.
+	* This constructor initilizes {@code anagrams} to a HashMap
+	* of types {@code <String, List<String>>} and {@code wordList} is
+	* set as an empty {@code ArrayList<>}. The {@code randomGenerator}
+	* is initialized, and the {@link buildMapOfAnagrams} method is called.
+	*
+	* It is mainly used for testing purposes or when a random
 	* number seed has already been provided.
 	* 
-	* @param seedForRandomGenerator The seed for the random generation.
+	* @param randomInstance An instance of {@code Random()} to use for random
+	* generation.
 	*/
-	public Anagrams(long seedForRandomGenerator) {
+	public Anagrams(Random randomInstance) {
 		anagrams = new HashMap<String, List<String>>();
 		wordList = new ArrayList<>();
-		randomGenerator = new Random(seedForRandomGenerator);
+		randomGenerator = randomInstance;
 		buildMapOfAnagrams();
 	}
 
@@ -115,6 +116,44 @@ public class Anagrams {
 		else {
 			return null;
 		}
+	}
+
+	public List<String> getSubAnagramsOfWord(String word) {
+		List<String> subsetsOfWord = getSubsetsOfWord(word);
+		List<String> subAnagramsOfWord = new ArrayList<>();
+
+		for (int i = 0; i < subsetsOfWord.size(); i++) {
+			String subsetWord = subsetsOfWord.get(i);
+			List<String> anagramsOfSubset = getAnagramsOfWord(subsetsOfWord.get(i));
+
+			if (anagramsOfSubset.size() > 0) {
+				subAnagramsOfWord.addAll(getAnagramsOfWord(subsetsOfWord.get(i)));
+			}
+		}
+
+		return subAnagramsOfWord;
+	}
+
+	private List<String> getSubsetsOfWord(String word) {
+		List<String> listOfSubsets = new ArrayList<>();
+		char[] letters = word.toCharArray();
+
+		double powerSetSize = Math.pow(2, letters.length);
+		SortedSet<String> powerSet = new TreeSet<>();
+
+		for (int counter = 0; counter < powerSetSize; counter++) {
+			String sortedString = "";
+			for (int j = 0; j < letters.length; j++) {
+				if ((counter & (1 << j)) > 0) {
+					sortedString += letters[j];
+					sortedString = sortWord(sortedString);
+				}
+			}
+			powerSet.add(sortedString);
+		}
+		listOfSubsets.addAll(powerSet);
+
+		return listOfSubsets;
 	}
 
 	/**
