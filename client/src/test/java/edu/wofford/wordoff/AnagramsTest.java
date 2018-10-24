@@ -9,8 +9,8 @@ public class AnagramsTest {
 
 	@Before
 	public void setUp() {
-		long seed = Long.parseLong("25");
-		anagrams = new Anagrams(seed);
+		Random random = new Random(Long.parseLong("25"));
+		anagrams = new Anagrams(random);
 	}
 
 	@Test
@@ -81,4 +81,31 @@ public class AnagramsTest {
 		assertEquals(anagrams.getAnagramsOfWord("sleep"), anagrams.getAnagramsOfWord("SleEP"));
 		assertEquals(anagrams.getAnagramsOfWord("sleep"), anagrams.getAnagramsOfWord("SLEEP"));
 	}
+
+	@Test
+	public void testNoListOfAnagramsExistsWithSpecifiedNumber() {
+		int numberToTest = 20;
+		assertEquals(null, anagrams.getNumberOfAnagrams(numberToTest));
+	}
+
+	@Test
+	public void testAnagramsConstructorWithNoRandomSeed() {
+		anagrams = new Anagrams();
+		assertEquals(null, anagrams.getAnagramsOfWord("epels"));
+	}
+
+	@Test
+	public void testGetSubAnagramsOfTwoLetterWord() {
+		anagrams = new Anagrams();
+		List<String> listOfSubAnagrams = new ArrayList<>();
+		listOfSubAnagrams.add("a");
+		listOfSubAnagrams.add("x");
+		listOfSubAnagrams.add("ax");
+		assertEquals(listOfSubAnagrams, anagrams.getSubAnagramsOfWord("ax"));
+		//assertEquals(null, anagrams.getSubAnagramsOfWord(""));
+
+
+	}
+
+
 }

@@ -17,6 +17,22 @@ import java.io.*;
 * anagrams remaining.
 */
 public class Feature02Main {
+
+	/**
+    * <h2>Feature 02 Main</h2>
+    * The main method of Feature 02 checks if the command line 
+    * argument {@code args} is a valid input, then uses it to
+    * generate a {@code List<String>} stucture of words with that
+    * number of anagrams. From that {@code List<String>} stucture
+    * an index is randomly selected and the word within is displayed.
+    * The method then prompts the user to input the remaining anagrams,
+    * using {@code Scanner} to read the user input. The method contiues
+    * to prompt the user while possible anagrams remain. When all anagrams
+    * have been correctly guessed the method prints out {@code "There are 0 
+    * anagrams remaining."}.
+    *
+    * @param args command line input stored as String array
+    */
     public static void main(String[] args) {
     	if (args.length > 0) {
 
@@ -25,7 +41,15 @@ public class Feature02Main {
 
 		        if (difficulty >= 2) {
 
-				    	Anagrams anagrams = new Anagrams();
+				    	Anagrams anagrams;
+    					if (args.length > 1) {
+    						long random_seed = Long.parseLong(args[1]);
+    						Random random = new Random(random_seed);
+    						anagrams = new Anagrams(random);
+    					} else {
+    						anagrams = new Anagrams();
+    					}
+
 				        List<String> listOfAnagrams = anagrams.getNumberOfAnagrams(difficulty);
 
 				        if (listOfAnagrams != null) {
