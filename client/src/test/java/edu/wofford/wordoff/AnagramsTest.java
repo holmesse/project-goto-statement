@@ -96,15 +96,55 @@ public class AnagramsTest {
 
 	@Test
 	public void testGetSubAnagramsOfTwoLetterWord() {
-		anagrams = new Anagrams();
 		List<String> listOfSubAnagrams = new ArrayList<>();
 		listOfSubAnagrams.add("a");
 		listOfSubAnagrams.add("ax");
 		listOfSubAnagrams.add("x");
 		assertEquals(listOfSubAnagrams, anagrams.getSubAnagramsOfWord("ax"));
-		//assertEquals(null, anagrams.getSubAnagramsOfWord(""));
+	}
 
-
+	@Test
+	public void testGetSubAnagramsOfLongerWord() {
+		List<String> listOfSubAnagrams = new ArrayList<>();
+		listOfSubAnagrams = new ArrayList<>();
+		listOfSubAnagrams.add("a");
+		listOfSubAnagrams.add("ar");
+		listOfSubAnagrams.add("ars");
+		listOfSubAnagrams.add("art");
+		listOfSubAnagrams.add("arts");
+		listOfSubAnagrams.add("as");
+		listOfSubAnagrams.add("ast");
+		listOfSubAnagrams.add("astr");
+		listOfSubAnagrams.add("at");
+		listOfSubAnagrams.add("r");
+		listOfSubAnagrams.add("ra");
+		listOfSubAnagrams.add("ras");
+		listOfSubAnagrams.add("rat");
+		listOfSubAnagrams.add("rats");
+		listOfSubAnagrams.add("rs");
+		listOfSubAnagrams.add("rt");
+		listOfSubAnagrams.add("s");
+		listOfSubAnagrams.add("sa");
+		listOfSubAnagrams.add("sar");
+		listOfSubAnagrams.add("sart");
+		listOfSubAnagrams.add("sat");
+		listOfSubAnagrams.add("sr");
+		listOfSubAnagrams.add("st");
+		listOfSubAnagrams.add("sta");
+		listOfSubAnagrams.add("star");
+		listOfSubAnagrams.add("str");
+		listOfSubAnagrams.add("stra");
+		listOfSubAnagrams.add("t");
+		listOfSubAnagrams.add("ta");
+		listOfSubAnagrams.add("tar");
+		listOfSubAnagrams.add("tars");
+		listOfSubAnagrams.add("tas");
+		listOfSubAnagrams.add("tr");
+		listOfSubAnagrams.add("tra");
+		listOfSubAnagrams.add("trs");
+		listOfSubAnagrams.add("ts");
+		listOfSubAnagrams.add("tsar");
+		assertEquals(listOfSubAnagrams, anagrams.getSubAnagramsOfWord("star"));
 	}
 
 
