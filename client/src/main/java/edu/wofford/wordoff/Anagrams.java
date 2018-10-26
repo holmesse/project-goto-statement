@@ -85,7 +85,7 @@ public class Anagrams {
 
 			return anagramsOfWord;
 		} else {
-			return null;
+			return new ArrayList<>();
 		}
 	}
 
@@ -113,8 +113,73 @@ public class Anagrams {
 			return listOfAnagramsWithRightNumber.get(randomIndex);
 		}
 		else {
-			return null;
+			return new ArrayList<>();
 		}
+	}
+
+	/**
+	* Find anagrams of all sub-words of the given word.
+	* Gets the power set of all the letters in the word and then loops
+	* through them to find all anagrams of each subset of letters.
+	*
+	* @param word The word to find all anagrams & sub-anagrams of.
+	* @return {@code List<String>} Anagrams of all subsets of letters
+		of the specified word.
+	*/
+	public List<String> getSubAnagramsOfWord(String word) {
+		if (wordList.contains(word)) {
+			List<String> subsetsOfWord = getSubsetsOfWord(word);
+			List<String> subAnagramsOfWord = new ArrayList<>();
+
+			for (int i = 0; i < subsetsOfWord.size(); i++) {
+				String subsetWord = subsetsOfWord.get(i);
+				List<String> anagramsOfSubset = getAnagramsOfWord(subsetWord);
+
+				if (anagramsOfSubset.size() > 0) {
+					subAnagramsOfWord.addAll(getAnagramsOfWord(subsetsOfWord.get(i)));
+				}
+			}
+
+			subAnagramsOfWord.sort(null);
+
+			return subAnagramsOfWord;
+		} else {
+			return new ArrayList<>();
+		}
+	}
+
+	/**
+	* Finds power set of the letters of a word.
+	* 
+	* @param word The word to get the powerset of.
+	* @return {@code List<String>} of the power set of the letters
+		of the supplied word.
+	*/
+	private List<String> getSubsetsOfWord(String word) {
+		List<String> listOfSubsets = new ArrayList<>();
+		char[] letters = word.toCharArray();
+
+		// Power set size is 2^n, where n is the length of the word.
+		double powerSetSize = Math.pow(2, letters.length);
+		Set<String> powerSet = new TreeSet<>();
+
+		// Loop through the letters of the word and the size of the powerset.
+		for (int counter = 0; counter < powerSetSize; counter++) {
+			String subword = "";
+			for (int j = 0; j < letters.length; j++) {
+				// Power sets can be found by viewing each subset as a bit string of
+				//  the original set, where an element is included in that subset
+				//  if there is a 1 in that position in the bit string.
+				// For more info & code, see https://www.geeksforgeeks.org/power-set/
+				if ((counter & (1 << j)) > 0) {
+					subword += letters[j];
+				}
+			}
+			powerSet.add(subword);
+		}
+		listOfSubsets.addAll(powerSet);
+
+		return listOfSubsets;
 	}
 
 	/**
