@@ -147,5 +147,16 @@ public class AnagramsTest {
 		assertEquals(listOfSubAnagrams, anagrams.getSubAnagramsOfWord("star"));
 	}
 
+	@Test
+	public void testGettingSubAnagramsOfNonWordReturnsEmptyList() {
+		String nonWordToTest = "notaword";
+		assertEquals(new ArrayList<>(), anagrams.getSubAnagramsOfWord(nonWordToTest));
+	}
+
+	@Test
+	public void testPassingEmptyStringToSubAnagramsReturnsEmptyList() {
+		String emptyString = "";
+		assertEquals(new ArrayList<>(), anagrams.getSubAnagramsOfWord(emptyString));
+	}
 
 }

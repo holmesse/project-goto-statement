@@ -128,21 +128,25 @@ public class Anagrams {
 		of the specified word.
 	*/
 	public List<String> getSubAnagramsOfWord(String word) {
-		List<String> subsetsOfWord = getSubsetsOfWord(word);
-		List<String> subAnagramsOfWord = new ArrayList<>();
+		if (wordList.contains(word)) {
+			List<String> subsetsOfWord = getSubsetsOfWord(word);
+			List<String> subAnagramsOfWord = new ArrayList<>();
 
-		for (int i = 0; i < subsetsOfWord.size(); i++) {
-			String subsetWord = subsetsOfWord.get(i);
-			List<String> anagramsOfSubset = getAnagramsOfWord(subsetWord);
+			for (int i = 0; i < subsetsOfWord.size(); i++) {
+				String subsetWord = subsetsOfWord.get(i);
+				List<String> anagramsOfSubset = getAnagramsOfWord(subsetWord);
 
-			if (anagramsOfSubset.size() > 0) {
-				subAnagramsOfWord.addAll(getAnagramsOfWord(subsetsOfWord.get(i)));
+				if (anagramsOfSubset.size() > 0) {
+					subAnagramsOfWord.addAll(getAnagramsOfWord(subsetsOfWord.get(i)));
+				}
 			}
+
+			subAnagramsOfWord.sort(null);
+
+			return subAnagramsOfWord;
+		} else {
+			return new ArrayList<>();
 		}
-
-		subAnagramsOfWord.sort(null);
-
-		return subAnagramsOfWord;
 	}
 
 	/**
@@ -175,8 +179,6 @@ public class Anagrams {
 			powerSet.add(subword);
 		}
 		listOfSubsets.addAll(powerSet);
-
-		System.out.println(listOfSubsets);
 
 		return listOfSubsets;
 	}
