@@ -21,40 +21,71 @@ public class Anagrams {
 
 	/**
 	* Default Constructor.
-	* The default constructor calls the {@link Anagrams(Random randomInstance)}
-	* constructor with a new instance of {@code Random()}.
+	* The default constructor calls the {@link #Anagrams(String) Anagrams(fileName)}
+	* constructor with the file "allwords.txt".
 	*/
 	public Anagrams() {
-		this(new Random());
+		this("allwords.txt");
+	}
+
+	/**
+	* Constructor with Word File.
+	* This constructor takes a file name and calls the
+	* {@link #Anagrams(Random, String) Anagrams(randomInstance, fileName)} constructor
+	* with a new instance of {@code Random()} and the specified
+	* file name.
+	*
+	* @param fileName The name of the file containing valid words.
+	*/
+	public Anagrams(String fileName) {
+		this(new Random(), fileName);
 	}
 
 	/**
 	* Constructor with Random Instance.
-	* This constructor initilizes {@code anagrams} to a HashMap
-	* of types {@code <String, List<String>>} and {@code wordList} is
-	* set as an empty {@code ArrayList<>}. The {@code randomGenerator}
-	* is initialized, and the {@link buildMapOfAnagrams} method is called.
+	* This constructor takes an instance of {@code Random()} and calls the
+	* {@link #Anagrams(Random, String) Anagrams(randomInstance, fileName)} constructor
+	* with the specified instance of {@code Random()} and the file
+	* "allwords.txt".
 	*
 	* It is mainly used for testing purposes or when a random
 	* number seed has already been provided.
+	*
+	* @param randomInstance An instance of {@code Random()} to use for
+	* random generation.
+	*/
+	public Anagrams(Random randomInstance) {
+		this(randomInstance, "allwords.txt");
+	}
+
+	/**
+	* Constructor with Random Instance and Word File.
+	* This constructor initilizes {@code anagrams} to a HashMap
+	* of types {@code <String, List<String>>} and {@code wordList} is
+	* set as an empty {@code ArrayList<>}. The {@code randomGenerator}
+	* is initialized, and the {@link #buildMapOfAnagrams(String) buildMapOfAnagrams} method is called.
+	*
 	* 
 	* @param randomInstance An instance of {@code Random()} to use for random
 	* generation.
+	* @param fileName The name of the file containing valid words.
 	*/
-	public Anagrams(Random randomInstance) {
+	public Anagrams(Random randomInstance, String fileName) {
 		anagrams = new HashMap<String, List<String>>();
 		wordList = new ArrayList<>();
 		randomGenerator = randomInstance;
-		buildMapOfAnagrams();
+		buildMapOfAnagrams(fileName);
 	}
 
 	/**
 	* Create anagrams data structure.
 	* This method reads the words from the allwords.txt file and
 	* hashes them into {@code anagrams}.
+	* 
+	* @param fileName The name of the file to draw words from.
 	*/
-	private void buildMapOfAnagrams() {
-		InputStream stream = getClass().getClassLoader().getResourceAsStream("allwords.txt");
+	private void buildMapOfAnagrams(String fileName) {
+		InputStream stream = getClass().getClassLoader().getResourceAsStream(fileName);
 		Scanner scanner = new Scanner(stream);
 
 		while (scanner.hasNext()) {
@@ -123,7 +154,7 @@ public class Anagrams {
 	* Gets the power set of all the letters in the word and then loops
 	* through them to find all anagrams of each subset of letters.
 	*
-	* @param word The word to find all anagrams & sub-anagrams of.
+	* @param word The word to find all anagrams and sub-anagrams of.
 	* @return {@code List<String>} Anagrams of all subsets of letters
 		of the specified word.
 	*/
