@@ -9,8 +9,8 @@ public class AnagramsTest {
 
 	@Before
 	public void setUp() {
-		Random random = new Random(Long.parseLong("25"));
-		anagrams = new Anagrams(random);
+		long seed = Long.parseLong("25");
+		anagrams = new Anagrams(seed);
 	}
 
 	@Test
