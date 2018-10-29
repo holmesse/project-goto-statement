@@ -60,7 +60,7 @@ public class Feature02Main {
 
 				        String selectedWord = listOfAnagrams.get(randomIndex);
 				        listOfAnagrams.remove(randomIndex);
-				        System.out.printf("The word is \"%s\".\n", selectedWord);
+				        System.out.printf("The word is \"%s\".%n", selectedWord);
 
 				        Scanner reader = new Scanner(System.in);
 

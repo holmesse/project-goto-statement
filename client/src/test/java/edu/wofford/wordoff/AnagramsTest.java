@@ -160,4 +160,16 @@ public class AnagramsTest {
 		assertEquals(new ArrayList<>(), anagrams.getSubAnagramsOfWord(emptyString));
 	}
 
+	@Test
+	public void testFindingWordWithSpecifiedCharacterLength() {
+		int lengthToFind = 6;
+		assertTrue(anagrams.getWordWithLength(lengthToFind).length() == lengthToFind);
+	}
+
+	@Test
+	public void testNoWordReturnedWhenLengthIsNotFound() {
+		int lengthToFind = 180;
+		assertEquals("", anagrams.getWordWithLength(lengthToFind));
+	}
+
 }

@@ -180,6 +180,30 @@ public class Anagrams {
 		}
 	}
 
+	public String getWordWithLength(int lengthToFind) {
+		List<List<String>> listOfWordsWithRightLength = new ArrayList<>();
+
+		Set <Map.Entry<String, List<String>>> anagramsSet = anagrams.entrySet();
+		for (Map.Entry<String, List<String>> mapEntry : anagramsSet) {
+			String key = mapEntry.getKey();
+			if (key.length() == lengthToFind) {
+				List<String> val = mapEntry.getValue();
+				listOfWordsWithRightLength.add(val);
+			}
+		}
+
+		if (listOfWordsWithRightLength.size() > 0) {
+			int randomIndex = randomGenerator.nextInt(listOfWordsWithRightLength.size());
+			List<String> wordList = listOfWordsWithRightLength.get(randomIndex);
+
+			// Returns a random word from the list that was randomly chosen above.
+			return wordList.get(randomGenerator.nextInt(wordList.size()));
+		}
+		else {
+			return "";
+		}
+	}
+
 	/**
 	* Finds power set of the letters of a word.
 	* 

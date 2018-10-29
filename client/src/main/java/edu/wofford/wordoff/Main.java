@@ -11,6 +11,8 @@ public class Main {
 				Feature02Main.main(Arrays.copyOfRange(args, 1, args.length));
 			} else if (args[0].equals("feature03")) {
 				Feature03Main.main(Arrays.copyOfRange(args, 1, args.length));
+			} else if (args[0].equals("feature04")) {
+				Feature04Main.main(Arrays.copyOfRange(args, 1, args.length));
 			} else if (args[0].equals("feature05")) {
 				Feature05Main.main(Arrays.copyOfRange(args, 1, args.length));
 		 	}
@@ -19,7 +21,7 @@ public class Main {
 			System.out.println("OUTPUT:");
 			Feature01Main.main(new String[]{"sleep"});
 
-			System.out.print("\n");
+			System.out.println("");
 
 			// System.out.println("Running Feature 01 with input \"epels\".");
 			// System.out.println("OUTPUT:");
@@ -31,13 +33,13 @@ public class Main {
 			System.out.println("OUTPUT:");
 			Feature01Main.main(new String[]{"6"});
 
-			System.out.print("\n");
+			System.out.println("");
 
 			System.out.println("Running again with same input to show randomness.");
 			System.out.println("OUTPUT:");
 			Feature01Main.main(new String[]{"6"});
 
-			System.out.print("\n");
+			System.out.println("");
 
 			// System.out.println("Running Feature 01 with input \"0\".");
 			// System.out.println("OUTPUT:");
