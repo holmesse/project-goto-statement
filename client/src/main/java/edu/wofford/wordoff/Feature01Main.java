@@ -19,6 +19,7 @@ public class Feature01Main {
     public static void main(String[] args) {
     	Anagrams anagrams;
     	if (args.length > 1) {
+            // test
     		long random_seed = Long.parseLong(args[1]);
     		anagrams = new Anagrams(random_seed);
     	} else {
