@@ -59,7 +59,7 @@ public class Feature05Main extends JFrame implements ActionListener {
 		mainPanel.add(target, constraint);
 
 		for(int i = 0; i < listOfAnagrams.size() - 1; i++) {
-			JLabel label = new JLabel("??");
+			JLabel label = new JLabel("");
 			label.setHorizontalAlignment(JLabel.CENTER);
 			label.setBorder(new LineBorder(Color.BLACK));
 			label.setName("anagram" + Integer.toString(i));
@@ -97,12 +97,12 @@ public class Feature05Main extends JFrame implements ActionListener {
 				int difficulty = Integer.parseInt(args[0]);
 
 				if (difficulty >= 2) {
-					Anagrams anagrams = new Anagrams();
+					Anagrams anagrams = new Anagrams("commonwords.txt");
 					listOfAnagrams = anagrams.getNumberOfAnagrams(difficulty);
 
 					if(listOfAnagrams != null) {
 						dictionary = new HashMap<>();
-						System.out.println(listOfAnagrams);
+						//System.out.println(listOfAnagrams);
 						Feature05Main window = new Feature05Main();
 						window.setVisible(true);
 					}
