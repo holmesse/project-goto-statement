@@ -10,7 +10,8 @@ public class AnagramsTest {
 	@Before
 	public void setUp() {
 		long seed = Long.parseLong("25");
-		anagrams = new Anagrams(seed);
+		Random random = new Random(seed);
+		anagrams = new Anagrams(random);
 	}
 
 	@Test
