@@ -20,7 +20,7 @@ public class Feature01Main {
     	Anagrams anagrams;
     	if (args.length > 1) {
     		long random_seed = Long.parseLong(args[1]);
-        Random random = new Random(random_seed);
+            Random random = new Random(random_seed);
     		anagrams = new Anagrams(random);
     	} else {
     		anagrams = new Anagrams();
