@@ -23,12 +23,6 @@ public class Main {
 
 			System.out.println("");
 
-			// System.out.println("Running Feature 01 with input \"epels\".");
-			// System.out.println("OUTPUT:");
-			// Feature01Main.main(new String[]{"epels"});
-
-			// System.out.print("\n");
-
 			System.out.println("Running Feature 01 with input \"6\".");
 			System.out.println("OUTPUT:");
 			Feature01Main.main(new String[]{"6"});
@@ -39,17 +33,25 @@ public class Main {
 			System.out.println("OUTPUT:");
 			Feature01Main.main(new String[]{"6"});
 
+			// System.out.println("");
+
+			// System.out.println("Running Feature 02 with input \"6\" and random seed \"25\".");
+			// System.out.println("[skater, staker, strake, streak, takers, tasker]");
+			// System.out.println("OUTPUT:");
+			// Feature02Main.main(new String[]{"6", "25"});
+
 			System.out.println("");
 
-			// System.out.println("Running Feature 01 with input \"0\".");
-			// System.out.println("OUTPUT:");
-			// Feature01Main.main(new String[]{"0"});
-
-			// System.out.print("\n");
-
-			System.out.println("Running Feature 02 with input \"6\" and random seed \"25\".");
+			System.out.println("Running Feature 03 with input \"tell\".");
 			System.out.println("OUTPUT:");
-			Feature02Main.main(new String[]{"6", "25"});
+			Feature03Main.main(new String[]{"tell"});
+
+			System.out.println("");
+
+			System.out.println("Runnning Feature 04 with input \"5\" and random seed \"25\".");
+			System.out.println("[dread, dared, add, dad, dr]");
+			System.out.println("OUTPUT:");
+			Feature04Main.main(new String[]{"5", "25"});
 		}
 	}
 }
