@@ -2,7 +2,7 @@ package edu.wofford.wordoff;
 import java.util.*;
 
 /**
-* <h1>Feature 01</h1>
+* Feature 01
 * This program implements an application that
 * takes either a string or integer from the command line
 * and prints out either all the anagrams of the string
@@ -11,7 +11,7 @@ import java.util.*;
 
 public class Feature01Main {
     /**
-    * <h2>Feature 01 Main</h2>
+    * Feature 01 Main
     * This is the main method that creates a new hashmap called anagrams
     * and calls proper functions if command line argument is string or integer
     * @param args the command line argument given: either string or integer
