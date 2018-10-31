@@ -12,6 +12,11 @@ import java.util.Scanner;
 * sorted letters to a list of words from the words file that are arrangements
 * of those letters, resulting in all words in one list being anagrams
 * of the others.
+* <br>
+* The {@link #getAnagramsOfWord(String) getAnagramsOfWord} function runs in
+* constant time, and the object builds in {@code O(n)} time, with {@code n} being
+* the number of words in the text file provided in the 
+* {@link #Anagrams(String) Anagrams(fileName)} constructor.
 */
 public class Anagrams {
 
