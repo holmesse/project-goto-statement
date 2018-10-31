@@ -5,7 +5,7 @@ import java.util.*;
 import java.io.*;
 
 /**
-* <h1>Feature 02</h1>
+* Feature 02<
 * This feature accepts an integer from the command line and
 * presents the user with a word that has a number of anagrams
 * equal to the number provided.
@@ -19,7 +19,7 @@ import java.io.*;
 public class Feature02Main {
 
 	/**
-    * <h2>Feature 02 Main</h2>
+    * Feature 02 Main
     * The main method of Feature 02 checks if the command line 
     * argument {@code args} is a valid input, then uses it to
     * generate a {@code List<String>} stucture of words with that
@@ -60,7 +60,7 @@ public class Feature02Main {
 
 				        String selectedWord = listOfAnagrams.get(randomIndex);
 				        listOfAnagrams.remove(randomIndex);
-				        System.out.printf("The word is \"%s\".\n", selectedWord);
+				        System.out.printf("The word is \"%s\".%n", selectedWord);
 
 				        Scanner reader = new Scanner(System.in);
 

@@ -7,9 +7,8 @@ public class Feature03Main {
     	if (args.length > 0) {
 	    	Anagrams anagrams;
 	    	if (args.length > 1) {
-	    		long random_seed = Long.parseLong(args[1]);
-	    		Random random = new Random(random_seed);
-	    		anagrams = new Anagrams(random);
+	    		String fileName = args[1];
+	    		anagrams = new Anagrams(fileName);
 	    	} else {
 	    		anagrams = new Anagrams();
 	    	}

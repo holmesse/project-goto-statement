@@ -110,11 +110,9 @@ public class Anagrams {
 	*/
 	public List<String> getAnagramsOfWord(String word) {
 		word = word.toLowerCase();
-		if (wordList.contains(word)) {
-			String sortedWord = sortWord(word);
-
-			List<String> anagramsOfWord = anagrams.get(sortedWord);
-
+		String sortedWord = sortWord(word);
+		List<String> anagramsOfWord = anagrams.getOrDefault(sortedWord, new ArrayList<>());
+		if (anagramsOfWord.contains(word)) {
 			return anagramsOfWord;
 		} else {
 			return new ArrayList<>();
@@ -168,7 +166,7 @@ public class Anagrams {
 				List<String> anagramsOfSubset = getAnagramsOfWord(subsetWord);
 
 				if (anagramsOfSubset.size() > 0) {
-					subAnagramsOfWord.addAll(getAnagramsOfWord(subsetsOfWord.get(i)));
+					subAnagramsOfWord.addAll(anagramsOfSubset);
 				}
 			}
 
@@ -177,6 +175,30 @@ public class Anagrams {
 			return subAnagramsOfWord;
 		} else {
 			return new ArrayList<>();
+		}
+	}
+
+	public String getWordWithLength(int lengthToFind) {
+		List<List<String>> listOfWordsWithRightLength = new ArrayList<>();
+
+		Set <Map.Entry<String, List<String>>> anagramsSet = anagrams.entrySet();
+		for (Map.Entry<String, List<String>> mapEntry : anagramsSet) {
+			String key = mapEntry.getKey();
+			if (key.length() == lengthToFind) {
+				List<String> val = mapEntry.getValue();
+				listOfWordsWithRightLength.add(val);
+			}
+		}
+
+		if (listOfWordsWithRightLength.size() > 0) {
+			int randomIndex = randomGenerator.nextInt(listOfWordsWithRightLength.size());
+			List<String> wordList = listOfWordsWithRightLength.get(randomIndex);
+
+			// Returns a random word from the list that was randomly chosen above.
+			return wordList.get(randomGenerator.nextInt(wordList.size()));
+		}
+		else {
+			return "";
 		}
 	}
 
