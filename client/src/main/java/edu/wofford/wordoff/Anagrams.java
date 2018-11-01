@@ -15,7 +15,7 @@ import java.util.Scanner;
 * <br>
 * The {@link #getAnagramsOfWord(String) getAnagramsOfWord} function runs in
 * constant time, and the object builds in {@code O(n)} time, with {@code n} being
-* the number of words in the text file provided in the 
+* the number of words in the text file provided in the
 * {@link #Anagrams(String) Anagrams(fileName)} constructor.
 */
 public class Anagrams {
@@ -70,7 +70,7 @@ public class Anagrams {
 	* set as an empty {@code ArrayList<>}. The {@code randomGenerator}
 	* is initialized, and the {@link #buildMapOfAnagrams(String) buildMapOfAnagrams} method is called.
 	*
-	* 
+	*
 	* @param randomInstance An instance of {@code Random()} to use for random
 	* generation.
 	* @param fileName The name of the file containing valid words.
@@ -86,7 +86,7 @@ public class Anagrams {
 	* Create anagrams data structure.
 	* This method reads the words from the allwords.txt file and
 	* hashes them into {@code anagrams}.
-	* 
+	*
 	* @param fileName The name of the file to draw words from.
 	*/
 	private void buildMapOfAnagrams(String fileName) {
@@ -183,6 +183,18 @@ public class Anagrams {
 		}
 	}
 
+	/**
+	* Find a word with the given length.
+	* Creates a {@code List<List<String>>} that contains all words of
+	* the given length and their anagrams. A random {@code List<String>}
+	* is chosen and from the selected {@code List<String>} a random word
+	* is selected and returned. If no words are found with the given length an
+	* empty {@code String} is returned.
+	*
+	* @param lengthToFind The length of the word
+	* @return A randomly chosen {@code String} from the generated
+		{@code List<String>}
+	*/
 	public String getWordWithLength(int lengthToFind) {
 		List<List<String>> listOfWordsWithRightLength = new ArrayList<>();
 
@@ -209,7 +221,7 @@ public class Anagrams {
 
 	/**
 	* Finds power set of the letters of a word.
-	* 
+	*
 	* @param word The word to get the powerset of.
 	* @return {@code List<String>} of the power set of the letters
 		of the supplied word.
