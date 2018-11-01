@@ -36,19 +36,19 @@ Scenario Outline: Playing the game with a starting difficulty
 
 
 *** Test Cases ***
-Scenario: Playing the game with a starting difficulty 1
+Scenario: Playing the game with a starting difficulty 1 
     Scenario Outline: Playing the game with a starting difficulty   1
 
-Scenario: Playing the game with a starting difficulty 2
+Scenario: Playing the game with a starting difficulty 2 
     Scenario Outline: Playing the game with a starting difficulty   2
 
 Scenario: Playing the game with a starting difficulty 3
     Scenario Outline: Playing the game with a starting difficulty   3
 
-Scenario: Playing the game with a starting difficulty 4
+Scenario: Playing the game with a starting difficulty 4 
     Scenario Outline: Playing the game with a starting difficulty   4
 
-Scenario: Playing the game with a starting difficulty 5
+Scenario: Playing the game with a starting difficulty 5 
     Scenario Outline: Playing the game with a starting difficulty   5
 
 Scenario: Playing the game with a starting difficulty too large
@@ -65,3 +65,4 @@ Scenario: Playing the game with a starting difficulty invalid
     Start Application   edu.wofford.wordoff.Feature05Main   asdf
     Run Keyword And Expect Error    Any javax.swing.JFrame   Select Main Window
     [Teardown]  Run Keyword If Test Failed    Custom Teardown
+
