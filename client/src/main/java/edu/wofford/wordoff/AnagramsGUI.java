@@ -9,6 +9,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
+/**
+* Anagrams GUI
+* Implements a GUI for the Anagrams game.
+*/
 public class AnagramsGUI extends JFrame implements ActionListener {
 
 	private static List<String> listOfAnagrams;
