@@ -11,7 +11,9 @@ import javax.swing.border.LineBorder;
 
 /**
 * Anagrams GUI
-* Implements a GUI for the Anagrams game.
+* Implements a GUI for the Anagrams game. Players are given a target
+* word with a specified number of anagrams and prompted to enter 
+* anagrams of that word until all anagrams have been found.
 */
 public class AnagramsGUI extends JFrame implements ActionListener {
 
@@ -23,6 +25,9 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	private JLabel target;
 	private JButton button;
 
+	/**
+	* Action Performed on Button Click.
+	*/
 	public void actionPerformed(ActionEvent event) {
 			String input = guess.getText().toLowerCase();
 			if (dictionary.containsKey(input)) {
@@ -41,7 +46,22 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 			guess.setText("");
 	}
 
+	/**
+	* Default Constructor
+	* Runs the {@link #AnagramsGUI(Random) AnagramsGUI(random)}
+	* constructor with a new instance of Random with no seed.
+	*/
+	public AnagramsGUI() {
+		this(new Random());
+	}
 
+
+	/**
+	* Constructor with Random Instance
+	* Builds the GUI for the anagrams game.
+	*
+	* @param random An instance of Random to use for word generation.
+	*/
 	public AnagramsGUI(Random random) {
 		//set title and name of frame
 		setTitle("WordOff");
