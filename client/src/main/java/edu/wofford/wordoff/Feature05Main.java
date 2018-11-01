@@ -7,6 +7,7 @@ import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+//import javax.swing.BorderFactory;
 import javax.swing.border.LineBorder;
 
 public class Feature05Main extends JFrame implements ActionListener {
@@ -42,7 +43,7 @@ public class Feature05Main extends JFrame implements ActionListener {
 		//set title and name of frame
 		setTitle("WordOff");
 		setName("WordOff");
-		setSize(new Dimension(415, 550));
+		setSize(new Dimension(450, (listOfAnagrams.size() - 1) * 100));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel mainPanel = new JPanel();
@@ -50,61 +51,46 @@ public class Feature05Main extends JFrame implements ActionListener {
 		GridBagConstraints constraint = new GridBagConstraints();
 		//set target word to find anagrams of
 		//set constarints and make the gui look purty
-		
-		Random random = new Random();
-		int randomIndex = random.nextInt(listOfAnagrams.size());
-		String selectedWord = listOfAnagrams.get(randomIndex);
-		listOfAnagrams.remove(randomIndex);
-		
-		target = new JLabel(selectedWord);
+		target = new JLabel(listOfAnagrams.get(0));
 		target.setName("target");
 		target.setHorizontalAlignment(JLabel.CENTER);
 		target.setBorder(new LineBorder(Color.RED));
 
 		constraint.fill = GridBagConstraints.HORIZONTAL;
-		constraint.anchor = GridBagConstraints.CENTER;
 		constraint.gridwidth = 2;
 		constraint.gridx = 0;
 		constraint.gridy = 0;
 		constraint.ipady = 20;
-		constraint.ipadx = 315;
-		constraint.insets = new Insets(25,20,0,20);
-		Dimension preferredSize = new Dimension(0,15);
+		constraint.ipadx = 325;
+		constraint.insets = new Insets(10,0,0,10);
 		mainPanel.add(target, constraint);
-		
-		//dynamically create labels for the appropriate number of anagrams needed
-		for(int i = 0; i < listOfAnagrams.size(); i++) {
+//dynamically create labels for the appropriate number of anagrams needed
+		for(int i = 0; i < listOfAnagrams.size() - 1; i++) {
 			JLabel label = new JLabel("");
 			label.setHorizontalAlignment(JLabel.CENTER);
 			label.setBorder(new LineBorder(Color.BLACK));
 			label.setName("anagram" + Integer.toString(i));
-			label.setPreferredSize(preferredSize);
-			label.setMinimumSize(preferredSize);
 			constraint.gridx = 0;
 			constraint.gridy = i + 1;
 			mainPanel.add(label, constraint);
-			dictionary.put(listOfAnagrams.get(i),label);
+			dictionary.put(listOfAnagrams.get(i+1),label);
 		}
-		//set the guess textfield
+//set the guess textfield
 		guess = new JTextField();
 		guess.setName("guess");
-		constraint.insets = new Insets(60,20,40,20);
-		constraint.fill = GridBagConstraints.NONE;
 		constraint.gridwidth = 1;
 		constraint.gridx = 0;
-		constraint.gridy = listOfAnagrams.size() + 1;
+		constraint.gridy = listOfAnagrams.size();
 		constraint.ipadx = 162;
-		constraint.anchor = GridBagConstraints.LAST_LINE_START;
 		mainPanel.add(guess, constraint);
-		
-		//set the guess button and create actionlistener for button press
+//set the guess button and create actionlistener for button press
 		button = new JButton("Guess");
 		button.setName("button");
 		button.setSize(new Dimension(30, 20));
+		//constraint.gridwidth = 1;
 		constraint.gridx = 1;
-		constraint.gridy = listOfAnagrams.size() + 1;
+		constraint.gridy = listOfAnagrams.size();
 		constraint.ipadx = 20;
-		constraint.anchor = GridBagConstraints.LAST_LINE_END;
 		button.addActionListener(this);
 		mainPanel.add(button, constraint);
 
@@ -115,9 +101,9 @@ public class Feature05Main extends JFrame implements ActionListener {
 
 
 	public static void main(String[] args) {
-	//check argument was passed
+//check argument was passed
 		if (args.length > 0) {
-			//try to parse argument as an integer
+//try to parse argument as an integer
 			try {
 				int difficulty = Integer.parseInt(args[0]);
 
@@ -128,17 +114,18 @@ public class Feature05Main extends JFrame implements ActionListener {
 					Anagrams anagrams = new Anagrams("commonwords.txt");
 					listOfAnagrams = anagrams.getNumberOfAnagrams(++difficulty);
 
-					if(listOfAnagrams != null && listOfAnagrams.size() != 0) {
+					if(listOfAnagrams != null) {
 						dictionary = new HashMap<>();
 						//System.out.println(listOfAnagrams);
 						Feature05Main window = new Feature05Main();
 						window.setVisible(true);
 					}
 
-			//catch exceptions if too large, too small, or invalid input
+//catch exceptions if too large, too small, or invalid input
 			}
 		}
-			catch (NumberFormatException | IndexOutOfBoundsException e){}
+			catch (NumberFormatException e){}
+			catch (IndexOutOfBoundsException e){}
 		}
 	}
 }
