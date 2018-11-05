@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.border.EmptyBorder;
+
 
 /**
 * Anagrams GUI
@@ -70,8 +72,8 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new GridBagLayout());
-		GridBagConstraints constraint = new GridBagConstraints();
+		mainPanel.setLayout(new GridLayout(0, 1, 0, 20));
+		mainPanel.setBorder(new EmptyBorder(20, 30, 10, 30));
 		//set target word to find anagrams of
 		//set constraints and make the gui look purty
 		
@@ -83,17 +85,8 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		target.setName("target");
 		target.setHorizontalAlignment(JLabel.CENTER);
 		target.setBorder(new LineBorder(Color.RED));
-
-		constraint.fill = GridBagConstraints.HORIZONTAL;
-		constraint.anchor = GridBagConstraints.CENTER;
-		constraint.gridwidth = 2;
-		constraint.gridx = 0;
-		constraint.gridy = 0;
-		constraint.ipady = 20;
-		constraint.ipadx = 315;
-		constraint.insets = new Insets(25,20,0,20);
-		Dimension preferredSize = new Dimension(0,15);
-		mainPanel.add(target, constraint);
+		Dimension preferredSize = new Dimension(350, 40);
+		mainPanel.add(target);
 		
 		//dynamically create labels for the appropriate number of anagrams needed
 		for(int i = 0; i < listOfAnagrams.size(); i++) {
@@ -102,39 +95,35 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 			label.setBorder(new LineBorder(Color.BLACK));
 			label.setName("anagram" + Integer.toString(i));
 			label.setPreferredSize(preferredSize);
-			label.setMinimumSize(preferredSize);
-			constraint.gridx = 0;
-			constraint.gridy = i + 1;
-			mainPanel.add(label, constraint);
+			//label.setMinimumSize(preferredSize);
+			mainPanel.add(label);
 			dictionary.put(listOfAnagrams.get(i),label);
 		}
+		
+		JPanel guessPanel = new JPanel();
+		guessPanel.setLayout(new GridLayout (1, 2, 30, 20));
+		guessPanel.setBorder(new EmptyBorder(40, 30, 30, 30));
+		
 		//set the guess textfield
 		guess = new JTextField();
 		guess.setName("guess");
-		constraint.insets = new Insets(60,20,40,20);
-		constraint.fill = GridBagConstraints.NONE;
-		constraint.gridwidth = 1;
-		constraint.gridx = 0;
-		constraint.gridy = listOfAnagrams.size() + 1;
-		constraint.ipadx = 162;
-		constraint.anchor = GridBagConstraints.LAST_LINE_START;
-		mainPanel.add(guess, constraint);
+		guess.setPreferredSize(new Dimension(20, 30));
+
+		
+		guessPanel.add(guess);
 		guess.requestFocus(true);
 		
 		//set the guess button and create actionlistener for button press
 		button = new JButton("Guess");
 		button.setName("button");
-		button.setSize(new Dimension(30, 20));
-		constraint.gridx = 1;
-		constraint.gridy = listOfAnagrams.size() + 1;
-		constraint.ipadx = 20;
-		constraint.anchor = GridBagConstraints.LAST_LINE_END;
+		button.setPreferredSize(new Dimension(10, 40));
 		button.addActionListener(this);
 		guess.addActionListener(this);
-		mainPanel.add(button, constraint);
+		guessPanel.add(button);
 
 
-		add(mainPanel);
+		add(mainPanel, BorderLayout.CENTER);
+		add(guessPanel, BorderLayout.SOUTH);
 		pack();
 }
 
