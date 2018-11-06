@@ -26,6 +26,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	private static Map<String, JLabel> dictionary;
 	private JLabel target;
 	private JButton button;
+	private static JPanel timerPanel;
 
 	/**
 	* Action Performed on Button Click.
@@ -57,7 +58,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		this(new Random());
 	}
 
-
+	
 	/**
 	* Constructor with Random Instance
 	* Builds the GUI for the anagrams game.
@@ -120,13 +121,30 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		button.addActionListener(this);
 		guess.addActionListener(this);
 		guessPanel.add(button);
-
-
+	/*
+		if (timer.equals("1")) {
+			JPanel timerPanel = new JPanel();
+			timerPanel.setLayout(new GridLayout (1, 2, 30, 20));
+			JLabel timeRemaining = new JLabel("Time Remaining");
+			timerPanel.add(timeRemaining);
+			add(timerPanel, BorderLayout.NORTH);
+		}
+		*/
+		timerPanel = new JPanel();
+		add(timerPanel, BorderLayout.NORTH);
 		add(mainPanel, BorderLayout.CENTER);
 		add(guessPanel, BorderLayout.SOUTH);
 		pack();
 }
-
+	
+	public static void timerSetup() {
+		timerPanel.setLayout(new GridLayout (1, 2, 30, 20));
+		JLabel timeRemaining = new JLabel("Time Remaining");
+		JLabel timer = new JLabel("timer");
+		timer.setName("timer");
+		timerPanel.add(timeRemaining);
+		timerPanel.add(timer);
+	};
 
 	public static void main(String[] args) {
 	//check argument was passed
