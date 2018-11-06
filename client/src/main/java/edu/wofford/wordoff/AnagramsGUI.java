@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 /**
 * Anagrams GUI
 * Implements a GUI for the Anagrams game. Players are given a target
-* word with a specified number of anagrams and prompted to enter 
+* word with a specified number of anagrams and prompted to enter
 * anagrams of that word until all anagrams have been found.
 */
 public class AnagramsGUI extends JFrame implements ActionListener {
@@ -58,7 +58,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		this(new Random());
 	}
 
-	
+
 	/**
 	* Constructor with Random Instance
 	* Builds the GUI for the anagrams game.
@@ -77,18 +77,18 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		mainPanel.setBorder(new EmptyBorder(20, 30, 10, 30));
 		//set target word to find anagrams of
 		//set constraints and make the gui look purty
-		
+
 		int randomIndex = random.nextInt(listOfAnagrams.size());
 		String selectedWord = listOfAnagrams.get(randomIndex);
 		listOfAnagrams.remove(randomIndex);
-		
+
 		target = new JLabel(selectedWord);
 		target.setName("target");
 		target.setHorizontalAlignment(JLabel.CENTER);
 		target.setBorder(new LineBorder(Color.RED));
 		Dimension preferredSize = new Dimension(350, 40);
 		mainPanel.add(target);
-		
+
 		//dynamically create labels for the appropriate number of anagrams needed
 		for(int i = 0; i < listOfAnagrams.size(); i++) {
 			JLabel label = new JLabel("");
@@ -100,20 +100,20 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 			mainPanel.add(label);
 			dictionary.put(listOfAnagrams.get(i),label);
 		}
-		
+
 		JPanel guessPanel = new JPanel();
 		guessPanel.setLayout(new GridLayout (1, 2, 30, 20));
 		guessPanel.setBorder(new EmptyBorder(40, 30, 30, 30));
-		
+
 		//set the guess textfield
 		guess = new JTextField();
 		guess.setName("guess");
 		guess.setPreferredSize(new Dimension(20, 30));
 
-		
+
 		guessPanel.add(guess);
 		guess.requestFocus(true);
-		
+
 		//set the guess button and create actionlistener for button press
 		button = new JButton("Guess");
 		button.setName("button");
@@ -136,7 +136,9 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		add(guessPanel, BorderLayout.SOUTH);
 		pack();
 }
-	
+	/**
+	* Adds {@code Timer} implementation to a generated GUI window.
+	*/
 	public static void timerSetup() {
 		timerPanel.setLayout(new GridLayout (1, 2, 30, 20));
 		JLabel timeRemaining = new JLabel("Time Remaining");

@@ -5,7 +5,6 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
-* <h1>Anagrams</h1>
 * The Anagrams class uses a {@code Map<String, List<String>>} structure
 * to hash words in the words file according to the characters of each word
 * sorted alphabetically. This will result in a mapping of a string of
@@ -17,6 +16,26 @@ import java.util.Scanner;
 * constant time, and the object builds in {@code O(n)} time, with {@code n} being
 * the number of words in the text file provided in the
 * {@link #Anagrams(String) Anagrams(fileName)} constructor.
+* <br>
+* The following is an example of how to intialize an {@code Anagrams} object using
+* the various {@code Anagrams} constructors.
+* <pre>{@code
+* //Default constructor
+* Anagrams anagram = new Anagrams();
+*
+* //Constructor given a word file
+* Anagrams anagramsFromFile = new Anagrams("commonwords.txt");
+*
+* //Constructor given a Random instance
+* Random randomInstance = new Random();
+* Anagrams anagramsWithRandomInstance = new Anagrams(randomInstance);
+*
+* //Constructor with both a Random Instance and a word file
+* Random randomInstance = new Random();
+* Anagrams anagramsWithRandomInstanceAndWordFile = new Anagrams(randomInstance, "commonwords.txt");
+* }</pre>
+*
+*
 */
 public class Anagrams {
 
