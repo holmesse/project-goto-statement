@@ -178,4 +178,37 @@ public class AnagramsTest {
 		assertEquals(sizeOfAllWordsTxtFile, anagrams.getNumberOfWords());
 	}
 
+	@Test
+	public void testCheckingWordsForValidity() {
+		String wordToCheck = "adder";
+		assertTrue(anagrams.isWord(wordToCheck));
+		wordToCheck = "tsar";
+		assertTrue(anagrams.isWord(wordToCheck));
+	}
+
+	@Test
+	public void testCheckingWordsThatAreNotWordsReturnsFalse() {
+		String wordToCheck = "notaword";
+		assertFalse(anagrams.isWord(wordToCheck));
+
+		wordToCheck = "5";
+		assertFalse(anagrams.isWord(wordToCheck));
+	}
+
+	@Test
+	public void testGettingRandomWordWithSpecifiedNumberOfAnagrams() {
+		int numAnagrams = 6;
+		assertEquals("skater", anagrams.getWordWithNumberOfAnagrams(numAnagrams));
+	}
+
+	@Test
+	public void testGettingSubAnagramsOfAWordUsingCommonWords() {
+		anagrams = new Anagrams("commonwords.txt");
+
+		List<String> listOfSubAnagrams = Arrays.asList("art","arts","as","at","rat","rats","sat","star","tar","tars");
+		String wordToTest = "star";
+
+		assertEquals(listOfSubAnagrams, anagrams.getSubAnagramsOfWord(wordToTest));
+	}
+
 }

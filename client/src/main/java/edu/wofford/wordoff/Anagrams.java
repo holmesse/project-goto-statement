@@ -144,6 +144,29 @@ public class Anagrams {
 	}
 
 	/**
+	* Find all anagrams of word.
+	* This method returns a list of all anagrams of the given word.
+	* Used when finding sub-anagrams as the ordering of the letters
+	* shouldn't need to matter.
+	* e.g. Finding sub-anagrams of "star" with the
+	* {@link #getAnagramsOfWord(String) getAnagramsOfWord} function:
+	* "sa" is a subset of the letters, but "sa" is not a word.
+	* "as" is a word, and sub-anagram, but will not be returned
+	* because "sa" is not a word.
+	* This helper method fixes that.
+	*
+	* @param word The word to find anagrams of.
+	* @return {@code List<String>} list of all possible anagrams
+		of the provided word.
+	*/
+	private List<String> getAnagramsOfSubWord(String word) {
+		word = word.toLowerCase();
+		String sortedWord = sortWord(word);
+		List<String> anagramsOfWord = anagrams.getOrDefault(sortedWord, new ArrayList<>());
+		return anagramsOfWord;
+	}
+
+	/**
 	* Find anagram with specified number.
 	* Returns a random list of anagrams with the length specified.
 	*
@@ -172,6 +195,20 @@ public class Anagrams {
 	}
 
 	/**
+	* Gets a random word that has a number of anagrams equal to the 
+	* number provided in the parameter.
+	*
+	* @param numberOfAnagrams The number of anagrams the returned
+	* word will have.
+	* @return {@code String} Random word with specified number of anagrams.
+	*/
+	public String getWordWithNumberOfAnagrams(int numberOfAnagrams) {
+		List<String> anagramsWithNumber = getNumberOfAnagrams(numberOfAnagrams);
+		int randomIndex = randomGenerator.nextInt(anagramsWithNumber.size());
+		return anagramsWithNumber.get(randomIndex);
+	}
+
+	/**
 	* Find anagrams of all sub-words of the given word.
 	* Gets the power set of all the letters in the word and then loops
 	* through them to find all anagrams of each subset of letters.
@@ -187,7 +224,7 @@ public class Anagrams {
 
 			for (int i = 0; i < subsetsOfWord.size(); i++) {
 				String subsetWord = subsetsOfWord.get(i);
-				List<String> anagramsOfSubset = getAnagramsOfWord(subsetWord);
+				List<String> anagramsOfSubset = getAnagramsOfSubWord(subsetWord);
 
 				if (anagramsOfSubset.size() > 0) {
 					subAnagramsOfWord.addAll(anagramsOfSubset);
@@ -241,10 +278,20 @@ public class Anagrams {
 	/**
 	* Returns the number of words in the specified word source.
 	*
-	* @return Size of the word list as an int.
+	* @return {@code int} Size of the word list as an int.
 	*/
 	public int getNumberOfWords() {
 		return wordList.size();
+	}
+
+	/**
+	* Checks if the provided word is valid.
+	*
+	* @param word The word to check.
+	* @return {@code boolean} True if valid, False otherwise.
+	*/
+	public boolean isWord(String word) {
+		return wordList.contains(word);
 	}
 
 	/**
