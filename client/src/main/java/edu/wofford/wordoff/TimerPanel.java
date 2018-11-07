@@ -9,11 +9,16 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.Timer;
 
-public class Feature06Main {
+public class TimerPanel extends JPanel implements ActionListener {
+  private Timer countdownTimer;
+  private int totalTime;
 
-	public static void main(String[] args) {
-		AnagramsGUI.main(args);
-		//AnagramsGUI.timerSetup();
+  /*public Timer(){
+
+  }*/
+  public void actionPerformed(ActionEvent event) {
+			
 	}
 }

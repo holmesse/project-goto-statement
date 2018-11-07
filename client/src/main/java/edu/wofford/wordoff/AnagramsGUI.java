@@ -9,6 +9,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.Timer;
 
 
 /**
@@ -20,13 +21,14 @@ import javax.swing.border.EmptyBorder;
 public class AnagramsGUI extends JFrame implements ActionListener {
 
 	private static List<String> listOfAnagrams;
-	private JTextField guess;
+	private  JTextField guess;
 	// dictionary:
 	//  Contains the anagram as the key and the JLabel as the value.
 	private static Map<String, JLabel> dictionary;
 	private JLabel target;
 	private JButton button;
-	private static JPanel timerPanel;
+	private JPanel timerPanel;
+	
 
 	/**
 	* Action Performed on Button Click.
@@ -139,14 +141,31 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	/**
 	* Adds {@code Timer} implementation to a generated GUI window.
 	*/
-	public static void timerSetup() {
+	/*public static void timerSetup() {
+		int totalTime = 10 * listOfAnagrams.size();
 		timerPanel.setLayout(new GridLayout (1, 2, 30, 20));
 		JLabel timeRemaining = new JLabel("Time Remaining");
-		JLabel timer = new JLabel("timer");
+		JLabel timer = new JLabel(String.valueOf(totalTime));
 		timer.setName("timer");
 		timerPanel.add(timeRemaining);
 		timerPanel.add(timer);
-	};
+
+		ActionListener countDown = new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+
+			  totalTime -= 1;
+				timer.setText(String.valueOf(totalTime));
+				if(totalTime <= 0)
+        {
+        	countdownTimer.stop();
+					button.setEnabled(false);
+					guess.setEnabled(false);
+        }
+			}
+		};
+		countdownTimer = new Timer(1000, countDown);
+
+	}*/
 
 	public static void main(String[] args) {
 	//check argument was passed
