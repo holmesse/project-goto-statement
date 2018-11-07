@@ -172,4 +172,10 @@ public class AnagramsTest {
 		assertEquals("", anagrams.getWordWithLength(lengthToFind));
 	}
 
+	@Test
+	public void testSizeOfAllWordsIsCorrect() {
+		int sizeOfAllWordsTxtFile = 370099;
+		assertEquals(sizeOfAllWordsTxtFile, anagrams.getNumberOfWords());
+	}
+
 }

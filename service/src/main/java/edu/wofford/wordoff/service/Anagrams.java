@@ -1,4 +1,4 @@
-package edu.wofford.wordoff;
+package edu.wofford.wordoff.service;
 
 import java.util.*;
 import java.io.*;

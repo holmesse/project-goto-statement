@@ -1,2 +1,2 @@
 rootProject.name = 'wordoff'
-include ':client'
+include ':client', ':service'
