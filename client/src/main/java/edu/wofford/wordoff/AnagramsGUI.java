@@ -28,7 +28,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	private JLabel target;
 	private JButton button;
 	private JPanel timerPanel;
-	
+
 
 	/**
 	* Action Performed on Button Click.
@@ -132,8 +132,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 			add(timerPanel, BorderLayout.NORTH);
 		}
 		*/
-		timerPanel = new JPanel();
-		add(timerPanel, BorderLayout.NORTH);
+
 		add(mainPanel, BorderLayout.CENTER);
 		add(guessPanel, BorderLayout.SOUTH);
 		pack();
@@ -141,31 +140,18 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	/**
 	* Adds {@code Timer} implementation to a generated GUI window.
 	*/
-	/*public static void timerSetup() {
+	public void timerSetup() {
 		int totalTime = 10 * listOfAnagrams.size();
-		timerPanel.setLayout(new GridLayout (1, 2, 30, 20));
-		JLabel timeRemaining = new JLabel("Time Remaining");
-		JLabel timer = new JLabel(String.valueOf(totalTime));
-		timer.setName("timer");
-		timerPanel.add(timeRemaining);
-		timerPanel.add(timer);
+		TimerPanel timer = new TimerPanel(totalTime);
+		add(timer, BorderLayout.NORTH);
 
-		ActionListener countDown = new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+	}
 
-			  totalTime -= 1;
-				timer.setText(String.valueOf(totalTime));
-				if(totalTime <= 0)
-        {
-        	countdownTimer.stop();
-					button.setEnabled(false);
-					guess.setEnabled(false);
-        }
-			}
-		};
-		countdownTimer = new Timer(1000, countDown);
+	public void disableButtonAndTextbox() {
+		button.setEnabled(false);
+		guess.setEnabled(false);
+	}
 
-	}*/
 
 	public static void main(String[] args) {
 	//check argument was passed

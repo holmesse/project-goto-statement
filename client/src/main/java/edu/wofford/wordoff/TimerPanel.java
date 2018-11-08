@@ -15,18 +15,59 @@ public class TimerPanel extends JPanel implements ActionListener {
   private Timer countdownTimer;
   private int currentTime;
   private int startTime;
+  private JPanel timerPanel;
+  private JLabel timeBox;
 
-  public TimerPanel(){
+  public void actionPerformed(ActionEvent event) {
+    currentTime -= 1;
+    timeBox.setText(String.valueOf(currentTime));
+    if(currentTime <= 0) {
+      countdownTimer.stop();
+    }
+	}
+
+  public TimerPanel() {
     this(0);
   }
 
-  public TimerPanel(int startTime){
-    startTime = startTime;
-    currentTime = startTime;
-    countdownTimer = new Timer(1000, null);
-    countdownTimer.addActionListener(this);
-  }
-  public void actionPerformed(ActionEvent event) {
+  public TimerPanel(int startTime) {
+    this.startTime = startTime;
+    this.currentTime = startTime;
+    this.countdownTimer = new Timer(1000, null);
+    this.countdownTimer.addActionListener(this);
 
-	}
+    setLayout(new GridLayout (1, 2, 30, 20));
+    JLabel timeRemaining = new JLabel("Time Remaining");
+		timeBox = new JLabel(String.valueOf(currentTime));
+		timeBox.setName("timer");
+		add(timeRemaining);
+		add(timeBox);
+  }
+
+  public int getStartTime() {
+    return startTime;
+  }
+
+  public int getCurrentTime() {
+    return currentTime;
+  }
+
+  public void setStartTime() {
+    this.startTime = startTime;
+  }
+
+  public void resetTimer() {
+    this.startTime = startTime;
+    this.currentTime = startTime;
+  }
+
+  public void startTimer() {
+    countdownTimer.start();
+  }
+
+  public void stopTimer() {
+    countdownTimer.stop();
+  }
+
+
 }
