@@ -13,12 +13,20 @@ import javax.swing.Timer;
 
 public class TimerPanel extends JPanel implements ActionListener {
   private Timer countdownTimer;
-  private int totalTime;
+  private int currentTime;
+  private int startTime;
 
-  /*public Timer(){
+  public TimerPanel(){
+    this(0);
+  }
 
-  }*/
+  public TimerPanel(int startTime){
+    startTime = startTime;
+    currentTime = startTime;
+    countdownTimer = new Timer(1000, null);
+    countdownTimer.addActionListener(this);
+  }
   public void actionPerformed(ActionEvent event) {
-			
+
 	}
 }
