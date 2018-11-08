@@ -136,6 +136,9 @@ public class Anagrams {
 		word = word.toLowerCase();
 		String sortedWord = sortWord(word);
 		List<String> anagramsOfWord = anagrams.getOrDefault(sortedWord, new ArrayList<>());
+		// The reason we have a separate function without this conditional is to prevent passing a non-word
+		// into feature 01 main from producing output. I can't think of a better way to accomplish this without
+		// using a separate function for sub-anagrams, like we are currently doing.
 		if (anagramsOfWord.contains(word)) {
 			return anagramsOfWord;
 		} else {
