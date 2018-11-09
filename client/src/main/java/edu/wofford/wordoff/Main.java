@@ -19,6 +19,8 @@ public class Main {
 				Feature06Main.main(Arrays.copyOfRange(args, 1, args.length));
 			} else if (args[0].equals("feature07")) {
 		 		Feature07Main.main(Arrays.copyOfRange(args, 1, args.length));
+		 	} else if (args[0].equals("feature08")) {
+		 		Feature08Main.main(Arrays.copyOfRange(args, 1, args.length));
 		 	} 
 		} else {
 			System.out.println("Running Feature 01 with input \"sleep\".");
