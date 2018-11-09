@@ -28,6 +28,14 @@ public class TimerPanelTest {
   }
 
   @Test
+  public void testSetStartTimeCorrectlyChanges() {
+    timer = new TimerPanel();
+    assertEquals(0, timer.getStartTime());
+    timer.setStartTime(10);
+    assertEquals(10, timer.getStartTime());
+  }
+
+  @Test
   public void testTimerCountsDownToZero() {
     timer = new TimerPanel(5);
     assertEquals(5, timer.getCurrentTime());

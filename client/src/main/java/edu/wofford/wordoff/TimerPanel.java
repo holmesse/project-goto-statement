@@ -52,8 +52,8 @@ public class TimerPanel extends JPanel implements ActionListener {
     return currentTime;
   }
 
-  public void setStartTime() {
-    this.startTime = startTime;
+  public void setStartTime(int newTime) {
+    this.startTime = newTime;
   }
 
   public void resetTimer() {
@@ -68,6 +68,5 @@ public class TimerPanel extends JPanel implements ActionListener {
   public void stopTimer() {
     countdownTimer.stop();
   }
-
 
 }

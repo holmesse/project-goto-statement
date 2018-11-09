@@ -14,6 +14,5 @@ public class Feature06Main {
 
 	public static void main(String[] args) {
 		AnagramsGUI.main(args);
-		//AnagramsGUI.timerSetup();
 	}
 }

@@ -19,16 +19,13 @@ import javax.swing.Timer;
 * anagrams of that word until all anagrams have been found.
 */
 public class AnagramsGUI extends JFrame implements ActionListener {
-
-	private static List<String> listOfAnagrams;
-	private  JTextField guess;
+	private JTextField guess;
 	// dictionary:
 	//  Contains the anagram as the key and the JLabel as the value.
-	private static Map<String, JLabel> dictionary;
+	private Map<String, JLabel> dictionary;
 	private JLabel target;
 	private JButton button;
-	private JPanel timerPanel;
-
+	private TimerPanel timerPanel;
 
 	/**
 	* Action Performed on Button Click.
@@ -56,8 +53,8 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	* Runs the {@link #AnagramsGUI(Random) AnagramsGUI(random)}
 	* constructor with a new instance of Random with no seed.
 	*/
-	public AnagramsGUI() {
-		this(new Random());
+	public AnagramsGUI(List<String> listOfAnagrams) {
+		this(new Random(), listOfAnagrams);
 	}
 
 
@@ -67,7 +64,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	*
 	* @param random An instance of Random to use for word generation.
 	*/
-	public AnagramsGUI(Random random) {
+	public AnagramsGUI(Random random, List<String> listOfAnagrams) {
 		//set title and name of frame
 		setTitle("WordOff");
 		setName("WordOff");
@@ -90,7 +87,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		target.setBorder(new LineBorder(Color.RED));
 		Dimension preferredSize = new Dimension(350, 40);
 		mainPanel.add(target);
-
+		dictionary = new HashMap<>();
 		//dynamically create labels for the appropriate number of anagrams needed
 		for(int i = 0; i < listOfAnagrams.size(); i++) {
 			JLabel label = new JLabel("");
@@ -132,24 +129,13 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 			add(timerPanel, BorderLayout.NORTH);
 		}
 		*/
-
+		int totalTime = 10 * listOfAnagrams.size();
+		timerPanel = new TimerPanel(totalTime);
+		add(timerPanel, BorderLayout.NORTH);
 		add(mainPanel, BorderLayout.CENTER);
 		add(guessPanel, BorderLayout.SOUTH);
 		pack();
-}
-	/**
-	* Adds {@code Timer} implementation to a generated GUI window.
-	*/
-	public void timerSetup() {
-		int totalTime = 10 * listOfAnagrams.size();
-		TimerPanel timer = new TimerPanel(totalTime);
-		add(timer, BorderLayout.NORTH);
-
-	}
-
-	public void disableButtonAndTextbox() {
-		button.setEnabled(false);
-		guess.setEnabled(false);
+		timerPanel.startTimer();
 	}
 
 
@@ -173,13 +159,12 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 						anagrams = new Anagrams("commonwords.txt");
 						random = new Random();
 					}
-					listOfAnagrams = anagrams.getNumberOfAnagrams(++difficulty);
+					List<String> listOfAnagrams = anagrams.getNumberOfAnagrams(difficulty + 1);
 
 					if(listOfAnagrams != null && listOfAnagrams.size() != 0) {
-						dictionary = new HashMap<>();
-						//System.out.println(listOfAnagrams);
-						AnagramsGUI window = new AnagramsGUI(random);
+						AnagramsGUI window = new AnagramsGUI(random, listOfAnagrams);
 						window.setVisible(true);
+						//window.startTimer();
 					}
 
 			//catch exceptions if too large, too small, or invalid input
