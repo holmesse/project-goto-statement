@@ -28,7 +28,7 @@ public class Feature04Main {
 	        	chosenWord = args[0];
 	        	difficulty = chosenWord.length();
 	        }
-	        
+
 	        if (difficulty >= 3 && chosenWord != "") {
 
 	        	System.out.printf("The word is \"%s\".%n", chosenWord);

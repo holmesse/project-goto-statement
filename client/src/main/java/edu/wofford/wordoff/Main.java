@@ -21,7 +21,7 @@ public class Main {
 		 		Feature07Main.main(Arrays.copyOfRange(args, 1, args.length));
 		 	} else if (args[0].equals("feature08")) {
 		 		Feature08Main.main(Arrays.copyOfRange(args, 1, args.length));
-		 	} 
+		 	}
 		} else {
 			System.out.println("Running Feature 01 with input \"sleep\".");
 			System.out.println("OUTPUT:");
@@ -66,6 +66,11 @@ public class Main {
 			System.out.println("Running Feature 05 with difficulty \"4\" and random seed \"25\".");
 			System.out.println("[items, emits, mites, times]");
 			Feature05Main.main(new String[]{"4", "25"});
+
+			System.out.println("");
+
+			System.out.println("Running Feature 06 with difficulty \"1\" and random seed \"25\".");
+			Feature06Main.main(new String[]{"1", "25"});
 		}
 	}
 }

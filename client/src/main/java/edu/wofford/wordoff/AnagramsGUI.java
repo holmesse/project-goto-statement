@@ -43,6 +43,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 				target.setBorder(new LineBorder(Color.GREEN));
 				button.setEnabled(false);
 				guess.setEnabled(false);
+				timerPanel.stopTimer();
 			}
 			//if guess is incorrect rest the textfield to empty
 			guess.setText("");
@@ -130,14 +131,17 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		}
 		*/
 		int totalTime = 10 * listOfAnagrams.size();
-		timerPanel = new TimerPanel(totalTime);
+		timerPanel = new TimerPanel(totalTime, button, guess);
 		add(timerPanel, BorderLayout.NORTH);
 		add(mainPanel, BorderLayout.CENTER);
 		add(guessPanel, BorderLayout.SOUTH);
 		pack();
-		timerPanel.startTimer();
+		//timerPanel.startTimer();
 	}
 
+	public void startTimer() {
+		timerPanel.startTimer();
+	}
 
 	public static void main(String[] args) {
 	//check argument was passed
@@ -164,7 +168,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 					if(listOfAnagrams != null && listOfAnagrams.size() != 0) {
 						AnagramsGUI window = new AnagramsGUI(random, listOfAnagrams);
 						window.setVisible(true);
-						//window.startTimer();
+						window.startTimer();
 					}
 
 			//catch exceptions if too large, too small, or invalid input

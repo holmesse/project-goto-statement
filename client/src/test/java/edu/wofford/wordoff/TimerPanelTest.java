@@ -5,31 +5,42 @@ import static org.junit.Assert.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.Timer;
+
 public class TimerPanelTest {
 	private TimerPanel timer;
+  private JButton button;
+  private JTextField guess;
 
 	@Before
 	public void setUp() {
-		timer = new TimerPanel();
+    button = new JButton();
+    guess = new JTextField();
+		timer = new TimerPanel(button, guess);
 	}
 
   @Test
   public void testGetStartTimeReturnsCorrectInt() {
     int numberToTest = 5;
-    timer = new TimerPanel(5);
+    timer = new TimerPanel(5, button, guess);
     assertEquals(numberToTest, timer.getStartTime());
   }
 
   @Test
   public void testGetCurrentTimeReturnsCorrectInt() {
     int numberToTest = 7;
-    timer = new TimerPanel(7);
+    timer = new TimerPanel(7, button, guess);
     assertEquals(numberToTest, timer.getCurrentTime());
   }
 
   @Test
   public void testSetStartTimeCorrectlyChanges() {
-    timer = new TimerPanel();
+    timer = new TimerPanel(button, guess);
     assertEquals(0, timer.getStartTime());
     timer.setStartTime(10);
     assertEquals(10, timer.getStartTime());
@@ -37,11 +48,10 @@ public class TimerPanelTest {
 
   @Test
   public void testTimerCountsDownToZero() {
-    timer = new TimerPanel(5);
+    timer = new TimerPanel(5, button, guess);
     assertEquals(5, timer.getCurrentTime());
     timer.startTimer();
     try {
-      //Thread.sleep(5000);
       TimeUnit.SECONDS.sleep(6);
     } catch(InterruptedException e) {}
 
@@ -50,17 +60,16 @@ public class TimerPanelTest {
 
   @Test
   public void testTimerResetsToStartTime() {
-    timer = new TimerPanel(5);
+    timer = new TimerPanel(5, button, guess);
     assertEquals(5, timer.getCurrentTime());
     timer.startTimer();
     try {
-      //Thread.sleep(5000);
       TimeUnit.SECONDS.sleep(3);
     } catch(InterruptedException e) {}
 
     timer.stopTimer();
     timer.resetTimer();
     assertEquals(5, timer.getCurrentTime());
-
   }
+
 }
