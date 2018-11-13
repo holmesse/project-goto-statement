@@ -51,8 +51,11 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 
 	/**
 	* Default Constructor
-	* Runs the {@link #AnagramsGUI(Random) AnagramsGUI(random)}
+	* Runs the {@code AnagramsGUI(Random random, List<String> listOfAnagrams)}
 	* constructor with a new instance of Random with no seed.
+	*
+	* @param listOfAnagrams A list of anagrams to be used in the generation of the
+	* TimerPanel and JLabel creation.
 	*/
 	public AnagramsGUI(List<String> listOfAnagrams) {
 		this(new Random(), listOfAnagrams);
@@ -64,6 +67,8 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	* Builds the GUI for the anagrams game.
 	*
 	* @param random An instance of Random to use for word generation.
+	* @param listOfAnagrams A list of anagrams to be used in the generation of the
+	* TimerPanel and JLabel creation.
 	*/
 	public AnagramsGUI(Random random, List<String> listOfAnagrams) {
 		//set title and name of frame
@@ -121,15 +126,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		button.addActionListener(this);
 		guess.addActionListener(this);
 		guessPanel.add(button);
-	/*
-		if (timer.equals("1")) {
-			JPanel timerPanel = new JPanel();
-			timerPanel.setLayout(new GridLayout (1, 2, 30, 20));
-			JLabel timeRemaining = new JLabel("Time Remaining");
-			timerPanel.add(timeRemaining);
-			add(timerPanel, BorderLayout.NORTH);
-		}
-		*/
+
 		int totalTime = 10 * listOfAnagrams.size();
 		timerPanel = new TimerPanel(totalTime, button, guess);
 		add(timerPanel, BorderLayout.NORTH);
@@ -139,6 +136,9 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		//timerPanel.startTimer();
 	}
 
+/**
+* Starts the timerPanel countdown timer
+*/
 	public void startTimer() {
 		timerPanel.startTimer();
 	}
