@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.Timer;
 
 
+
 /**
 * Anagrams GUI
 * Implements a GUI for the Anagrams game. Players are given a target
@@ -26,6 +27,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	private JLabel target;
 	private JButton button;
 	private TimerPanel timerPanel;
+	private ModelessDialog modelessDialog;
 
 	/**
 	* Action Performed on Button Click.
@@ -44,6 +46,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 				button.setEnabled(false);
 				guess.setEnabled(false);
 				timerPanel.stopTimer();
+				modelessDialog = new ModelessDialog(this);
 			}
 			//if guess is incorrect rest the textfield to empty
 			guess.setText("");
@@ -141,6 +144,14 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 */
 	public void startTimer() {
 		timerPanel.startTimer();
+	}
+
+	public int getCurrentTime() {
+		return timerPanel.getCurrentTime();
+	}
+
+	public boolean isTimerRunning() {
+		return timerPanel.isTimerRunning();
 	}
 
 	public static void main(String[] args) {

@@ -141,4 +141,8 @@ public class TimerPanel extends JPanel implements ActionListener {
     countdownTimer.stop();
   }
 
+  public boolean isTimerRunning() {
+    return countdownTimer.isRunning();
+  }
+
 }
