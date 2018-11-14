@@ -56,10 +56,10 @@ public class Main {
 
 			System.out.println("");
 
-			System.out.println("Runnning Feature 04 with input \"5\" and random seed \"25\".");
-			System.out.println("[dread, dared, add, dad, dr]");
+			System.out.println("Runnning Feature 04 with input \"4\" and random seed \"25\".");
+			System.out.println("[age, gad, eg]");
 			System.out.println("OUTPUT:");
-			Feature04Main.main(new String[]{"5", "25"});
+			Feature04Main.main(new String[]{"4", "25"});
 
 			System.out.println("");
 
