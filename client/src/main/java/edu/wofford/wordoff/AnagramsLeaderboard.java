@@ -62,16 +62,14 @@ public class AnagramsLeaderboard {
          System.out.println(String.format("Inserting %s", word));
 
          stmt = conn.createStatement();
-         String insertSQL = String.format("INSERT INTO leaderboard (word, difficulty, seconds_left) VALUES ('%s', %d, %d);", word, difficulty, seconds_left);
+         String insertSQL = String.format("INSERT OR IGNORE INTO leaderboard (word, difficulty, seconds_left) VALUES ('%s', %d, %d);", word, difficulty, seconds_left);
 
          stmt.executeUpdate(insertSQL);
          stmt.close();
          conn.close();  
       } catch (SQLException e) {
-         if (e.getErrorCode() != 19) { //19 is the error code for the UNIQUE constraint violation, which we want to ignore.
-            System.err.println("Error code (" + e.getErrorCode() + "): " + e.getMessage());
-            System.exit(0);
-         }
+         System.err.println("Error code (" + e.getErrorCode() + "): " + e.getMessage());
+         System.exit(0);
       } catch (Exception e) {
          System.err.println(e.getClass().getName() + ": " + e.getMessage());
          System.exit(0);
