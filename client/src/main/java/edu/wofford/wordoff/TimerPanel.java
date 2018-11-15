@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.Timer;
+import javax.swing.SwingUtilities;
 
 /**
 * Timer Panel
@@ -37,6 +38,8 @@ public class TimerPanel extends JPanel implements ActionListener {
       countdownTimer.stop();
       button.setEnabled(false);
       guess.setEnabled(false);
+      JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
+      ModelessDialog modelessDialog = new ModelessDialog(parent);
     }
 	}
 

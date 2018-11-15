@@ -16,6 +16,12 @@ import javax.swing.table.AbstractTableModel;
 public class ModelessDialog extends JDialog{
   private JDialog modelessDialog;
 
+/**
+* Generates an new modeless dialog box with a {@code JTable} that shows the
+* score leaderboard for the anagrams getName
+*
+* @param parent A JFrame that is used to create a new {@code JDialog} box
+*/
   public ModelessDialog(JFrame parent) {
     modelessDialog = new JDialog(parent);
     modelessDialog.add(Box.createRigidArea(new Dimension(200, 200)));
