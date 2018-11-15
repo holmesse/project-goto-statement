@@ -18,6 +18,16 @@ import javax.swing.Timer;
 * Implements a GUI for the Anagrams game. Players are given a target
 * word with a specified number of anagrams and prompted to enter
 * anagrams of that word until all anagrams have been found.
+* <br>
+* <img src="doc-files/gui-start.png" alt="Example of playing the game.">
+* An example of the GUI with no anagrams guessed. The timer will
+* continue to decrease until it reaches 0, or until all anagrams
+* have been entered. At that point, the game will end in either a
+* loss, if not all anagrams were guessed, or a win, if all anagrams
+* were discovered in time.
+* 
+* <img src="doc-files/gui-win.png" alt="Example of GUI when game is won">
+* An example of the GUI after all words have been guessed.
 */
 public class AnagramsGUI extends JFrame implements ActionListener {
 	private JTextField guess;

@@ -21,7 +21,7 @@ public class AnagramsLeaderboard {
       Connection conn = null;
       Statement stmt = null;
       
-      try {
+      //try {
          Class.forName("org.sqlite.JDBC");
          conn = DriverManager.getConnection("jdbc:sqlite:client/build/libs/results.db");
          System.out.println("Opened database successfully");
@@ -36,10 +36,10 @@ public class AnagramsLeaderboard {
          stmt.executeUpdate(createLeaderboardSQL);
          stmt.close();
          conn.close();
-      } catch (Exception e) {
-         System.err.println(e.getClass().getName() + ": " + e.getMessage());
-         System.exit(0);
-      }
+      //} catch (Exception e) {
+         // System.err.println(e.getClass().getName() + ": " + e.getMessage());
+         // System.exit(0);
+      //}
       System.out.println("Table created successfully");
    }
 
@@ -56,7 +56,7 @@ public class AnagramsLeaderboard {
       Connection conn = null;
       Statement stmt = null;
 
-      try {
+      //try {
          Class.forName("org.sqlite.JDBC");
          conn = DriverManager.getConnection("jdbc:sqlite:client/build/libs/results.db");
          System.out.println(String.format("Inserting %s", word));
@@ -67,13 +67,13 @@ public class AnagramsLeaderboard {
          stmt.executeUpdate(insertSQL);
          stmt.close();
          conn.close();  
-      } catch (SQLException e) {
-         System.err.println("Error code (" + e.getErrorCode() + "): " + e.getMessage());
-         System.exit(0);
-      } catch (Exception e) {
-         System.err.println(e.getClass().getName() + ": " + e.getMessage());
-         System.exit(0);
-      }
+      // } catch (SQLException e) {
+      //    System.err.println("Error code (" + e.getErrorCode() + "): " + e.getMessage());
+      //    System.exit(0);
+      // } catch (Exception e) {
+      //    System.err.println(e.getClass().getName() + ": " + e.getMessage());
+      //    System.exit(0);
+      // }
       System.out.println("Insert executed successfully");
    }
 
@@ -92,7 +92,7 @@ public class AnagramsLeaderboard {
 
       String[][] results = new String[5][4];
 
-      try {
+      //try {
          Class.forName("org.sqlite.JDBC");
          conn = DriverManager.getConnection("jdbc:sqlite:client/build/libs/results.db");
          System.out.println("Selecting data");
@@ -112,10 +112,10 @@ public class AnagramsLeaderboard {
          rs.close();
          stmt.close();
          conn.close();  
-      } catch (Exception e) {
-         System.err.println(e.getClass().getName() + ": " + e.getMessage());
-         System.exit(0);
-      }
+      // } catch (Exception e) {
+      //    System.err.println(e.getClass().getName() + ": " + e.getMessage());
+      //    System.exit(0);
+      // }
       System.out.println("Query executed successfully");
       return results;
    }
