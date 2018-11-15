@@ -38,6 +38,8 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	private JButton button;
 	private TimerPanel timerPanel;
 	private ModelessDialog modelessDialog;
+	private int difficulty;
+	private String selectedWord;
 
 	/**
 	* Action Performed on Button Click.
@@ -56,7 +58,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 				button.setEnabled(false);
 				guess.setEnabled(false);
 				timerPanel.stopTimer();
-				modelessDialog = new ModelessDialog(this);
+				createLeaderboadDialog();
 			}
 			//if guess is incorrect rest the textfield to empty
 			guess.setText("");
@@ -70,8 +72,8 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	* @param listOfAnagrams A list of anagrams to be used in the generation of the
 	* TimerPanel and JLabel creation.
 	*/
-	public AnagramsGUI(List<String> listOfAnagrams) {
-		this(new Random(), listOfAnagrams);
+	public AnagramsGUI(List<String> listOfAnagrams, int difficulty) {
+		this(new Random(), listOfAnagrams, difficulty);
 	}
 
 
@@ -83,7 +85,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	* @param listOfAnagrams A list of anagrams to be used in the generation of the
 	* TimerPanel and JLabel creation.
 	*/
-	public AnagramsGUI(Random random, List<String> listOfAnagrams) {
+	public AnagramsGUI(Random random, List<String> listOfAnagrams, int difficulty) {
 		//set title and name of frame
 		setTitle("WordOff");
 		setName("WordOff");
@@ -97,7 +99,8 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		//set constraints and make the gui look purty
 
 		int randomIndex = random.nextInt(listOfAnagrams.size());
-		String selectedWord = listOfAnagrams.get(randomIndex);
+		selectedWord = listOfAnagrams.get(randomIndex);
+		this.difficulty = difficulty;
 		listOfAnagrams.remove(randomIndex);
 
 		target = new JLabel(selectedWord);
@@ -141,7 +144,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		guessPanel.add(button);
 
 		int totalTime = 10 * listOfAnagrams.size();
-		timerPanel = new TimerPanel(totalTime, button, guess);
+		timerPanel = new TimerPanel(totalTime, this);
 		add(timerPanel, BorderLayout.NORTH);
 		add(mainPanel, BorderLayout.CENTER);
 		add(guessPanel, BorderLayout.SOUTH);
@@ -162,6 +165,15 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 
 	public boolean isTimerRunning() {
 		return timerPanel.isTimerRunning();
+	}
+
+	public void disableButtonAndTextField() {
+		button.setEnabled(false);
+		guess.setEnabled(false);
+	}
+
+	public void createLeaderboadDialog() {
+		modelessDialog = new ModelessDialog(this, selectedWord, difficulty, timerPanel.getCurrentTime());
 	}
 
 	public static void main(String[] args) {
@@ -187,7 +199,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 					List<String> listOfAnagrams = anagrams.getNumberOfAnagrams(difficulty + 1);
 
 					if(listOfAnagrams != null && listOfAnagrams.size() != 0) {
-						AnagramsGUI window = new AnagramsGUI(random, listOfAnagrams);
+						AnagramsGUI window = new AnagramsGUI(random, listOfAnagrams, difficulty);
 						window.setVisible(true);
 						window.startTimer();
 					}
