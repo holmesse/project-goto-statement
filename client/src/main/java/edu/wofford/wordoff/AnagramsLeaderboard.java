@@ -113,4 +113,59 @@ public class AnagramsLeaderboard {
       }
       return results;
    }
+
+   public boolean leaderboardIsEmpty() {
+      Connection conn = null;
+      Statement stmt = null;
+
+      boolean isEmpty = false;
+
+      try {
+         Class.forName("org.sqlite.JDBC");
+         conn = DriverManager.getConnection("jdbc:sqlite:client/build/libs/results.db");
+
+         stmt = conn.createStatement();
+         String insertSQL = "SELECT COUNT(*) AS 'count' FROM leaderboard";
+
+         ResultSet rs = stmt.executeQuery(insertSQL);
+
+         while (rs.next()) {
+            if (rs.getInt("count") == 0) {
+               isEmpty = true;
+            } else {
+               isEmpty = false;
+            }
+         }
+
+         rs.close();
+         stmt.close();
+         conn.close();  
+      } catch (Exception e) {
+         System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+         System.exit(0);
+      }
+      return isEmpty;
+   }
+
+   public void clearLeaderboardData() {
+      Connection conn = null;
+      Statement stmt = null;
+
+      try {
+         Class.forName("org.sqlite.JDBC");
+         conn = DriverManager.getConnection("jdbc:sqlite:client/build/libs/results.db");
+
+         stmt = conn.createStatement();
+         String deleteCmd = "DELETE FROM leaderboard;";
+
+         stmt.executeUpdate(deleteCmd);
+
+         stmt.close();
+         conn.close();  
+      } catch (Exception e) {
+         System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+         System.exit(0);
+      }
+   }
+
 }
