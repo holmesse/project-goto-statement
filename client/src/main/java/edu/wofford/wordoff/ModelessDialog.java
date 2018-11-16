@@ -32,7 +32,7 @@ public class ModelessDialog extends JDialog{
   public ModelessDialog(JFrame parent, String selectedWord, int difficulty, int time) {
     leaderboardData = new AnagramsLeaderboard();
 
-    if(!leaderboardData.leaderboardIsEmpty()) {
+
       modelessDialog = new JDialog(parent);
       modelessDialog.add(Box.createRigidArea(new Dimension(500, 300)));
 
@@ -58,8 +58,9 @@ public class ModelessDialog extends JDialog{
       modelessDialog.setTitle("Leaderboard");
       //modelessDialog.add(leaderboard);
       modelessDialog.pack();
-      modelessDialog.setVisible(true);
-    }
+      if(!leaderboardData.leaderboardIsEmpty()) {
+        modelessDialog.setVisible(true);
+      }
 
   }
 
