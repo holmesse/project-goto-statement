@@ -114,6 +114,12 @@ public class AnagramsLeaderboard {
       return results;
    }
 
+   /**
+   * Checks if leaderboard table is empty.
+   * Determines whether the leaderboard table has rows or not.
+   *
+   * @return {@code boolean} true if table is empty, false otherwise.
+   */
    public boolean leaderboardIsEmpty() {
       Connection conn = null;
       Statement stmt = null;
@@ -147,6 +153,10 @@ public class AnagramsLeaderboard {
       return isEmpty;
    }
 
+   /**
+   * Clears leaderboard of all data.
+   * Deletes all rows from the leaderboard table.
+   */
    public void clearLeaderboardData() {
       Connection conn = null;
       Statement stmt = null;
