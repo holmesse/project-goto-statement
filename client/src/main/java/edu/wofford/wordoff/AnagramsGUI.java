@@ -8,22 +8,38 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.Timer;
+
+
 
 /**
 * Anagrams GUI
 * Implements a GUI for the Anagrams game. Players are given a target
-* word with a specified number of anagrams and prompted to enter 
+* word with a specified number of anagrams and prompted to enter
 * anagrams of that word until all anagrams have been found.
+* <br>
+* <img src="doc-files/gui-start.png" alt="Example of playing the game.">
+* An example of the GUI with no anagrams guessed. The timer will
+* continue to decrease until it reaches 0, or until all anagrams
+* have been entered. At that point, the game will end in either a
+* loss, if not all anagrams were guessed, or a win, if all anagrams
+* were discovered in time.
+*
+* <img src="doc-files/gui-win.png" alt="Example of GUI when game is won">
+* An example of the GUI after all words have been guessed.
 */
 public class AnagramsGUI extends JFrame implements ActionListener {
-
-	private static List<String> listOfAnagrams;
 	private JTextField guess;
 	// dictionary:
 	//  Contains the anagram as the key and the JLabel as the value.
-	private static Map<String, JLabel> dictionary;
+	private Map<String, JLabel> dictionary;
 	private JLabel target;
 	private JButton button;
+	private TimerPanel timerPanel;
+	private ModelessDialog modelessDialog;
+	private int difficulty;
+	private String selectedWord;
 
 	/**
 	* Action Performed on Button Click.
@@ -41,6 +57,8 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 				target.setBorder(new LineBorder(Color.GREEN));
 				button.setEnabled(false);
 				guess.setEnabled(false);
+				timerPanel.stopTimer();
+				createLeaderboadDialog();
 			}
 			//if guess is incorrect rest the textfield to empty
 			guess.setText("");
@@ -48,11 +66,15 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 
 	/**
 	* Default Constructor
-	* Runs the {@link #AnagramsGUI(Random) AnagramsGUI(random)}
+	* Runs the {@code AnagramsGUI(Random random, List<String> listOfAnagrams)}
 	* constructor with a new instance of Random with no seed.
+	*
+	* @param listOfAnagrams A list of anagrams to be used in the generation of the
+	* TimerPanel and JLabel creation.
+	* @param difficulty The number of anagrams to be found during the game
 	*/
-	public AnagramsGUI() {
-		this(new Random());
+	public AnagramsGUI(List<String> listOfAnagrams, int difficulty) {
+		this(new Random(), listOfAnagrams, difficulty);
 	}
 
 
@@ -61,8 +83,11 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	* Builds the GUI for the anagrams game.
 	*
 	* @param random An instance of Random to use for word generation.
+	* @param listOfAnagrams A list of anagrams to be used in the generation of the
+	* TimerPanel and JLabel creation.
+	* @param difficulty The number of anagrams to be found during the game
 	*/
-	public AnagramsGUI(Random random) {
+	public AnagramsGUI(Random random, List<String> listOfAnagrams, int difficulty) {
 		//set title and name of frame
 		setTitle("WordOff");
 		setName("WordOff");
@@ -70,31 +95,23 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new GridBagLayout());
-		GridBagConstraints constraint = new GridBagConstraints();
+		mainPanel.setLayout(new GridLayout(0, 1, 0, 20));
+		mainPanel.setBorder(new EmptyBorder(20, 30, 10, 30));
 		//set target word to find anagrams of
 		//set constraints and make the gui look purty
-		
+
 		int randomIndex = random.nextInt(listOfAnagrams.size());
-		String selectedWord = listOfAnagrams.get(randomIndex);
+		selectedWord = listOfAnagrams.get(randomIndex);
+		this.difficulty = difficulty;
 		listOfAnagrams.remove(randomIndex);
-		
+
 		target = new JLabel(selectedWord);
 		target.setName("target");
 		target.setHorizontalAlignment(JLabel.CENTER);
 		target.setBorder(new LineBorder(Color.RED));
-
-		constraint.fill = GridBagConstraints.HORIZONTAL;
-		constraint.anchor = GridBagConstraints.CENTER;
-		constraint.gridwidth = 2;
-		constraint.gridx = 0;
-		constraint.gridy = 0;
-		constraint.ipady = 20;
-		constraint.ipadx = 315;
-		constraint.insets = new Insets(25,20,0,20);
-		Dimension preferredSize = new Dimension(0,15);
-		mainPanel.add(target, constraint);
-		
+		Dimension preferredSize = new Dimension(350, 40);
+		mainPanel.add(target);
+		dictionary = new HashMap<>();
 		//dynamically create labels for the appropriate number of anagrams needed
 		for(int i = 0; i < listOfAnagrams.size(); i++) {
 			JLabel label = new JLabel("");
@@ -102,42 +119,61 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 			label.setBorder(new LineBorder(Color.BLACK));
 			label.setName("anagram" + Integer.toString(i));
 			label.setPreferredSize(preferredSize);
-			label.setMinimumSize(preferredSize);
-			constraint.gridx = 0;
-			constraint.gridy = i + 1;
-			mainPanel.add(label, constraint);
+			//label.setMinimumSize(preferredSize);
+			mainPanel.add(label);
 			dictionary.put(listOfAnagrams.get(i),label);
 		}
+
+		JPanel guessPanel = new JPanel();
+		guessPanel.setLayout(new GridLayout (1, 2, 30, 20));
+		guessPanel.setBorder(new EmptyBorder(40, 30, 30, 30));
+
 		//set the guess textfield
 		guess = new JTextField();
 		guess.setName("guess");
-		constraint.insets = new Insets(60,20,40,20);
-		constraint.fill = GridBagConstraints.NONE;
-		constraint.gridwidth = 1;
-		constraint.gridx = 0;
-		constraint.gridy = listOfAnagrams.size() + 1;
-		constraint.ipadx = 162;
-		constraint.anchor = GridBagConstraints.LAST_LINE_START;
-		mainPanel.add(guess, constraint);
+		guess.setPreferredSize(new Dimension(20, 30));
+
+
+		guessPanel.add(guess);
 		guess.requestFocus(true);
-		
+
 		//set the guess button and create actionlistener for button press
 		button = new JButton("Guess");
 		button.setName("button");
-		button.setSize(new Dimension(30, 20));
-		constraint.gridx = 1;
-		constraint.gridy = listOfAnagrams.size() + 1;
-		constraint.ipadx = 20;
-		constraint.anchor = GridBagConstraints.LAST_LINE_END;
+		button.setPreferredSize(new Dimension(10, 40));
 		button.addActionListener(this);
 		guess.addActionListener(this);
-		mainPanel.add(button, constraint);
+		guessPanel.add(button);
 
-
-		add(mainPanel);
+		int totalTime = 10 * listOfAnagrams.size();
+		timerPanel = new TimerPanel(totalTime, this);
+		add(timerPanel, BorderLayout.NORTH);
+		add(mainPanel, BorderLayout.CENTER);
+		add(guessPanel, BorderLayout.SOUTH);
 		pack();
-}
+	}
 
+/**
+* Starts the timerPanel countdown timer
+*/
+	public void startTimer() {
+		timerPanel.startTimer();
+	}
+
+/**
+* Disables the JButton and JTextField in the GUI
+*/
+	public void disableButtonAndTextField() {
+		button.setEnabled(false);
+		guess.setEnabled(false);
+	}
+
+/**
+* Creates a new instance of the {@code ModelessDialog} to display the leaderboard.
+*/
+	public void createLeaderboadDialog() {
+		modelessDialog = new ModelessDialog(this, selectedWord, difficulty, timerPanel.getCurrentTime());
+	}
 
 	public static void main(String[] args) {
 	//check argument was passed
@@ -159,13 +195,12 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 						anagrams = new Anagrams("commonwords.txt");
 						random = new Random();
 					}
-					listOfAnagrams = anagrams.getNumberOfAnagrams(++difficulty);
+					List<String> listOfAnagrams = anagrams.getNumberOfAnagrams(difficulty + 1);
 
 					if(listOfAnagrams != null && listOfAnagrams.size() != 0) {
-						dictionary = new HashMap<>();
-						//System.out.println(listOfAnagrams);
-						AnagramsGUI window = new AnagramsGUI(random);
+						AnagramsGUI window = new AnagramsGUI(random, listOfAnagrams, difficulty);
 						window.setVisible(true);
+						window.startTimer();
 					}
 
 			//catch exceptions if too large, too small, or invalid input

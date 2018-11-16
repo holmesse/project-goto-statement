@@ -5,7 +5,6 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
-* <h1>Anagrams</h1>
 * The Anagrams class uses a {@code Map<String, List<String>>} structure
 * to hash words in the words file according to the characters of each word
 * sorted alphabetically. This will result in a mapping of a string of
@@ -17,6 +16,26 @@ import java.util.Scanner;
 * constant time, and the object builds in {@code O(n)} time, with {@code n} being
 * the number of words in the text file provided in the
 * {@link #Anagrams(String) Anagrams(fileName)} constructor.
+* <br>
+* The following is an example of how to intialize an {@code Anagrams} object using
+* the various {@code Anagrams} constructors.
+* <pre>{@code
+* //Default constructor
+* Anagrams anagram = new Anagrams();
+*
+* //Constructor given a word file
+* Anagrams anagramsFromFile = new Anagrams("commonwords.txt");
+*
+* //Constructor given a Random instance
+* Random randomInstance = new Random();
+* Anagrams anagramsWithRandomInstance = new Anagrams(randomInstance);
+*
+* //Constructor with both a Random Instance and a word file
+* Random randomInstance = new Random();
+* Anagrams anagramsWithRandomInstanceAndWordFile = new Anagrams(randomInstance, "commonwords.txt");
+* }</pre>
+*
+*
 */
 public class Anagrams {
 
@@ -117,11 +136,37 @@ public class Anagrams {
 		word = word.toLowerCase();
 		String sortedWord = sortWord(word);
 		List<String> anagramsOfWord = anagrams.getOrDefault(sortedWord, new ArrayList<>());
+		// The reason we have a separate function without this conditional is to prevent passing a non-word
+		// into feature 01 main from producing output. I can't think of a better way to accomplish this without
+		// using a separate function for sub-anagrams, like we are currently doing.
 		if (anagramsOfWord.contains(word)) {
 			return anagramsOfWord;
 		} else {
 			return new ArrayList<>();
 		}
+	}
+
+	/**
+	* Find all anagrams of word.
+	* This method returns a list of all anagrams of the given word.
+	* Used when finding sub-anagrams as the ordering of the letters
+	* shouldn't need to matter.
+	* e.g. Finding sub-anagrams of "star" with the
+	* {@link #getAnagramsOfWord(String) getAnagramsOfWord} function:
+	* "sa" is a subset of the letters, but "sa" is not a word.
+	* "as" is a word, and sub-anagram, but will not be returned
+	* because "sa" is not a word.
+	* This helper method fixes that.
+	*
+	* @param word The word to find anagrams of.
+	* @return {@code List<String>} list of all possible anagrams
+		of the provided word.
+	*/
+	private List<String> getAnagramsOfSubWord(String word) {
+		word = word.toLowerCase();
+		String sortedWord = sortWord(word);
+		List<String> anagramsOfWord = anagrams.getOrDefault(sortedWord, new ArrayList<>());
+		return anagramsOfWord;
 	}
 
 	/**
@@ -153,6 +198,20 @@ public class Anagrams {
 	}
 
 	/**
+	* Gets a random word that has a number of anagrams equal to the 
+	* number provided in the parameter.
+	*
+	* @param numberOfAnagrams The number of anagrams the returned
+	* word will have.
+	* @return {@code String} Random word with specified number of anagrams.
+	*/
+	public String getWordWithNumberOfAnagrams(int numberOfAnagrams) {
+		List<String> anagramsWithNumber = getNumberOfAnagrams(numberOfAnagrams);
+		int randomIndex = randomGenerator.nextInt(anagramsWithNumber.size());
+		return anagramsWithNumber.get(randomIndex);
+	}
+
+	/**
 	* Find anagrams of all sub-words of the given word.
 	* Gets the power set of all the letters in the word and then loops
 	* through them to find all anagrams of each subset of letters.
@@ -168,7 +227,7 @@ public class Anagrams {
 
 			for (int i = 0; i < subsetsOfWord.size(); i++) {
 				String subsetWord = subsetsOfWord.get(i);
-				List<String> anagramsOfSubset = getAnagramsOfWord(subsetWord);
+				List<String> anagramsOfSubset = getAnagramsOfSubWord(subsetWord);
 
 				if (anagramsOfSubset.size() > 0) {
 					subAnagramsOfWord.addAll(anagramsOfSubset);
@@ -217,6 +276,25 @@ public class Anagrams {
 		else {
 			return "";
 		}
+	}
+
+	/**
+	* Returns the number of words in the specified word source.
+	*
+	* @return {@code int} Size of the word list as an int.
+	*/
+	public int getNumberOfWords() {
+		return wordList.size();
+	}
+
+	/**
+	* Checks if the provided word is valid.
+	*
+	* @param word The word to check.
+	* @return {@code boolean} True if valid, False otherwise.
+	*/
+	public boolean isWord(String word) {
+		return wordList.contains(word);
 	}
 
 	/**

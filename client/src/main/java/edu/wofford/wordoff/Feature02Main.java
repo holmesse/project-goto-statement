@@ -5,7 +5,7 @@ import java.util.*;
 import java.io.*;
 
 /**
-* Feature 02<
+* Feature 02
 * This feature accepts an integer from the command line and
 * presents the user with a word that has a number of anagrams
 * equal to the number provided.

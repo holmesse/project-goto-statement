@@ -15,6 +15,12 @@ public class Main {
 				Feature04Main.main(Arrays.copyOfRange(args, 1, args.length));
 			} else if (args[0].equals("feature05")) {
 				Feature05Main.main(Arrays.copyOfRange(args, 1, args.length));
+		 	} else if (args[0].equals("feature06")) {
+				Feature06Main.main(Arrays.copyOfRange(args, 1, args.length));
+			} else if (args[0].equals("feature07")) {
+		 		Feature07Main.main(Arrays.copyOfRange(args, 1, args.length));
+		 	} else if (args[0].equals("feature08")) {
+		 		Feature08Main.main(Arrays.copyOfRange(args, 1, args.length));
 		 	}
 		} else {
 			System.out.println("Running Feature 01 with input \"sleep\".");
@@ -50,16 +56,21 @@ public class Main {
 
 			System.out.println("");
 
-			System.out.println("Runnning Feature 04 with input \"5\" and random seed \"25\".");
-			System.out.println("[dread, dared, add, dad, dr]");
+			System.out.println("Runnning Feature 04 with input \"4\" and random seed \"25\".");
+			System.out.println("[age, gad, eg]");
 			System.out.println("OUTPUT:");
-			Feature04Main.main(new String[]{"5", "25"});
+			Feature04Main.main(new String[]{"4", "25"});
 
 			System.out.println("");
 
 			System.out.println("Running Feature 05 with difficulty \"4\" and random seed \"25\".");
 			System.out.println("[items, emits, mites, times]");
 			Feature05Main.main(new String[]{"4", "25"});
+
+			System.out.println("");
+
+			System.out.println("Running Feature 06 with difficulty \"1\" and random seed \"25\".");
+			Feature06Main.main(new String[]{"1", "25"});
 		}
 	}
 }
