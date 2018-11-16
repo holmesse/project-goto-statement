@@ -1,6 +1,7 @@
 package edu.wofford.wordoff;
 
 import java.sql.*;
+import java.util.*;
 
 /**
 * This class sets up the results.db SQLite database that is used for keeping track
@@ -82,11 +83,11 @@ public class AnagramsLeaderboard {
    * @return {@code String[][]} Two-dimensional string array
    * representing the results of the query.
    */
-   public String[][] selectLeaderboardData() {
+   public Vector<Vector<String>> selectLeaderboardData() {
       Connection conn = null;
       Statement stmt = null;
 
-      String[][] results = new String[5][4];
+      Vector<Vector<String>> resultsList = new Vector<>();
 
       try {
          Class.forName("org.sqlite.JDBC");
@@ -99,8 +100,12 @@ public class AnagramsLeaderboard {
 
          int rank = 1;
          while (rs.next()) {
-            String[] row = {String.valueOf(rank), rs.getString("word"), String.valueOf(rs.getInt("difficulty")), String.valueOf(rs.getInt("seconds_left"))};
-            results[rank - 1] = row;
+            Vector<String> row = new Vector<>();
+            row.add(String.valueOf(rank));
+            row.add(rs.getString("word"));
+            row.add(String.valueOf(rs.getInt("difficulty")));
+            row.add(String.valueOf(rs.getInt("seconds_left")));
+            resultsList.set(rank - 1, row);
             rank++;
          }
 
@@ -111,7 +116,8 @@ public class AnagramsLeaderboard {
          System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
          System.exit(0);
       }
-      return results;
+
+      return resultsList;
    }
 
    /**
