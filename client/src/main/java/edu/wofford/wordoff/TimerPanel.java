@@ -45,11 +45,11 @@ public class TimerPanel extends JPanel implements ActionListener {
 /**
 * Default Constructor.
 * The default constructor calls the
-* {@link #TimerPanel(int, JButton, JTextField, int) TimerPanel(startTime, button, guess, difficulty)}
-* constructor with starting time 0, and the provided JButton and JTextField parameters.
+* {@link #TimerPanel(int, AnagramsGUI) TimerPanel(startTime, mainFrame)}
+* constructor with starting time 0, and the provided instance of AnagramsGUI.
 *
-* @param button An instance of JButton to be disabled when the timer reaches zero.
-* @param guess An instance of JTextField to be disabled when the timer reaches zero.
+* @param mainFrame Instance of an AnagramsGUI to be used to disable the JButton
+* and JTextField, as well as to create the leaderboard dialog.
 */
   public TimerPanel(AnagramsGUI mainFrame) {
     this(0, mainFrame);
@@ -64,8 +64,8 @@ public class TimerPanel extends JPanel implements ActionListener {
 * and the {@code currentTime} formated as "mm:ss".
 *
 * @param startTime The starting time of the timer.
-* @param button An instance of JButton to be disabled when the timer reaches zero.
-* @param guess An instance of JTextField to be disabled when the timer reaches zero.
+* @param mainFrame Instance of an AnagramsGUI to be used to disable the JButton
+* and JTextField, as well as to create the leaderboard dialog.
 */
   public TimerPanel(int startTime, AnagramsGUI mainFrame) {
     this.startTime = startTime;
@@ -143,8 +143,5 @@ public class TimerPanel extends JPanel implements ActionListener {
     countdownTimer.stop();
   }
 
-  public boolean isTimerRunning() {
-    return countdownTimer.isRunning();
-  }
 
 }

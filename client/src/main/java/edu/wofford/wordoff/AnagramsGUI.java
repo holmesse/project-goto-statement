@@ -25,7 +25,7 @@ import javax.swing.Timer;
 * have been entered. At that point, the game will end in either a
 * loss, if not all anagrams were guessed, or a win, if all anagrams
 * were discovered in time.
-* 
+*
 * <img src="doc-files/gui-win.png" alt="Example of GUI when game is won">
 * An example of the GUI after all words have been guessed.
 */
@@ -71,6 +71,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	*
 	* @param listOfAnagrams A list of anagrams to be used in the generation of the
 	* TimerPanel and JLabel creation.
+	* @param difficulty The number of anagrams to be found during the game
 	*/
 	public AnagramsGUI(List<String> listOfAnagrams, int difficulty) {
 		this(new Random(), listOfAnagrams, difficulty);
@@ -84,6 +85,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	* @param random An instance of Random to use for word generation.
 	* @param listOfAnagrams A list of anagrams to be used in the generation of the
 	* TimerPanel and JLabel creation.
+	* @param difficulty The number of anagrams to be found during the game
 	*/
 	public AnagramsGUI(Random random, List<String> listOfAnagrams, int difficulty) {
 		//set title and name of frame
@@ -149,7 +151,6 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		add(mainPanel, BorderLayout.CENTER);
 		add(guessPanel, BorderLayout.SOUTH);
 		pack();
-		//timerPanel.startTimer();
 	}
 
 /**
@@ -159,19 +160,17 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		timerPanel.startTimer();
 	}
 
-	public int getCurrentTime() {
-		return timerPanel.getCurrentTime();
-	}
-
-	public boolean isTimerRunning() {
-		return timerPanel.isTimerRunning();
-	}
-
+/**
+* Disables the JButton and JTextField in the GUI
+*/
 	public void disableButtonAndTextField() {
 		button.setEnabled(false);
 		guess.setEnabled(false);
 	}
 
+/**
+* Creates a new instance of the {@code ModelessDialog} to display the leaderboard.
+*/
 	public void createLeaderboadDialog() {
 		modelessDialog = new ModelessDialog(this, selectedWord, difficulty, timerPanel.getCurrentTime());
 	}

@@ -53,18 +53,6 @@ public class TimerPanelTest {
   }
 
   @Test
-  public void testTimerCountsDownToZero() {
-    timer = new TimerPanel(5, window);
-    assertEquals(5, timer.getCurrentTime());
-    timer.startTimer();
-    try {
-      TimeUnit.SECONDS.sleep(6);
-    } catch(InterruptedException e) {}
-
-    assertEquals(0, timer.getCurrentTime());
-  }
-
-  @Test
   public void testTimerResetsToStartTime() {
     timer = new TimerPanel(5, window);
     assertEquals(5, timer.getCurrentTime());
@@ -72,6 +60,7 @@ public class TimerPanelTest {
     try {
       TimeUnit.SECONDS.sleep(3);
     } catch(InterruptedException e) {}
+		assertFalse(timer.getCurrentTime() == 5);
 
     timer.stopTimer();
     timer.resetTimer();
