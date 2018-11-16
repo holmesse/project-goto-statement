@@ -14,8 +14,6 @@ import javax.swing.JTable;
 import javax.swing.table.*;
 import javax.swing.table.AbstractTableModel;
 
-import java.util.*;
-
 public class ModelessDialog extends JDialog{
   private JDialog modelessDialog;
   private AnagramsLeaderboard leaderboardData;
@@ -32,23 +30,18 @@ public class ModelessDialog extends JDialog{
   public ModelessDialog(JFrame parent, String selectedWord, int difficulty, int time) {
     leaderboardData = new AnagramsLeaderboard();
 
+    leaderboardData.createLeaderboardTable();
     if(!leaderboardData.leaderboardIsEmpty()) {
       modelessDialog = new JDialog(parent);
       modelessDialog.add(Box.createRigidArea(new Dimension(500, 300)));
 
-
-      leaderboardData.createLeaderboardTable();
       if(time > 0) {
         leaderboardData.insertNewResult(selectedWord, difficulty, time);
       }
 
-      Vector<Vector<String>> dataModel = leaderboardData.selectLeaderboardData();
+      String[][] dataModel = leaderboardData.selectLeaderboardData();
 
-      Vector<String> columnNames = new Vector<>();
-      columnNames.add("Rank");
-      columnNames.add("Word");
-      columnNames.add("Difficulty");
-      columnNames.add("Seconds Left");
+      String[] columnNames = {"Rank", "Word", "Difficulty", "Seconds Left"};
 
       JTable leaderboard = new JTable(dataModel, columnNames);
       leaderboard.setRowHeight(30);

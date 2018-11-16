@@ -83,11 +83,12 @@ public class AnagramsLeaderboard {
    * @return {@code String[][]} Two-dimensional string array
    * representing the results of the query.
    */
-   public Vector<Vector<String>> selectLeaderboardData() {
+   public String[][] selectLeaderboardData() {
       Connection conn = null;
       Statement stmt = null;
 
-      Vector<Vector<String>> resultsList = new Vector<>();
+      String[][] results = new String[5][4];
+      String[][] leaderboardData = new String[0][0];
 
       try {
          Class.forName("org.sqlite.JDBC");
@@ -100,13 +101,23 @@ public class AnagramsLeaderboard {
 
          int rank = 1;
          while (rs.next()) {
-            Vector<String> row = new Vector<>();
-            row.add(String.valueOf(rank));
-            row.add(rs.getString("word"));
-            row.add(String.valueOf(rs.getInt("difficulty")));
-            row.add(String.valueOf(rs.getInt("seconds_left")));
-            resultsList.set(rank - 1, row);
+            String[] row = {String.valueOf(rank), rs.getString("word"), String.valueOf(rs.getInt("difficulty")), String.valueOf(rs.getInt("seconds_left"))};
+            results[rank - 1] = row;
             rank++;
+         }
+
+         int rowCounter = 0;
+         for (int i = 0; i < 5; i++) {
+            if (results[i][0] != null) {
+               rowCounter++;
+            }
+         }
+
+         leaderboardData = new String[rowCounter][4];
+         for (int j = 0; j < 5; j++) {
+            if (results[j][0] != null) {
+               leaderboardData[j] = results[j];
+            }
          }
 
          rs.close();
@@ -116,8 +127,7 @@ public class AnagramsLeaderboard {
          System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
          System.exit(0);
       }
-
-      return resultsList;
+      return leaderboardData;
    }
 
    /**
@@ -137,7 +147,7 @@ public class AnagramsLeaderboard {
          conn = DriverManager.getConnection("jdbc:sqlite:client/build/libs/results.db");
 
          stmt = conn.createStatement();
-         String insertSQL = "SELECT COUNT(*) AS 'count' FROM leaderboard";
+         String insertSQL = "SELECT COUNT(*) AS 'count' FROM leaderboard;";
 
          ResultSet rs = stmt.executeQuery(insertSQL);
 
