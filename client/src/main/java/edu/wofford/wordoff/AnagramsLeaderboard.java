@@ -24,7 +24,6 @@ public class AnagramsLeaderboard {
       try {
          Class.forName("org.sqlite.JDBC");
          conn = DriverManager.getConnection("jdbc:sqlite:client/build/libs/results.db");
-         System.out.println("Opened database successfully");
 
          stmt = conn.createStatement();
          String createLeaderboardSQL = "CREATE TABLE IF NOT EXISTS leaderboard (" +
@@ -38,9 +37,8 @@ public class AnagramsLeaderboard {
          conn.close();
       } catch (Exception e) {
          System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
-         //System.exit(0);
+         System.exit(0);
       }
-      System.out.println("Table created successfully");
    }
 
    /**
@@ -59,7 +57,6 @@ public class AnagramsLeaderboard {
       try {
          Class.forName("org.sqlite.JDBC");
          conn = DriverManager.getConnection("jdbc:sqlite:client/build/libs/results.db");
-         System.out.println(String.format("Inserting %s", word));
 
          stmt = conn.createStatement();
          String insertSQL = String.format("INSERT OR IGNORE INTO leaderboard (word, difficulty, seconds_left) VALUES ('%s', %d, %d);", word, difficulty, seconds_left);
@@ -69,12 +66,11 @@ public class AnagramsLeaderboard {
          conn.close();  
       } catch (SQLException e) {
          System.err.println("ERROR: Error code (" + e.getErrorCode() + "): " + e.getMessage());
-         //System.exit(0);
+         System.exit(0);
       } catch (Exception e) {
          System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
-         //System.exit(0);
+         System.exit(0);
       }
-      System.out.println("Insert executed successfully");
    }
 
    /**
@@ -95,7 +91,6 @@ public class AnagramsLeaderboard {
       try {
          Class.forName("org.sqlite.JDBC");
          conn = DriverManager.getConnection("jdbc:sqlite:client/build/libs/results.db");
-         System.out.println("Selecting data");
 
          stmt = conn.createStatement();
          String insertSQL = "SELECT [word], [difficulty], [seconds_left] FROM leaderboard ORDER BY (([difficulty] * 10 - [seconds_left]) / [difficulty]) LIMIT 5;";
@@ -114,9 +109,8 @@ public class AnagramsLeaderboard {
          conn.close();  
       } catch (Exception e) {
          System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
-         //System.exit(0);
+         System.exit(0);
       }
-      System.out.println("Query executed successfully");
       return results;
    }
 }

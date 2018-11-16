@@ -27,6 +27,9 @@ public class ModelessDialog extends JDialog{
   public ModelessDialog(JFrame parent, String selectedWord, int difficulty, int time) {
     modelessDialog = new JDialog(parent);
     modelessDialog.add(Box.createRigidArea(new Dimension(500, 300)));
+
+    leaderboardData = new AnagramsLeaderboard();
+
     System.out.println("Creating table...");
     leaderboardData.createLeaderboardTable();
     System.out.println("Inserting new result...");
