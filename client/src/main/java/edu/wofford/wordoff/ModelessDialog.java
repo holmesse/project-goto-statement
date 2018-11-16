@@ -51,9 +51,8 @@ public class ModelessDialog extends JDialog{
       modelessDialog.setTitle("Leaderboard");
       //modelessDialog.add(leaderboard);
       modelessDialog.pack();
-      if(!leaderboardData.leaderboardIsEmpty()) {
-        modelessDialog.setVisible(true);
-      }
+      modelessDialog.setVisible(true);
+    }
 
   }
 
