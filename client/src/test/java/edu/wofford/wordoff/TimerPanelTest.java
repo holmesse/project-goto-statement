@@ -4,6 +4,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -14,33 +15,38 @@ import javax.swing.Timer;
 
 public class TimerPanelTest {
 	private TimerPanel timer;
-  private JButton button;
-  private JTextField guess;
+  private AnagramsGUI window;
+
 
 	@Before
 	public void setUp() {
-    button = new JButton();
-    guess = new JTextField();
-		timer = new TimerPanel(button, guess);
+		List<String> listOfAnagrams = new ArrayList<>();
+		listOfAnagrams.add("peels");
+		listOfAnagrams.add("peles");
+		listOfAnagrams.add("sleep");
+		listOfAnagrams.add("speel");
+		int difficulty = 3;
+  	window = new AnagramsGUI(listOfAnagrams, difficulty);
+		timer = new TimerPanel(window);
 	}
 
   @Test
   public void testGetStartTimeReturnsCorrectInt() {
     int numberToTest = 5;
-    timer = new TimerPanel(5, button, guess);
+    timer = new TimerPanel(numberToTest, window);
     assertEquals(numberToTest, timer.getStartTime());
   }
 
   @Test
   public void testGetCurrentTimeReturnsCorrectInt() {
     int numberToTest = 7;
-    timer = new TimerPanel(7, button, guess);
+    timer = new TimerPanel(7, window);
     assertEquals(numberToTest, timer.getCurrentTime());
   }
 
   @Test
   public void testSetStartTimeCorrectlyChanges() {
-    timer = new TimerPanel(button, guess);
+    timer = new TimerPanel(window);
     assertEquals(0, timer.getStartTime());
     timer.setStartTime(10);
     assertEquals(10, timer.getStartTime());
@@ -48,7 +54,7 @@ public class TimerPanelTest {
 
   @Test
   public void testTimerCountsDownToZero() {
-    timer = new TimerPanel(5, button, guess);
+    timer = new TimerPanel(5, window);
     assertEquals(5, timer.getCurrentTime());
     timer.startTimer();
     try {
@@ -60,7 +66,7 @@ public class TimerPanelTest {
 
   @Test
   public void testTimerResetsToStartTime() {
-    timer = new TimerPanel(5, button, guess);
+    timer = new TimerPanel(5, window);
     assertEquals(5, timer.getCurrentTime());
     timer.startTimer();
     try {

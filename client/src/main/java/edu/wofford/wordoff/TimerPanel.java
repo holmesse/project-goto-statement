@@ -22,10 +22,11 @@ public class TimerPanel extends JPanel implements ActionListener {
   private Timer countdownTimer;
   private int currentTime;
   private int startTime;
+  private int difficulty;
+  private String selectedWord;
   private JPanel timerPanel;
   private JLabel timeBox;
-  private JButton button;
-  private JTextField guess;
+  private AnagramsGUI mainFrame;
 
 /**
 * Action preformed every second once the timer has started. Continues until the
@@ -36,24 +37,22 @@ public class TimerPanel extends JPanel implements ActionListener {
     timeBox.setText(String.format("%02d:%02d", currentTime / 60, currentTime % 60));
     if(currentTime <= 0) {
       countdownTimer.stop();
-      button.setEnabled(false);
-      guess.setEnabled(false);
-      JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-      ModelessDialog modelessDialog = new ModelessDialog(parent);
+      mainFrame.disableButtonAndTextField();
+      mainFrame.createLeaderboadDialog();
     }
 	}
 
 /**
 * Default Constructor.
 * The default constructor calls the
-* {@link #TimerPanel(int, JButton, JTextField) TimerPanel(startTime, button, guess)}
+* {@link #TimerPanel(int, JButton, JTextField, int) TimerPanel(startTime, button, guess, difficulty)}
 * constructor with starting time 0, and the provided JButton and JTextField parameters.
 *
 * @param button An instance of JButton to be disabled when the timer reaches zero.
 * @param guess An instance of JTextField to be disabled when the timer reaches zero.
 */
-  public TimerPanel(JButton button, JTextField guess) {
-    this(0, button, guess);
+  public TimerPanel(AnagramsGUI mainFrame) {
+    this(0, mainFrame);
   }
 
 /**
@@ -68,13 +67,13 @@ public class TimerPanel extends JPanel implements ActionListener {
 * @param button An instance of JButton to be disabled when the timer reaches zero.
 * @param guess An instance of JTextField to be disabled when the timer reaches zero.
 */
-  public TimerPanel(int startTime, JButton button, JTextField guess) {
+  public TimerPanel(int startTime, AnagramsGUI mainFrame) {
     this.startTime = startTime;
     this.currentTime = startTime;
+    this.difficulty = difficulty;
     this.countdownTimer = new Timer(1000, null);
     this.countdownTimer.addActionListener(this);
-    this.button = button;
-    this.guess = guess;
+    this.mainFrame = mainFrame;
 
     setLayout(new GridLayout (1, 2, 30, 20));
     setBorder(new EmptyBorder(20, 30, 20, 30));
