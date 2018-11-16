@@ -33,7 +33,9 @@ public class ModelessDialog extends JDialog{
     System.out.println("Creating table...");
     leaderboardData.createLeaderboardTable();
     System.out.println("Inserting new result...");
-    leaderboardData.insertNewResult(selectedWord, difficulty, time);
+    if(time > 0) {
+      leaderboardData.insertNewResult(selectedWord, difficulty, time);
+    }
 
     System.out.println("Selecting data...");
     String[][] dataModel = leaderboardData.selectLeaderboardData();
