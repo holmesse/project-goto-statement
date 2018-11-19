@@ -14,8 +14,8 @@ import javax.swing.JTable;
 import javax.swing.table.*;
 import javax.swing.table.AbstractTableModel;
 
-public class ModelessDialog extends JDialog{
-  private JDialog modelessDialog;
+public class LeaderboardDialog extends JDialog{
+  private JDialog leaderboardDialog;
   private AnagramsLeaderboard leaderboardData;
 
 /**
@@ -27,13 +27,13 @@ public class ModelessDialog extends JDialog{
 * @param difficulty The number of anagams needed to be found.
 * @param time The remaining time after all anagrams were found.
 */
-  public ModelessDialog(JFrame parent, String selectedWord, int difficulty, int time) {
+  public LeaderboardDialog(JFrame parent, String selectedWord, int difficulty, int time) {
     leaderboardData = new AnagramsLeaderboard();
 
     leaderboardData.createLeaderboardTable();
     if(!leaderboardData.leaderboardIsEmpty()) {
-      modelessDialog = new JDialog(parent);
-      modelessDialog.add(Box.createRigidArea(new Dimension(500, 300)));
+      leaderboardDialog = new JDialog(parent);
+      leaderboardDialog.add(Box.createRigidArea(new Dimension(500, 300)));
 
       if(time > 0) {
         leaderboardData.insertNewResult(selectedWord, difficulty, time);
@@ -45,13 +45,12 @@ public class ModelessDialog extends JDialog{
 
       JTable leaderboard = new JTable(dataModel, columnNames);
       leaderboard.setRowHeight(30);
-      modelessDialog.add(new JScrollPane(leaderboard));
+      leaderboardDialog.add(new JScrollPane(leaderboard));
 
       leaderboard.setName("leaderboard");
-      modelessDialog.setTitle("Leaderboard");
-      //modelessDialog.add(leaderboard);
-      modelessDialog.pack();
-      modelessDialog.setVisible(true);
+      leaderboardDialog.setTitle("Leaderboard");
+      leaderboardDialog.pack();
+      leaderboardDialog.setVisible(true);
     }
 
   }

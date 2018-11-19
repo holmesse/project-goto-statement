@@ -38,7 +38,7 @@ public class TimerPanel extends JPanel implements ActionListener {
     if(currentTime <= 0) {
       countdownTimer.stop();
       mainFrame.disableButtonAndTextField();
-      mainFrame.createLeaderboadDialog();
+      mainFrame.showLeaderboadDialog();
     }
 	}
 

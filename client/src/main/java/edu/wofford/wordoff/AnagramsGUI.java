@@ -37,7 +37,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	private JLabel target;
 	private JButton button;
 	private TimerPanel timerPanel;
-	private ModelessDialog modelessDialog;
+	private LeaderboardDialog leaderboardDialog;
 	private int difficulty;
 	private String selectedWord;
 
@@ -58,7 +58,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 				button.setEnabled(false);
 				guess.setEnabled(false);
 				timerPanel.stopTimer();
-				createLeaderboadDialog();
+				showLeaderboadDialog();
 			}
 			//if guess is incorrect rest the textfield to empty
 			guess.setText("");
@@ -119,7 +119,6 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 			label.setBorder(new LineBorder(Color.BLACK));
 			label.setName("anagram" + Integer.toString(i));
 			label.setPreferredSize(preferredSize);
-			//label.setMinimumSize(preferredSize);
 			mainPanel.add(label);
 			dictionary.put(listOfAnagrams.get(i),label);
 		}
@@ -169,10 +168,10 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	}
 
 /**
-* Creates a new instance of the {@code ModelessDialog} to display the leaderboard.
+* Creates a new instance of the {@code LeaderboardDialog} to display the leaderboard.
 */
-	public void createLeaderboadDialog() {
-		modelessDialog = new ModelessDialog(this, selectedWord, difficulty, timerPanel.getCurrentTime());
+	public void showLeaderboadDialog() {
+		leaderboardDialog = new LeaderboardDialog(this, selectedWord, difficulty, timerPanel.getCurrentTime());
 	}
 
 	public static void main(String[] args) {
