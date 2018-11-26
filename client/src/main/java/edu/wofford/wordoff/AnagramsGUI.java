@@ -29,7 +29,7 @@ import javax.swing.Timer;
 * <img src="doc-files/gui-win.png" alt="Example of GUI when game is won">
 * An example of the GUI after all words have been guessed.
 */
-public class AnagramsGUI extends JFrame implements ActionListener {
+public class AnagramsGUI extends JFrame implements ActionListener, TimerListener{
 	private JTextField guess;
 	// dictionary:
 	//  Contains the anagram as the key and the JLabel as the value.
@@ -62,6 +62,10 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 			}
 			//if guess is incorrect rest the textfield to empty
 			guess.setText("");
+	}
+
+	public void timerExpired(){
+		disableButtonAndTextField();
 	}
 
 	/**
@@ -146,6 +150,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 
 		int totalTime = 10 * listOfAnagrams.size();
 		timerPanel = new TimerPanel(totalTime, this);
+		timerPanel.setTimerListener(this);
 		add(timerPanel, BorderLayout.NORTH);
 		add(mainPanel, BorderLayout.CENTER);
 		add(guessPanel, BorderLayout.SOUTH);
