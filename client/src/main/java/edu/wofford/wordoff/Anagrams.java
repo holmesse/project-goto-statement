@@ -18,7 +18,7 @@ import java.util.Scanner;
 * {@link #Anagrams(String) Anagrams(fileName)} constructor.
 * <br>
 * The following is an example of how to intialize an {@code Anagrams} object using
-* the various {@code Anagrams} constructors.
+* the various {@code Anagrams} constructors and how to use the included methods.
 * <pre>{@code
 * //Default constructor
 * Anagrams anagram = new Anagrams();
@@ -33,6 +33,49 @@ import java.util.Scanner;
 * //Constructor with both a Random Instance and a word file
 * Random randomInstance = new Random();
 * Anagrams anagramsWithRandomInstanceAndWordFile = new Anagrams(randomInstance, "commonwords.txt");
+*
+* //getAnagramsOfWord method used to get all anagrams of the given word
+* String word = "takers";
+* Anagrams anagrams = new Anagrams();
+* List<String> anagramsOfWord = anagrams.getAnagramsOfWord(word);
+* //anagramsOfWord contains [skater, staker, strake, streak, takers, tasker]
+*
+* //getNumberOfAnagrams method used to get a random list of anagrams with the specified length
+* int numberOfAnagrams = 5;
+* Anagrams anagrams = new Anagrams();
+* List<String> listOfAnagrams = anagrams.getNumberOfAnagrams(numberOfAnagrams);
+* //example case: listOfAnagrams contains [emits, items, mites, smite, times]
+*
+* //getWordWithNumberOfAnagrams method used to get a random word that has a number of anagrams equal to the given number
+* int numberOfAnagrams = 5;
+* Anagrams anagrams = new Anagrams();
+* String wordWithFiveAnagrams = anagrams.getWordWithNumberOfAnagrams(numberOfAnagrams);
+* //example case: wordWithFiveAnagrams contains "smite" from the list of anagrams [emits, items, mites, smite, times]
+*
+* //getSubAnagramsOfWord method used anagrams of all sub-words of the given word
+* String word = "aged"
+* Anagrams anagrams = new Anagrams();
+* List<String> listOfSubAnagrams = anagrams.getSubAnagramsOfWord(word);
+* //example case: listOfSubAnagrams contains [age, gad, eg]
+*
+* //getWordWithLength method used to get a word with the given length of the word
+* int lengthOfWord = 5;
+* Anagrams anagrams = new Anagrams();
+* String wordWithLength = anagrams.getWordWithLength(lengthOfWord);
+* //example case: wordWithLength contains "emits"
+*
+* //getNumberOfWords method used to get the number of words in the specified word source
+* Anagrams anagrams = new Anagrams();
+* int numberOfWords = anagrams.getNumberOfWords();
+* //numberOfWords contains the number 370099
+*
+* //isWord method used to check if the provided string is a words
+* String word = "times";
+* String notWord = "notword";
+* Anagrams anagrams = new Anagrams();
+* boolean resultOne = anagrams.isWord(word);
+* boolean resultTwo = anagrams.isWord(notWord);
+* //resultOne contains true, while resultTwo contains false
 * }</pre>
 *
 *
@@ -103,7 +146,7 @@ public class Anagrams {
 
 	/**
 	* Create anagrams data structure.
-	* This method reads the words from the allwords.txt file and
+	* This method reads the words from the given file and
 	* hashes them into {@code anagrams}.
 	*
 	* @param fileName The name of the file to draw words from.
@@ -198,7 +241,7 @@ public class Anagrams {
 	}
 
 	/**
-	* Gets a random word that has a number of anagrams equal to the 
+	* Gets a random word that has a number of anagrams equal to the
 	* number provided in the parameter.
 	*
 	* @param numberOfAnagrams The number of anagrams the returned

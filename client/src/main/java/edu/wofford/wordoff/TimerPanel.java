@@ -29,7 +29,7 @@ public class TimerPanel extends JPanel implements ActionListener {
   private AnagramsGUI mainFrame;
 
 /**
-* Action preformed every second once the timer has started. Continues until the
+* Action performed every second once the timer has started. Continues until the
 * {@code currentTime} reaches zero or the {@code stopTimer()} method is called.
 */
   public void actionPerformed(ActionEvent event) {
