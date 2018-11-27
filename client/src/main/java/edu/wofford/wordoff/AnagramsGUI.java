@@ -66,6 +66,7 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
 
 	public void timerExpired(){
 		disableButtonAndTextField();
+		showLeaderboadDialog();
 	}
 
 	/**
