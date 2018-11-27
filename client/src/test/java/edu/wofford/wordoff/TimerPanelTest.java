@@ -27,26 +27,26 @@ public class TimerPanelTest {
 		listOfAnagrams.add("speel");
 		int difficulty = 3;
   	window = new AnagramsGUI(listOfAnagrams, difficulty);
-		timer = new TimerPanel(window);
+		timer = new TimerPanel();
 	}
 
   @Test
   public void testGetStartTimeReturnsCorrectInt() {
     int numberToTest = 5;
-    timer = new TimerPanel(numberToTest, window);
+    timer = new TimerPanel(numberToTest);
     assertEquals(numberToTest, timer.getStartTime());
   }
 
   @Test
   public void testGetCurrentTimeReturnsCorrectInt() {
     int numberToTest = 7;
-    timer = new TimerPanel(7, window);
+    timer = new TimerPanel(7);
     assertEquals(numberToTest, timer.getCurrentTime());
   }
 
   @Test
   public void testSetStartTimeCorrectlyChanges() {
-    timer = new TimerPanel(window);
+    timer = new TimerPanel();
     assertEquals(0, timer.getStartTime());
     timer.setStartTime(10);
     assertEquals(10, timer.getStartTime());
@@ -54,7 +54,7 @@ public class TimerPanelTest {
 
   @Test
   public void testTimerResetsToStartTime() {
-    timer = new TimerPanel(5, window);
+    timer = new TimerPanel(5);
     assertEquals(5, timer.getCurrentTime());
     timer.startTimer();
     try {
