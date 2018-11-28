@@ -42,7 +42,7 @@ public class AnagramsControllerTest extends AbstractTest {
 			System.err.println("ERROR: " + e.toString());
 			System.err.println("Stack trace:\n");
 			e.printStackTrace();
-			assertTrue(false);
+			fail("Error occurred.");
 		}
 	}
 
@@ -70,7 +70,7 @@ public class AnagramsControllerTest extends AbstractTest {
 			System.err.println("ERROR: " + e.toString());
 			System.err.println("Stack trace:");
 			e.printStackTrace();
-			assertTrue(false);
+			fail("Error occurred.");
 		}
 	}
 
@@ -100,7 +100,7 @@ public class AnagramsControllerTest extends AbstractTest {
 			System.err.println("ERROR: " + e.toString());
 			System.err.println("Stack trace:");
 			e.printStackTrace();
-			assertTrue(false);
+			fail("Error occurred.");
 		}
 	}
 
@@ -132,7 +132,7 @@ public class AnagramsControllerTest extends AbstractTest {
 			System.err.println("ERROR: " + e.toString());
 			System.err.println("Stack trace:");
 			e.printStackTrace();
-			assertTrue(false);
+			fail("Error occurred.");
 		}
 	}
 
@@ -171,7 +171,7 @@ public class AnagramsControllerTest extends AbstractTest {
 			System.err.println("ERROR: " + e.toString());
 			System.err.println("Stack trace:");
 			e.printStackTrace();
-			assertTrue(false);
+			fail("Error occurred.");
 		}
 	}
 
@@ -212,7 +212,7 @@ public class AnagramsControllerTest extends AbstractTest {
 			System.err.println("ERROR: " + e.toString());
 			System.err.println("Stack trace:");
 			e.printStackTrace();
-			assertTrue(false);
+			fail("Error occurred.");
 		}
 	}
 
@@ -251,7 +251,7 @@ public class AnagramsControllerTest extends AbstractTest {
 			System.err.println("ERROR: " + e.toString());
 			System.err.println("Stack trace:");
 			e.printStackTrace();
-			assertTrue(false);
+			fail("Error occurred.");
 		}
 	}
 }
