@@ -33,6 +33,62 @@ interface TimerListener{
 * <pre>{@code
 * //Default constructor
 * TimerPanel panel = new TimerPanel();
+*
+* //Constructor with starting time
+* int startingTime = 30;
+* TimerPanel panel = new TimerPanel(startingTime);
+*
+* //addTimerListener method adds a TimerListener object to the TimerPanel and allows TimerPanel to fire off events
+* //example case: within a class that implements TimerListener
+* public class someClass extends JFrame implements TimerListener{
+* ...
+*   public someClass(){
+*     TimerPanel panel = new TimerPanel(30);
+*     timerPanel.addTimerListener(this);
+*     ...
+*   }
+* ...
+* }
+*
+* //timerReachesZero method used to fire off a timerExpired event
+* //example case: within the TimerPanel actionlistener
+* public void actionPerformed(ActionEvent event) {
+*   currentTime -= 1;
+*   ...
+*   if(currentTime <= 0) {
+*     countdownTimer.stop();
+*     timerReachesZero();
+*   }
+* }
+*
+* //getStartTime method used to get the starting time of a TimerPanel object
+* TimerPanel panelOne = new TimerPanel();
+* TimerPanel panelTwo = new TimerPanel(30);
+* int panelOneStartTime = panelOne.getStartTime();
+* //panelOneStartTime contains 0
+* int panelTwoStartTime = panelTwo.getStartTime();
+* //panelTwoStartTime contains 30
+*
+* //setStartTime method used to set the starting time of a TimerPanel object
+* TimerPanel panel = new TimerPanel();
+* panel.setStartTime(30);
+* int startingTime = panel.getStartTime();
+* //startingTime contains 30
+*
+* //getCurrentTime method used to get the current time of a TimerPanel object
+* //startTimer method used to start the TimerPanel countdown timer
+* //stopTimer method used to stop the TimerPanel countdown timer
+* //resetTimer method used to reset the TimerPanel countdown timer to its original starting time
+* TimerPanel panel = new TimerPanel(10);
+* panel.startTimer();
+* ... after waiting 5 seconds ...
+* panel.stopTimer();
+* int currentPanelTime = panel.getCurrentTime();
+* //currentPanelTime contains 5
+* panel.resetTimer();
+* currentPanelTime = panel.getCurrentTime();
+* //currentPanelTime contains 10
+*
 * }</pre>
 *
 */
@@ -60,10 +116,17 @@ public class TimerPanel extends JPanel implements ActionListener {
     }
 	}
 
-  public void setTimerListener(TimerListener listener){
+/**
+* Adds a TimerListener object to the TimerPanel and allows for the TimerPanel to
+* fire off events to any class that implemented the TimerListener interface.
+*/
+  public void addTimerListener(TimerListener listener){
     this.listeners = listener;
   }
 
+/**
+* Fires off a {@code TimerListener timerExpired()} event when called.
+*/
   public void timerReachesZero(){
     if(listeners != null){
       listeners.timerExpired();
@@ -123,16 +186,6 @@ public class TimerPanel extends JPanel implements ActionListener {
   }
 
 /**
-* Returns the {@code currentTime} of the timer.
-*
-* @return An {@code int} representing the current time of the
-* countdown timer
-*/
-  public int getCurrentTime() {
-    return currentTime;
-  }
-
-/**
 * Sets a new {@code startTime} of the timer.
 *
 * @param newTime An {@code int} representing the new starting time of the
@@ -143,11 +196,13 @@ public class TimerPanel extends JPanel implements ActionListener {
   }
 
 /**
-* Resets the {@code countdownTimer} by setting the {@code currentTime} to the
-* {@code startTime}.
+* Returns the {@code currentTime} of the timer.
+*
+* @return An {@code int} representing the current time of the
+* countdown timer
 */
-  public void resetTimer() {
-    this.currentTime = startTime;
+  public int getCurrentTime() {
+    return currentTime;
   }
 
 /**
@@ -164,5 +219,12 @@ public class TimerPanel extends JPanel implements ActionListener {
     countdownTimer.stop();
   }
 
+/**
+* Resets the {@code countdownTimer} by setting the {@code currentTime} to the
+* {@code startTime}.
+*/
+  public void resetTimer() {
+    this.currentTime = startTime;
+  }
 
 }

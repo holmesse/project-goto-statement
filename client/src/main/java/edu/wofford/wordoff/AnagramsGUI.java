@@ -151,7 +151,7 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
 
 		int totalTime = 10 * listOfAnagrams.size();
 		timerPanel = new TimerPanel(totalTime);
-		timerPanel.setTimerListener(this);
+		timerPanel.addTimerListener(this);
 		add(timerPanel, BorderLayout.NORTH);
 		add(mainPanel, BorderLayout.CENTER);
 		add(guessPanel, BorderLayout.SOUTH);
