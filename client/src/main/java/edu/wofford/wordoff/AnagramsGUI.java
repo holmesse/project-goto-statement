@@ -64,6 +64,12 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
 			guess.setText("");
 	}
 
+	/**
+	* Implementation of the timerExpired method from the TimerListener interface.
+	* When called the method disables the button and text field using
+	* {@code disableButtonAndTextField}, then calls the
+	* {@code showLeaderboadDialog()} method.
+	*/
 	public void timerExpired(){
 		disableButtonAndTextField();
 		showLeaderboadDialog();
@@ -171,6 +177,10 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
 	public void disableButtonAndTextField() {
 		button.setEnabled(false);
 		guess.setEnabled(false);
+	}
+
+	public boolean getButtonAndTextFieldState() {
+		return button.isEnabled() && guess.isEnabled();
 	}
 
 /**

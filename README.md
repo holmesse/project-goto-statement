@@ -3,14 +3,14 @@ project-goto-statement is a program that will help you learn anagrams for words.
 
 ## Features
 This program has 10 features total and all of the features utilize one of two textfiles
-"allwords.txt" or "commonwords.txt"
+`allwords.txt` or `commonwords.txt`
 
-###Feature01
+### Feature01
 Taking a single command-line argument, a string or integer, the program returns
 either all of the anagrams for the given string or a randomly selected string with
 the same number of anagrams as the given integer.
-####Example
-Assume that the main program is called Feature01.
+#### Example
+Assume that the main program is called `Feature01`.
 
 Call: `java Feature01 slEEp`
 
@@ -21,13 +21,13 @@ Output:
     sleep
     speel
 
-###Feature02
+### Feature02
 Taking a single command-line argument integer representing the number of anagrams a
 word should have, program randomly chooses word with that many anagrams and returns both
 that word and the number of remaining anagrams. It the then prompts the user to enter
 an anagram of the word and if it is an anagram, the number of remaining anagrams goes down.
 #### Example
-Assume that the main program is called Feature02.
+Assume that the main program is called `Feature02`.
 
 Call: `java Feature02 6`
 
@@ -43,11 +43,11 @@ Example Interaction:
 
 Note that the user response is after the colon on each line.
 
-###Feature03
+### Feature03
 Taking a single command-line argument string, the program returns all the anagrams and
 subanagrams of the given string in alphabetical order.
 #### Example
-Assume that the main program is called Feature03.
+Assume that the main program is called `Feature03`.
 
 Call: `java Feature03 star`
 
@@ -91,14 +91,14 @@ Output:
     ts
     tsar
 
-###Feature04
+### Feature04
 Taking a single command-line argument either a string or an integer, the program will
 either randomly choose a word with the number of anagrams equal to the integer
 or the given string as well as the number of remaining anagrams and subanagrams. It
 the prompts the user to enter an anagram or subanagram of the starting word and if
 the input is an anagram or subanagram, the appropriate count is reduced.
 #### Example
-Assume that the main program is called Feature04.
+Assume that the main program is called `Feature04`.
 
 Call: `java Feature04 4`
 
@@ -115,25 +115,25 @@ Example Interaction:
 
 Note that the user response is after the colon on each line.
 
-###Feature05
-This feature turns Feature02 into a GUI where the input is typed into a field and a button
-labeled 'Guess' is clicked. If the input is an anagram, the word appears in alphabetical order
+### Feature05
+This feature turns `Feature02` into a GUI where the input is typed into a field and a button
+labeled `Guess` is clicked. If the input is an anagram, the word appears in alphabetical order
 on the GUI. Once all anagrams are entered, the box containing the target word is highlighted
 in green.
 #### Example
 //add screenshot of GUI before and after end
 
-###Feature06
-This feature adds a timer to the GUI constructed from Feature05 with an initial time of
+### Feature06
+This feature adds a timer to the GUI constructed from `Feature05` with an initial time of
 10 seconds per anagram, e.g. - six anagrams means 60 second timer. As soo as the program loads,
 the timer counts down. If the user gets all the anagrams before the timer ends, the timer stops and displays the remaining time. Conversely, if the timer ends before the user has entered all the
 anagrams, the 'Guess' button and textfield is disabled, preventing the user from inputing anything.
 #### Example
 //add gifs of GUI timer ending and timer stopping on win
 
-###Feature07
-This feature adds a database to Feature06 containing the top 5 scores recorded. Using the
-formula score = (difficulty * 10 - time_remaining) / difficulty, the program determines if
+### Feature07
+This feature adds a database to `Feature06` containing the top 5 scores recorded. Using the
+formula `score = (difficulty * 10 - time_remaining) / difficulty`, the program determines if
 the user placed anywhere on the leaderboard and updates the database accordingly, but only if the current
 winning word is not already in the database with the given difficulty or if
 it exists but the seconds remaining are larger than what is already in the
@@ -141,7 +141,7 @@ database.
 #### Example
 //add screenshot of leaderboard
 
-###Feature08
+### Feature08
 Creates a web service to get word and anagram information. The web service supports
 the following queries:
 `<root>/wordoff/[source]/numwords` Returns an integer representing the number of words in `source`
@@ -158,19 +158,19 @@ the following queries:
 
 `<root>/wordoff/[source]/allanagrams/{word}` Returns a JSON array of all anagrams and subanagrams of `word` in `source`
 
-Note: '[source]' can be either 'all' or 'common' for allwords.txt ot commonwords.txt respectively
+Note: `[source]` can be either `all` or `common` for `allwords.txt` or `commonwords.txt` respectively.
 
 #### Example
 //add screenshot of web service
 
-###Feature09
+### Feature09
 The program should take an integer as a single command-line argument,
 representing the number of anagrams the chosen starting word should have
 (the "difficulty" for this game). The difficulty is then sent to a server
 that responds with the target word and its anagrams. All behavior of the main
 program and GUI should be the same as before.
 
-###Feature10
+### Feature10
 Moves the leaderboard feature to the webservice and supports the following queries
 
 `<root>/wordoff/leaderboard/top/{number}`
