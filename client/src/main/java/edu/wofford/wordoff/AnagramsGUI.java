@@ -171,6 +171,14 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
 		timerPanel.startTimer();
 	}
 
+	public int getStartTime() {
+		return timerPanel.getStartTime();
+	}
+
+	public int getCurrentTime() {
+		return timerPanel.getCurrentTime();
+	}
+
 /**
 * Returns the {@code JButton} object of the AnagramsGUI.
 * @return The {@code JButton} object intialized by the AnagramsGUI constructor

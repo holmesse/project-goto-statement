@@ -3,6 +3,7 @@ package edu.wofford.wordoff;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -46,6 +47,33 @@ public class AnagramsGUITest {
     assertEquals(true, window.getButtonAndTextFieldState(window.getButton(), window.getTextField()));
     window.disableButtonAndTextField();
     assertEquals(false, window.getButtonAndTextFieldState(window.getButton(), window.getTextField()));
+  }
+
+  @Test
+  public void testStartTimer() {
+    assertEquals(30, window.getStartTime());
+    window.startTimer();
+    try {
+      TimeUnit.SECONDS.sleep(5);
+    } catch(InterruptedException e) {}
+      //doesnt count down by five on this sleep
+		assertEquals(26, window.getCurrentTime());
+    try {
+      TimeUnit.SECONDS.sleep(5);
+    } catch(InterruptedException e) {}
+      //does count down by five on this sleep
+		assertEquals(21, window.getCurrentTime());
+  }
+
+  @Test
+  public void testTimerExpired() {
+    window.startTimer();
+    try {
+      TimeUnit.SECONDS.sleep(31);
+    } catch(InterruptedException e) {}
+		assertEquals(0, window.getCurrentTime());
+    assertTrue(window.getButtonAndTextFieldState(window.getButton(), window.getTextField()) == false);
+
   }
 
 }
