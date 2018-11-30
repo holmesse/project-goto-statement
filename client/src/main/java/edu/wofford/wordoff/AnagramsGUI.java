@@ -172,6 +172,22 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
 	}
 
 /**
+* Returns the {@code JButton} object of the AnagramsGUI.
+* @return The {@code JButton} object intialized by the AnagramsGUI constructor
+*/
+	public JButton getButton(){
+		return this.button;
+	}
+
+/**
+* Returns the {@code JTextField} object of the AnagramsGUI.
+* @return The {@code JTextField} object intialized by the AnagramsGUI constructor
+*/
+	public JTextField getTextField(){
+		return this.guess;
+	}
+
+/**
 * Disables the JButton and JTextField in the GUI
 */
 	public void disableButtonAndTextField() {
@@ -179,8 +195,15 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
 		guess.setEnabled(false);
 	}
 
-	public boolean getButtonAndTextFieldState() {
-		return button.isEnabled() && guess.isEnabled();
+/**
+* Returns the current state of the given {@code JButton} and {@code JTextField}
+* objects.
+* @param jbutton JButton object to check to see if it is enabled
+* @param jtextfield JTextField object to check to see if it is enabled
+* @return returns true if both are enabled, returns false otherwise
+*/
+	public boolean getButtonAndTextFieldState(JButton jbutton, JTextField jtextfield) {
+		return jbutton.isEnabled() && jtextfield.isEnabled();
 	}
 
 /**

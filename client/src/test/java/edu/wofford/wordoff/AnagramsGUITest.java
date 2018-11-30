@@ -4,6 +4,11 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.*;
 
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.Timer;
+
 public class AnagramsGUITest {
   private AnagramsGUI window;
   private Random random;
@@ -22,16 +27,25 @@ public class AnagramsGUITest {
 	}
 
   @Test
-  public void testButtonAndTextFieldAreDisabledByMethod() {
-    assertEquals(true, window.getButtonAndTextFieldState());
-    window.disableButtonAndTextField();
-    assertEquals(false, window.getButtonAndTextFieldState());
+  public void testGetButtonAndTextFieldStateReturnsCorrectValues() {
+    JButton button = new JButton();
+    JTextField guess = new JTextField();
+    assertTrue(window.getButtonAndTextFieldState(button, guess));
+    button.setEnabled(false);
+    guess.setEnabled(false);
+    assertFalse(window.getButtonAndTextFieldState(button, guess));
+    button.setEnabled(true);
+    assertFalse(window.getButtonAndTextFieldState(button, guess));
+    button.setEnabled(false);
+    guess.setEnabled(true);
+    assertFalse(window.getButtonAndTextFieldState(button, guess));
   }
 
   @Test
-  public void testLeaderboardDialogDisplaysWhenCalled() {
-    window.showLeaderboadDialog();
-    //check if showing
+  public void testButtonAndTextFieldAreDisabledByMethod() {
+    assertEquals(true, window.getButtonAndTextFieldState(window.getButton(), window.getTextField()));
+    window.disableButtonAndTextField();
+    assertEquals(false, window.getButtonAndTextFieldState(window.getButton(), window.getTextField()));
   }
 
 }
