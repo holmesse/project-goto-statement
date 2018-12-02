@@ -76,4 +76,16 @@ public class AnagramsGUITest {
 
   }
 
+  @Test
+  public void testActionPerformedOnButtonClick() {
+    JButton testButton = window.getButton();
+    JTextField testField = window.getTextField();
+    String[] guessArray = {"peels", "peles", "sleep", "speel"};
+    for(String word : guessArray) {
+      testField.setText(word);
+      testButton.doClick();
+    }
+    assertEquals(false, window.getButtonAndTextFieldState(window.getButton(), window.getTextField()));
+  }
+
 }
