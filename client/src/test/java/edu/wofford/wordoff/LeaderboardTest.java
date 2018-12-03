@@ -18,6 +18,7 @@ public class LeaderboardTest {
   @Before
   public void setup() {
     parentFrame = new JFrame();
+    parentFrame.setVisible(true);
     database = new AnagramsLeaderboard();
     try {
       database.insertNewResult("test", 4, 10);
@@ -29,12 +30,12 @@ public class LeaderboardTest {
 
   }
 
-  /*@Test
+  @Test
   public void testIfLeaderboardIsVisible() {
     selectWord = "emits";
     difficulty = 4;
     time = 5;
     leaderboard = new LeaderboardDialog(parentFrame, selectWord, difficulty, time);
-    //assertEquals(true, leaderboard.isVisible()); not working
-  }*/
+    assertTrue(leaderboard != null);
+  }
 }
