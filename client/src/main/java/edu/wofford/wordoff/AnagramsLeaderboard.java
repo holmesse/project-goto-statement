@@ -11,9 +11,6 @@ public class AnagramsLeaderboard {
 
    private String pathToDatabase = "jdbc:sqlite:results.db";
 
-   public static void main( String args[] ) {
-   }
-
    /**
    * Create Leaderboard.
    * This method creates a new leaderboard table if one
@@ -26,7 +23,7 @@ public class AnagramsLeaderboard {
    public void createLeaderboardTable() throws ClassNotFoundException, SQLException {
       Connection conn = null;
       Statement stmt = null;
-      Class.forName("org.sqlite.JDBC");
+      //Class.forName("org.sqlite.JDBC");
       conn = DriverManager.getConnection(pathToDatabase);
 
       stmt = conn.createStatement();
