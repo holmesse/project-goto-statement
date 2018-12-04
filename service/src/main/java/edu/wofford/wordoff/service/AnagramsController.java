@@ -152,4 +152,21 @@ public class AnagramsController {
 		}
 		scores.build();*/
 	}
+
+	@RequestMapping("/wordoff/leaderboard/add/{word}/{difficulty}/{secondsleft}")
+	public boolean insertNewLeaderboardResult(@PathVariable String word, @PathVariable int difficulty, @PathVariable int secondsleft) {
+		initAnagramsWithSource("all");
+		boolean recordInserted = false;
+		try {
+			AnagramsLeaderboard.createLeaderboardTable();
+			AnagramsLeaderboard.insertNewResult(word, difficulty, secondsleft);
+			recordInserted = true;
+		} catch (Exception e) {
+			recordInserted = false;
+			System.err.println("Leaderboard table was not created due to an error. See stack trace for details.");
+			System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+			e.printStackTrace();
+		}
+		return recordInserted;
+	}
 }
