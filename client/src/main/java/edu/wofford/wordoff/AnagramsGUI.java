@@ -11,6 +11,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.Timer;
 
+import java.net.*;
 
 
 /**
@@ -228,31 +229,80 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
 			try {
 				int difficulty = Integer.parseInt(args[0]);
 
+				String targetWord;
+				List<String> listOfAnagrams = new ArrayList<>();
+
 				//if the argument is atleast 1, find a random word with difficulty number of anagrams
 				//create a hashmap and make a new window for the word
 				if (difficulty >= 1) {
-					Anagrams anagrams;
-					Random random;
-					if (args.length > 1) {
-						long randomSeed = Long.parseLong(args[1]);
-						random = new Random(randomSeed);
-						anagrams = new Anagrams(random, "commonwords.txt");
-					} else {
-						anagrams = new Anagrams("commonwords.txt");
-						random = new Random();
-					}
-					List<String> listOfAnagrams = anagrams.getNumberOfAnagrams(difficulty + 1);
+					try {
+						URL targetUrl = new URL("http://localhost:8080/wordoff/common/wordwithanagrams/" + (difficulty + 1));
+						HttpURLConnection targetConn = (HttpURLConnection) targetUrl.openConnection();
+						targetConn.setRequestMethod("GET");
 
-					if(listOfAnagrams != null && listOfAnagrams.size() != 0) {
-						AnagramsGUI window = new AnagramsGUI(random, listOfAnagrams, difficulty);
-						window.setVisible(true);
-						window.startTimer();
+						int status = targetConn.getResponseCode();
+						if (status == 200) {
+							StringBuffer targetContent = new StringBuffer();
+							try (BufferedReader in = new BufferedReader(new InputStreamReader(targetConn.getInputStream()))) {
+								String inputLine;
+								while ((inputLine = in.readLine()) != null) {
+									targetContent.append(inputLine);
+								}
+								in.close();
+							} catch (Exception e) {
+								System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+           						e.printStackTrace();
+							}
+
+							targetWord = targetContent.toString();
+							System.out.println("Target word: " + targetWord);
+
+							URL anagramsUrl = new URL("http://localhost:8080/wordoff/common/anagrams/" + targetWord);
+							HttpURLConnection anagramsConn = (HttpURLConnection) anagramsUrl.openConnection();
+
+							status = anagramsConn.getResponseCode();
+							if (status == 200) {
+								StringBuffer anagramsContent = new StringBuffer();
+								try (BufferedReader in = new BufferedReader(new InputStreamReader(anagramsConn.getInputStream()))) {
+									String inputLine;
+									while ((inputLine = in.readLine()) != null) {
+										anagramsContent.append(inputLine);
+									}
+									in.close();
+								} catch (Exception e) {
+									System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+           							e.printStackTrace();
+								}
+
+								String anagramsString = anagramsContent.toString();
+								anagramsString = anagramsString.replace("[", "");
+								anagramsString = anagramsString.replace("]", "");
+								anagramsString = anagramsString.replace("\"", "");
+
+								listOfAnagrams = new ArrayList<String>(Arrays.asList(anagramsString.split(",")));
+
+								System.out.println("Anagrams list: " + listOfAnagrams);
+							}
+
+							anagramsConn.disconnect();
+							targetConn.disconnect();
+						}
+						
+
+						if(listOfAnagrams != null && listOfAnagrams.size() != 0) {
+							AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+							window.setVisible(true);
+							window.startTimer();
+						}
+
+					} catch (Exception e) {
+						System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+           				e.printStackTrace();
 					}
 
 			//catch exceptions if too large, too small, or invalid input
-			}
-		}
-			catch (NumberFormatException | IndexOutOfBoundsException e){}
+				}
+			} catch (NumberFormatException | IndexOutOfBoundsException e){}
 		}
 	}
 }

@@ -38,6 +38,17 @@ public class LeaderboardDialog extends JDialog{
             e.printStackTrace();
         }
 
+        if (time > 0) {
+            try {
+                leaderboardData.insertNewResult(selectedWord, difficulty, time); 
+            } catch (Exception e) {
+                System.err.println("Data was not successfully inserted into leaderboard."
+                    + "See stack trace for details.");
+                System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
         boolean tableIsEmpty = true;
         try {
             tableIsEmpty = leaderboardData.leaderboardIsEmpty();
@@ -50,17 +61,6 @@ public class LeaderboardDialog extends JDialog{
         if (!tableIsEmpty) {
             leaderboardDialog = new JDialog(parent);
             leaderboardDialog.add(Box.createRigidArea(new Dimension(500, 300)));
-
-            if (time > 0) {
-                try {
-                    leaderboardData.insertNewResult(selectedWord, difficulty, time); 
-                } catch (Exception e) {
-                    System.err.println("Data was not successfully inserted into leaderboard."
-                        + "See stack trace for details.");
-                    System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
-                    e.printStackTrace();
-                }
-            }
 
             try {
                 String[][] dataModel = leaderboardData.selectLeaderboardData();
