@@ -93,7 +93,7 @@ public class AnagramsLeaderboard {
       conn = DriverManager.getConnection(pathToDatabase);
 
       stmt = conn.createStatement();
-      String insertSQL = "SELECT [word], [difficulty], [seconds_left] FROM leaderboard ORDER BY (([difficulty] * 10 - [seconds_left]) / [difficulty]) LIMIT 5;";
+      String insertSQL = "SELECT [word], [difficulty], [seconds_left] FROM leaderboard ORDER BY (([difficulty] * 10 - [seconds_left]) / [difficulty]) LIMIT " + numberOfScores + " ;";
 
       ResultSet rs = stmt.executeQuery(insertSQL);
 

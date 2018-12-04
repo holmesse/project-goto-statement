@@ -127,16 +127,16 @@ public class AnagramsController {
 	public String[][] findTopLeaderboardScores(@PathVariable int number) {
 		initAnagramsWithSource("all");
 		String[][] leaderboard = new String[1][1];
+		// currently not creating a database on my machine and returns [[null]] on localhost
 		try{
+			AnagramsLeaderboard.createLeaderboardTable();
 			leaderboard = AnagramsLeaderboard.selectLeaderboardData(number);
 		}
 		catch(Exception e){
-			System.err.println("Leaderboard table was not created due to an error. See stack trace for details.");
+			System.err.println("An error occured while selecting data");
 			System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
 			e.printStackTrace();
 		}
-		// unreported exception ClassNotFoundException; must be caught or declared to be thrown
-      // String[][] leaderboard = AnagramsLeaderboard.selectLeaderboardData(number);
 
 		return leaderboard;
 		//JsonArray scores = Json.createArrayBuilder();
