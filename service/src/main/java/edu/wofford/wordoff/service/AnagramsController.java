@@ -3,6 +3,7 @@ package edu.wofford.wordoff.service;
 import edu.wofford.wordoff.*;
 import java.util.*;
 import org.springframework.web.bind.annotation.*;
+import javax.json.*;
 
 @RestController
 public class AnagramsController {
@@ -119,5 +120,22 @@ public class AnagramsController {
 	public List<String> findAllAnagramsOfWord(@PathVariable String source, @PathVariable String word) {
 		initAnagramsWithSource(source);
 		return anagrams.getSubAnagramsOfWord(word);
+	}
+
+
+	@RequestMapping("/wordoff/leaderboard/top/{number}")
+	public List<String> findTopLeaderboardScores(@PathVariable int number) {
+		initAnagramsWithSource("all");
+		String[][] leaderboard = AnagramsLeaderboard.selectLeaderboardData(number);
+		JsonArray scores = Json.createArrayBuilder();
+		for(int i = 0; i < number; i++){
+			Json obj = Json.createObjectBuilder();
+			obj.add("rank", leaderboard[i][0]);
+			obj.add("word", leaderboard[i][1]);
+			obj.add("difficulty", leaderboard[i][2]);
+			obj.add("seconds remaining", leaderboard[i][3]);
+			scores.add(obj);
+		}
+		score.build();
 	}
 }

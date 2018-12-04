@@ -9,7 +9,7 @@ import java.util.*;
 */
 public class AnagramsLeaderboard {
 
-   private String pathToDatabase = "jdbc:sqlite:results.db";
+   private static String pathToDatabase = "jdbc:sqlite:results.db";
 
    public static void main( String args[] ) {
    }
@@ -23,7 +23,7 @@ public class AnagramsLeaderboard {
    * @throws ClassNotFoundException When sqlite JDBC cannot be found.
    * @throws SQLException If an error occurs when creating the leaderboard table.
    */
-   public void createLeaderboardTable() throws ClassNotFoundException, SQLException {
+   public static void createLeaderboardTable() throws ClassNotFoundException, SQLException {
       Connection conn = null;
       Statement stmt = null;
       Class.forName("org.sqlite.JDBC");
@@ -31,11 +31,11 @@ public class AnagramsLeaderboard {
 
       stmt = conn.createStatement();
       String createLeaderboardSQL = "CREATE TABLE IF NOT EXISTS leaderboard (" +
-                     " word TEXT NOT NULL, " + 
-                     " difficulty INT NOT NULL, " + 
-                     " seconds_left INT NOT NULL, " + 
+                     " word TEXT NOT NULL, " +
+                     " difficulty INT NOT NULL, " +
+                     " seconds_left INT NOT NULL, " +
                      " submitDateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
-                     " PRIMARY KEY (word, difficulty));"; 
+                     " PRIMARY KEY (word, difficulty));";
       stmt.executeUpdate(createLeaderboardSQL);
       stmt.close();
       conn.close();
@@ -54,7 +54,7 @@ public class AnagramsLeaderboard {
    * @throws SQLException If an error occurs when inserting data
    * into the leaderboard table.
    */
-   public void insertNewResult(String word, int difficulty, int seconds_left) throws ClassNotFoundException, SQLException {
+   public static void insertNewResult(String word, int difficulty, int seconds_left) throws ClassNotFoundException, SQLException {
       Connection conn = null;
       Statement stmt = null;
 
@@ -71,10 +71,10 @@ public class AnagramsLeaderboard {
 
    /**
    * Get results from the leaderboard.
-   * Gets the top 5 results from the leaderboard and returns
+   * Gets the top n results from the leaderboard and returns
    * them as a 2-dimensional String array. Columns are, in order:
    * rank, word, difficulty, seconds_left
-   *
+   * @param numberOfScores int representing number of score results to be returned, defaults to 5
    * @return {@code String[][]} Two-dimensional string array
    * representing the results of the query.
    *
@@ -82,11 +82,14 @@ public class AnagramsLeaderboard {
    * @throws SQLException If an error occurs when inserting data
    * into the leaderboard table.
    */
-   public String[][] selectLeaderboardData() throws ClassNotFoundException, SQLException {
+   public static String[][] selectLeaderboardData() throws ClassNotFoundException, SQLException{
+     return selectLeaderboardData(5);
+   }
+   public static String[][] selectLeaderboardData(int numberOfScores) throws ClassNotFoundException, SQLException {
       Connection conn = null;
       Statement stmt = null;
 
-      String[][] results = new String[5][4];
+      String[][] results = new String[numberOfScores][4];
       String[][] leaderboardData = new String[0][0];
 
       Class.forName("org.sqlite.JDBC");
@@ -105,14 +108,14 @@ public class AnagramsLeaderboard {
       }
 
       int rowCounter = 0;
-      for (int i = 0; i < 5; i++) {
+      for (int i = 0; i < numberOfScores; i++) {
          if (results[i][0] != null) {
             rowCounter++;
          }
       }
 
       leaderboardData = new String[rowCounter][4];
-      for (int j = 0; j < 5; j++) {
+      for (int j = 0; j < numberOfScores; j++) {
          if (results[j][0] != null) {
             leaderboardData[j] = results[j];
          }
@@ -134,7 +137,7 @@ public class AnagramsLeaderboard {
    * @throws SQLException If an error occurs when checking if the table
    * is empty.
    */
-   public boolean leaderboardIsEmpty() throws ClassNotFoundException, SQLException {
+   public static boolean leaderboardIsEmpty() throws ClassNotFoundException, SQLException {
       Connection conn = null;
       Statement stmt = null;
 
@@ -170,7 +173,7 @@ public class AnagramsLeaderboard {
    * @throws SQLException If an error occurs when clearing the data
    * from the leaderboard.
    */
-   public void clearLeaderboardData() throws ClassNotFoundException, SQLException {
+   public static void clearLeaderboardData() throws ClassNotFoundException, SQLException {
       Connection conn = null;
       Statement stmt = null;
 
