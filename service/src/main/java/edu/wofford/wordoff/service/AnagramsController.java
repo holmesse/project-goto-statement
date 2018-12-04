@@ -124,18 +124,32 @@ public class AnagramsController {
 
 
 	@RequestMapping("/wordoff/leaderboard/top/{number}")
-	public List<String> findTopLeaderboardScores(@PathVariable int number) {
+	public String[][] findTopLeaderboardScores(@PathVariable int number) {
 		initAnagramsWithSource("all");
-		String[][] leaderboard = AnagramsLeaderboard.selectLeaderboardData(number);
-		JsonArray scores = Json.createArrayBuilder();
+		String[][] leaderboard = new String[1][1];
+		try{
+			leaderboard = AnagramsLeaderboard.selectLeaderboardData(number);
+		}
+		catch(Exception e){
+			System.err.println("Leaderboard table was not created due to an error. See stack trace for details.");
+			System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+			e.printStackTrace();
+		}
+		// unreported exception ClassNotFoundException; must be caught or declared to be thrown
+      // String[][] leaderboard = AnagramsLeaderboard.selectLeaderboardData(number);
+
+		return leaderboard;
+		//JsonArray scores = Json.createArrayBuilder();
+		/*
 		for(int i = 0; i < number; i++){
-			Json obj = Json.createObjectBuilder();
-			obj.add("rank", leaderboard[i][0]);
-			obj.add("word", leaderboard[i][1]);
-			obj.add("difficulty", leaderboard[i][2]);
-			obj.add("seconds remaining", leaderboard[i][3]);
+			JsonObject obj = Json.createObjectBuilder()
+			.add("rank", leaderboard[i][0])
+			.add("word", leaderboard[i][1])
+			.add("difficulty", leaderboard[i][2])
+			.add("seconds remaining", leaderboard[i][3])
+			.build();
 			scores.add(obj);
 		}
-		score.build();
+		scores.build();*/
 	}
 }
