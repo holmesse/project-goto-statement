@@ -267,7 +267,6 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
 									String inputLine;
 									while ((inputLine = in.readLine()) != null) {
 										anagramsContent.append(inputLine);
-										System.out.println("inputLine: " + inputLine);
 									}
 									in.close();
 								} catch (Exception e) {
@@ -275,7 +274,14 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
            							e.printStackTrace();
 								}
 
-								System.out.println("Anagrams content: " + anagramsContent.toString());
+								String anagramsString = anagramsContent.toString();
+								anagramsString = anagramsString.replace("[", "");
+								anagramsString = anagramsString.replace("]", "");
+								anagramsString = anagramsString.replace("\"", "");
+
+								listOfAnagrams = new ArrayList<String>(Arrays.asList(anagramsString.split(",")));
+
+								System.out.println("Anagrams list: " + listOfAnagrams);
 							}
 
 							anagramsConn.disconnect();
@@ -288,22 +294,6 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
 							window.setVisible(true);
 							window.startTimer();
 						}
-					// Anagrams anagrams;
-					// Random random;
-					// if (args.length > 1) {
-					// 	long randomSeed = Long.parseLong(args[1]);
-					// 	random = new Random(randomSeed);
-					// 	anagrams = new Anagrams(random, "commonwords.txt");
-					// } else {
-					// 	anagrams = new Anagrams("commonwords.txt");
-					// 	random = new Random();
-					// }
-					// List<String> listOfAnagrams = anagrams.getNumberOfAnagrams(difficulty + 1);
-
-					// if(listOfAnagrams != null && listOfAnagrams.size() != 0) {
-					// 	AnagramsGUI window = new AnagramsGUI(random, listOfAnagrams, difficulty);
-					// 	window.setVisible(true);
-					// 	window.startTimer();
 
 					} catch (Exception e) {
 						System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
