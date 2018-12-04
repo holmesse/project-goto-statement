@@ -3,12 +3,13 @@ project-goto-statement is a program that will help you learn anagrams for words.
 
 ## Features
 This program has 10 features total and all of the features utilize one of two textfiles
-`allwords.txt` or `commonwords.txt`
+`allwords.txt` or `commonwords.txt`.
 
 ### Feature01
-Taking a single command-line argument, a string or integer, the program returns
-either all of the anagrams for the given string or a randomly selected string with
-the same number of anagrams as the given integer.
+Feature01 takes a single command-line argument of either a string or an integer.
+- If the command-line argument is a string, the program will return all of the anagrams for the given string, provided the string is a valid word.
+- If the command-line argument is an integer, the program randomly selects a word with a number of anagrams equal to the provided integer.
+
 #### Example
 Assume that the main program is called `Feature01`.
 
@@ -22,10 +23,7 @@ Output:
     speel
 
 ### Feature02
-Taking a single command-line argument integer representing the number of anagrams a
-word should have, program randomly chooses word with that many anagrams and returns both
-that word and the number of remaining anagrams. It the then prompts the user to enter
-an anagram of the word and if it is an anagram, the number of remaining anagrams goes down.
+Feature02 takes a single command-line argument of an integer. The program randomly selects a word with a number of anagrams equal to the provided integer. It displays that word along with the number of anagrams remaining, and prompts the user to input an anagram of that word. If the user input is a correct anagram of the target word, then the number of anagrams remaining decreases. When all anagrams have been entered, the program terminates.
 #### Example
 Assume that the main program is called `Feature02`.
 
@@ -92,7 +90,7 @@ Output:
     tsar
 
 ### Feature04
-Taking a single command-line argument either a string or an integer, the program will
+Taking a single command-line argument, a string or an integer, the program will
 either randomly choose a word with the number of anagrams equal to the integer
 or the given string as well as the number of remaining anagrams and subanagrams. It
 the prompts the user to enter an anagram or subanagram of the starting word and if
