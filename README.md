@@ -127,7 +127,10 @@ This feature adds a timer to the GUI constructed from `Feature05` with an initia
 the timer counts down. If the user gets all the anagrams before the timer ends, the timer stops and displays the remaining time. Conversely, if the timer ends before the user has entered all the
 anagrams, the 'Guess' button and textfield is disabled, preventing the user from inputing anything.
 #### Example
-//add gifs of GUI timer ending and timer stopping on win
+
+![image](client/src/main/java/edu/wofford/wordoff/doc-files/gui-start.png?raw=true "Starting a game")
+
+![image](client/src/main/java/edu/wofford/wordoff/doc-files/gui-win.png?raw=true "Winning game")
 
 ### Feature07
 This feature adds a database to `Feature06` containing the top 5 scores recorded. Using the
