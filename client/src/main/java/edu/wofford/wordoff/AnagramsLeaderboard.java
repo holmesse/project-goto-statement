@@ -67,7 +67,23 @@ public class AnagramsLeaderboard {
    }
 
    /**
-   * Get results from the leaderboard.
+   * Get the top results.
+   * Gets the top 5 results from the leaderboard and returns
+   * them as a 2-dimensional String array. Columns are, in order:
+   * rank, word, difficulty, seconds_left
+   * @return {@code String[][]} Two-dimensional string array
+   * representing the results of the query.
+   *
+   * @throws ClassNotFoundException When sqlite JDBC cannot be found.
+   * @throws SQLException If an error occurs when inserting data
+   * into the leaderboard table.
+   */
+   public static String[][] selectLeaderboardData() throws ClassNotFoundException, SQLException{
+     return selectLeaderboardData(5);
+   }
+
+   /**
+   * Get a select number of results from the leaderboard.
    * Gets the top n results from the leaderboard and returns
    * them as a 2-dimensional String array. Columns are, in order:
    * rank, word, difficulty, seconds_left
@@ -79,9 +95,6 @@ public class AnagramsLeaderboard {
    * @throws SQLException If an error occurs when inserting data
    * into the leaderboard table.
    */
-   public static String[][] selectLeaderboardData() throws ClassNotFoundException, SQLException{
-     return selectLeaderboardData(5);
-   }
    public static String[][] selectLeaderboardData(int numberOfScores) throws ClassNotFoundException, SQLException {
       Connection conn = null;
       Statement stmt = null;

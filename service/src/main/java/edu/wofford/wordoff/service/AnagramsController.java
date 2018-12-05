@@ -122,12 +122,15 @@ public class AnagramsController {
 		return anagrams.getSubAnagramsOfWord(word);
 	}
 
-
+	/**
+	* Return given number of results from leaderboard database.
+	* @param number The number of results to return.
+	* @return A JSON array of the top given number of results from the leaderbaord database.
+	*/
 	@RequestMapping("/wordoff/leaderboard/top/{number}")
 	public String[][] findTopLeaderboardScores(@PathVariable int number) {
 		initAnagramsWithSource("all");
 		String[][] leaderboard = new String[1][1];
-		// currently not creating a database on my machine and returns [[null]] on localhost
 		try{
 			AnagramsLeaderboard.createLeaderboardTable();
 			leaderboard = AnagramsLeaderboard.selectLeaderboardData(number);
@@ -137,22 +140,16 @@ public class AnagramsController {
 			System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
 			e.printStackTrace();
 		}
-
 		return leaderboard;
-		//JsonArray scores = Json.createArrayBuilder();
-		/*
-		for(int i = 0; i < number; i++){
-			JsonObject obj = Json.createObjectBuilder()
-			.add("rank", leaderboard[i][0])
-			.add("word", leaderboard[i][1])
-			.add("difficulty", leaderboard[i][2])
-			.add("seconds remaining", leaderboard[i][3])
-			.build();
-			scores.add(obj);
-		}
-		scores.build();*/
 	}
 
+	/**
+	* Inserts a new result in the leaderboard database
+	* @param word The word to be inserted in the database.
+	* @param difficulty The difficulty of the word.
+	* @param secondsleft The number of seconds remaining after all the anagrams of word were entered.
+	* @return True if inserted correctly else returns False
+	*/
 	@RequestMapping("/wordoff/leaderboard/add/{word}/{difficulty}/{secondsleft}")
 	public boolean insertNewLeaderboardResult(@PathVariable String word, @PathVariable int difficulty, @PathVariable int secondsleft) {
 		initAnagramsWithSource("all");
