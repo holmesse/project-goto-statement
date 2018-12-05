@@ -119,7 +119,10 @@ labeled `Guess` is clicked. If the input is an anagram, the word appears in alph
 on the GUI. Once all anagrams are entered, the box containing the target word is highlighted
 in green.
 #### Example
-//add screenshot of GUI before and after end
+##### Starting a game.
+![image](client/src/main/java/edu/wofford/wordoff/doc-files/gui-start.png?raw=true "Starting a game")
+##### Winning a game.
+![image](client/src/main/java/edu/wofford/wordoff/doc-files/gui-win.png?raw=true "Winning game")
 
 ### Feature06
 This feature adds a timer to the GUI constructed from `Feature05` with an initial time of
@@ -127,11 +130,10 @@ This feature adds a timer to the GUI constructed from `Feature05` with an initia
 the timer counts down. If the user gets all the anagrams before the timer ends, the timer stops and displays the remaining time. Conversely, if the timer ends before the user has entered all the
 anagrams, the 'Guess' button and textfield is disabled, preventing the user from inputing anything.
 #### Example
-
-![image](client/src/main/java/edu/wofford/wordoff/doc-files/gui-start.png?raw=true "Starting a game")
-
-![image](client/src/main/java/edu/wofford/wordoff/doc-files/gui-win.png?raw=true "Winning game")
-
+##### Winning a game.
+![image](client/src/main/java/edu/wofford/wordoff/doc-files/win.png?raw=true "Winning game")
+##### Losing a game.
+![image](client/src/main/java/edu/wofford/wordoff/doc-files/loss.png?raw=true "Starting a game")
 ### Feature07
 This feature adds a database to `Feature06` containing the top 5 scores recorded. Using the
 formula `score = (difficulty * 10 - time_remaining) / difficulty`, the program determines if
@@ -140,7 +142,8 @@ winning word is not already in the database with the given difficulty or if
 it exists but the seconds remaining are larger than what is already in the
 database.
 #### Example
-//add screenshot of leaderboard
+##### Leaderboard
+![image](client/src/main/java/edu/wofford/wordoff/doc-files/leaderboard.png?raw=true "leaderboard")
 
 ### Feature08
 Creates a web service to get word and anagram information. The web service supports
@@ -162,7 +165,8 @@ the following queries:
 Note: `[source]` can be either `all` or `common` for `allwords.txt` or `commonwords.txt` respectively.
 
 #### Example
-//add screenshot of web service
+##### Web Service in Action
+![image](client/src/main/java/edu/wofford/wordoff/doc-files/web_service.png?raw=true "leaderboard")
 
 ### Feature09
 The program should take an integer as a single command-line argument,

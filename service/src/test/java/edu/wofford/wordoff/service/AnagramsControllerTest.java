@@ -120,7 +120,7 @@ public class AnagramsControllerTest extends AbstractTest {
 			String content = mvcResult.getResponse().getContentAsString();
 
 			Anagrams anagrams = new Anagrams(fileName);
-			
+
 			boolean wordIsValid = anagrams.isWord(content);
 			assertTrue(wordIsValid);
 
@@ -293,29 +293,29 @@ public class AnagramsControllerTest extends AbstractTest {
 			fail("Error occurred.");
 		}
 	}
+/*
+	 @Test
+	 public void testInsertingBadRecordReturnsFalse() {
+	 	String word = "hello";
+	 	int difficulty = 5;
+	 	int seconds_remaining = 2;
 
-	// @Test
-	// public void testInsertingBadRecordReturnsFalse() {
-	// 	String word = "hello";
-	// 	String difficulty = "NaN";
-	// 	int seconds_remaining = 2;
+	 	String uri = "/wordoff/leaderboard/add/" + word + "/" + difficulty + "/" + seconds_remaining;
 
-	// 	String uri = "/wordoff/leaderboard/add/" + word + "/" + difficulty + "/" + seconds_remaining;
+	 	try {
+	 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
-	// 	try {
-	// 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+	 		int status = mvcResult.getResponse().getStatus();
+	 		assertEquals(200, status);
 
-	// 		int status = mvcResult.getResponse().getStatus();
-	// 		assertEquals(400, status);
+	 		String content = mvcResult.getResponse().getContentAsString();
 
-	// 		String content = mvcResult.getResponse().getContentAsString();
-
-	// 		assertEquals("", content);
-	// 	} catch (Exception e) {
-	// 		System.err.println("ERROR: " + e.toString());
-	// 		System.err.println("Stack trace:");
-	// 		e.printStackTrace();
-	// 		fail("Error occurred.");
-	// 	}
-	// }
+	 		assertEquals("false", content);
+	 	} catch (Exception e) {
+	 		System.err.println("ERROR: " + e.toString());
+	 		System.err.println("Stack trace:");
+	 		e.printStackTrace();
+	 		fail("Error occurred.");
+	 	}
+	}*/
 }
