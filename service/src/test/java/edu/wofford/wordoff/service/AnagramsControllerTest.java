@@ -204,8 +204,6 @@ public class AnagramsControllerTest extends AbstractTest {
 
 			expectedOutput = expectedOutput.substring(0, expectedOutput.length() - 1) + "]";
 
-			System.out.println(expectedOutput + "\n" + content);
-
 			assertEquals(expectedOutput, content);
 
 		} catch (Exception e) {
@@ -254,4 +252,70 @@ public class AnagramsControllerTest extends AbstractTest {
 			fail("Error occurred.");
 		}
 	}
+
+	@Test
+	public void testSelectingLeaderboardDataFromServer() {
+		String word = "hello";
+		int difficulty = 2;
+		int seconds_remaining = 18;
+
+		int numberOfRowsToSelect = 1;
+
+		String uri = "/wordoff/leaderboard/add/" + word + "/" + difficulty + "/" + seconds_remaining;
+
+		try {
+			MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+			int status = mvcResult.getResponse().getStatus();
+			assertEquals(200, status);
+
+			String content = mvcResult.getResponse().getContentAsString();
+
+			assertEquals("true", content);
+
+			uri = "/wordoff/leaderboard/top/" + numberOfRowsToSelect;
+
+			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+			status = mvcResult.getResponse().getStatus();
+			assertEquals(200, status);
+
+			content = mvcResult.getResponse().getContentAsString();
+
+			String expectedOutput = "[[\"1\",\"" + word + "\",\"" + difficulty + "\",\"" + seconds_remaining + "\"]]";
+
+			assertEquals(expectedOutput, content);
+
+		} catch (Exception e) {
+			System.err.println("ERROR: " + e.toString());
+			System.err.println("Stack trace:");
+			e.printStackTrace();
+			fail("Error occurred.");
+		}
+	}
+
+	// @Test
+	// public void testInsertingBadRecordReturnsFalse() {
+	// 	String word = "hello";
+	// 	String difficulty = "NaN";
+	// 	int seconds_remaining = 2;
+
+	// 	String uri = "/wordoff/leaderboard/add/" + word + "/" + difficulty + "/" + seconds_remaining;
+
+	// 	try {
+	// 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+	// 		int status = mvcResult.getResponse().getStatus();
+	// 		assertEquals(400, status);
+
+	// 		String content = mvcResult.getResponse().getContentAsString();
+
+	// 		assertEquals("", content);
+	// 	} catch (Exception e) {
+	// 		System.err.println("ERROR: " + e.toString());
+	// 		System.err.println("Stack trace:");
+	// 		e.printStackTrace();
+	// 		fail("Error occurred.");
+	// 	}
+	// }
 }
