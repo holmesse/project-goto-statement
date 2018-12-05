@@ -165,59 +165,67 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
 		pack();
 	}
 
-/**
-* Starts the timerPanel countdown timer
-*/
+	/**
+	* Starts the timerPanel countdown timer
+	*/
 	public void startTimer() {
 		timerPanel.startTimer();
 	}
 
+	/**
+	* Gets the starting time of the timer panel
+	* @return An int value representing the start time of the timer panel in seconds.
+	*/
 	public int getStartTime() {
 		return timerPanel.getStartTime();
 	}
 
+	/**
+	* Gets the current time of the timer panel
+	* @return An int value representing the current time of the timer panel in seconds.
+	*/
 	public int getCurrentTime() {
 		return timerPanel.getCurrentTime();
 	}
 
-/**
-* Returns the {@code JButton} object of the AnagramsGUI.
-* @return The {@code JButton} object intialized by the AnagramsGUI constructor
-*/
+	/**
+	* Returns the {@code JButton} object of the AnagramsGUI.
+	* @return The {@code JButton} object intialized by the AnagramsGUI constructor
+	*/
 	public JButton getButton(){
 		return this.button;
 	}
 
-/**
-* Returns the {@code JTextField} object of the AnagramsGUI.
-* @return The {@code JTextField} object intialized by the AnagramsGUI constructor
-*/
+	/**
+	* Returns the {@code JTextField} object of the AnagramsGUI.
+	* @return The {@code JTextField} object intialized by the AnagramsGUI constructor
+	*/
 	public JTextField getTextField(){
 		return this.guess;
 	}
 
-/**
-* Disables the JButton and JTextField in the GUI
-*/
+	/**
+	* Disables the JButton and JTextField in the GUI
+	*/
 	public void disableButtonAndTextField() {
 		button.setEnabled(false);
 		guess.setEnabled(false);
 	}
 
-/**
-* Returns the current state of the given {@code JButton} and {@code JTextField}
-* objects.
-* @param jbutton JButton object to check to see if it is enabled
-* @param jtextfield JTextField object to check to see if it is enabled
-* @return returns true if both are enabled, returns false otherwise
-*/
+	/**
+	* Returns the current state of the given {@code JButton} and {@code JTextField}
+	* objects.
+	* @param jbutton JButton object to check to see if it is enabled
+	* @param jtextfield JTextField object to check to see if it is enabled
+	* @return returns true if both are enabled, returns false otherwise
+	*/
 	public boolean getButtonAndTextFieldState(JButton jbutton, JTextField jtextfield) {
 		return jbutton.isEnabled() && jtextfield.isEnabled();
 	}
 
-/**
-* Creates a new instance of the {@code LeaderboardDialog} to display the leaderboard.
-*/
+	/**
+	* Creates a new instance of the {@code LeaderboardDialog} to display the leaderboard.
+	*/
 	public void showLeaderboadDialog() {
 		leaderboardDialog = new LeaderboardDialog(this, selectedWord, difficulty, timerPanel.getCurrentTime());
 	}
@@ -287,7 +295,7 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
 							anagramsConn.disconnect();
 							targetConn.disconnect();
 						}
-						
+
 
 						if(listOfAnagrams != null && listOfAnagrams.size() != 0) {
 							AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
