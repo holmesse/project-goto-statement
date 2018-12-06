@@ -19,16 +19,67 @@ import java.net.*;
 * Implements a GUI for the Anagrams game. Players are given a target
 * word with a specified number of anagrams and prompted to enter
 * anagrams of that word until all anagrams have been found.
-* <br>
-* <img src="doc-files/gui-start.png" alt="Example of playing the game.">
-* An example of the GUI with no anagrams guessed. The timer will
-* continue to decrease until it reaches 0, or until all anagrams
+* The timer will continue to decrease until it reaches 0, or until all anagrams
 * have been entered. At that point, the game will end in either a
 * loss, if not all anagrams were guessed, or a win, if all anagrams
 * were discovered in time.
 *
-* <img src="doc-files/gui-win.png" alt="Example of GUI when game is won">
-* An example of the GUI after all words have been guessed.
+* <pre>{@code
+* //Default Constructor
+* List<String> listOfAnagrams = new ArrayList<String>();
+* int difficulty = 5;
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+*
+* //Constructor with Random instance
+* Random random = new Random();
+* List<String> listOfAnagrams = new ArrayList<String>();
+* int difficulty = 5;
+* AnagramsGUI window = new AnagramsGUI(random, listOfAnagrams, difficulty);
+*
+* //startTimer method used to start the countdown timer
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* window.startTimer();
+*
+* //getStartTime method used to get the start time of the countdown timer, which is the difficulty number times ten.
+* List<String> listOfAnagrams = new ArrayList<String>();
+* int difficulty = 5;
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* int startTime = window.getStartTime();
+* //startTime contains 50, which is ten times the given difficulty of 5.
+*
+* //getCurrentTime method used to get the current time of the countdown timer.
+* List<String> listOfAnagrams = new ArrayList<String>();
+* int difficulty = 5;
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* int currentTime = window.getCurrentTime();
+* //currentTime contains 50
+* window.startTimer();
+* //...waiting ten seconds...
+* currentTime = window.getCurrentTime();
+* //currentTime contains 40
+*
+* //getButton method used to get the instance of JButton used inside the GUI
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* JButton button = window.getButton();
+*
+* //getTextField method used to get the instance of JTextField used inside the GUI
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* JTextField field = window.getTextField();
+*
+* //disableButtonAndTextField method used to disable the JButton and JTextField in the GUI
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* window.disableButtonAndTextField();
+*
+* //showLeaderboadDialog method used to display a leaderboard of the top five scores
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* window.showLeaderboadDialog();
+*
+* //AnagramsGUI main used to start the game
+* //Running with difficulty 4 and random seed 25.
+* String[] args = new String[]{"4", "25"};
+* AnagramsGUI.main(args);
+*
+* }</pre>
 */
 public class AnagramsGUI extends JFrame implements ActionListener, TimerListener{
 	private JTextField guess;

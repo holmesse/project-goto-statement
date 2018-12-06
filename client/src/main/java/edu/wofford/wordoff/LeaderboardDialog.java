@@ -18,7 +18,22 @@ import java.net.*;
 
 import java.io.*;
 
-
+/**
+* LeaderboardDialog
+* Implements JDialog to generate a modeless dialog box that displays the top scores
+* of the anagrams guessing game.
+*
+* The following is an example of how to intialize a {@code LeaderboardDialog} object using
+* the {@code LeaderboardDialog} constructor.
+* <pre>{@code
+* //Constructor with parent JFrame, the selected word used in the game, its difficulty, and the remaining time.
+* JFrame parentFrame = new JFrame();
+* String word = "test";
+* int difficultyLevel = 4;
+* int timeLeft = 5;
+* LeaderboardDialog leaderboard = new LeaderboardDialog(parentFrame, word, difficultyLevel, timeLeft);
+* }</pre>
+*/
 public class LeaderboardDialog extends JDialog{
     private JDialog leaderboardDialog;
    // private AnagramsLeaderboard leaderboardData;
@@ -67,7 +82,7 @@ public class LeaderboardDialog extends JDialog{
 
                     String response = content.toString();
                     System.out.println(response);
-                    
+
                     if (!response.equals("true")) {
                         throw new Exception("Result not successfully inserted into database.");
                     }
@@ -103,7 +118,7 @@ public class LeaderboardDialog extends JDialog{
                 if (status == 200) {
 
                     try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-                        
+
                         String inputLine;
                         while ((inputLine = in.readLine()) != null) {
                             dataModel = convertStringToStringArray(inputLine);
@@ -135,6 +150,12 @@ public class LeaderboardDialog extends JDialog{
 
     }
 
+    /**
+    * Private helper method to return a given string as a two dimensional String array
+    *
+    * @param arrayAsString A String to be converted to a String[][].
+    * @return A String[][] version of the given String.
+    */
     private String[][] convertStringToStringArray(String arrayAsString) {
         String modifiedString = arrayAsString.substring(2, arrayAsString.length() - 2);
 

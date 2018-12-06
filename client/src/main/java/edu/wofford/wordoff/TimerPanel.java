@@ -119,6 +119,8 @@ public class TimerPanel extends JPanel implements ActionListener {
 /**
 * Adds a TimerListener object to the TimerPanel and allows for the TimerPanel to
 * fire off events to any class that implemented the TimerListener interface.
+*
+* @param listener A TimerListener object to be added.
 */
   public void addTimerListener(TimerListener listener){
     this.listeners = listener;
