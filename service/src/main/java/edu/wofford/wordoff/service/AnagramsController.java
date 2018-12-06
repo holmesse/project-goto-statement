@@ -144,7 +144,8 @@ public class AnagramsController {
 	}
 
 	/**
-	* Inserts a new result in the leaderboard database
+	* Inserts a new result in the leaderboard database.
+	*
 	* @param word The word to be inserted in the database.
 	* @param difficulty The difficulty of the word.
 	* @param secondsleft The number of seconds remaining after all the anagrams of word were entered.
