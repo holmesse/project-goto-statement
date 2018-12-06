@@ -33,19 +33,9 @@ public class LeaderboardDialog extends JDialog{
 * @param time The remaining time after all anagrams were found.
 */
     public LeaderboardDialog(JFrame parent, String selectedWord, int difficulty, int time) {
-        //leaderboardData = new AnagramsLeaderboard();
-
-        // try {
-        //     leaderboardData.createLeaderboardTable();
-        // } catch (Exception e) {
-        //     System.err.println("Leaderboard table was not created due to an error. See stack trace for details.");
-        //     System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
-        //     e.printStackTrace();
-        // }
 
         if (time > 0) {
             try {
-                //leaderboardData.insertNewResult(selectedWord, difficulty, time);
 
                 URL url = new URL("http://localhost:8080/wordoff/leaderboard/add/" + selectedWord + "/" + difficulty + "/" + time);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();

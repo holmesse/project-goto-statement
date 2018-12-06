@@ -293,29 +293,4 @@ public class AnagramsControllerTest extends AbstractTest {
 			fail("Error occurred.");
 		}
 	}
-/*
-	 @Test
-	 public void testInsertingBadRecordReturnsFalse() {
-	 	String word = "hello";
-	 	int difficulty = 5;
-	 	int seconds_remaining = 2;
-
-	 	String uri = "/wordoff/leaderboard/add/" + word + "/" + difficulty + "/" + seconds_remaining;
-
-	 	try {
-	 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
-
-	 		int status = mvcResult.getResponse().getStatus();
-	 		assertEquals(200, status);
-
-	 		String content = mvcResult.getResponse().getContentAsString();
-
-	 		assertEquals("false", content);
-	 	} catch (Exception e) {
-	 		System.err.println("ERROR: " + e.toString());
-	 		System.err.println("Stack trace:");
-	 		e.printStackTrace();
-	 		fail("Error occurred.");
-	 	}
-	}*/
 }
