@@ -19,8 +19,7 @@ import java.net.*;
 import java.io.*;
 
 /**
-* LeaderboardDialog
-* Implements JDialog to generate a modeless dialog box that displays the top scores
+* LeaderboardDialog implements JDialog to generate a modeless dialog box that displays the top scores
 * of the anagrams guessing game.
 *
 * The following is an example of how to intialize a {@code LeaderboardDialog} object using

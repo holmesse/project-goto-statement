@@ -15,8 +15,7 @@ import java.net.*;
 
 
 /**
-* Anagrams GUI
-* Implements a GUI for the Anagrams game. Players are given a target
+* Anagrams GUI implements a GUI for the Anagrams game. Players are given a target
 * word with a specified number of anagrams and prompted to enter
 * anagrams of that word until all anagrams have been found.
 * The timer will continue to decrease until it reaches 0, or until all anagrams

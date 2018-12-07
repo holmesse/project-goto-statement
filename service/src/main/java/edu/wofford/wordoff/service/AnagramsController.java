@@ -5,6 +5,10 @@ import java.util.*;
 import org.springframework.web.bind.annotation.*;
 import javax.json.*;
 
+/**
+* AnagramsController handles the web service implementation of the anagrams 
+* guessing game, namely using the web service as a word source and implementing leaderboard functionality.
+*/
 @RestController
 public class AnagramsController {
 
