@@ -6,6 +6,37 @@ import java.util.*;
 /**
 * This class sets up the results.db SQLite database that is used for keeping track
 * of game results and high scores.
+*
+* <pre>{@code
+* //Creating a new leaderboard table
+* AnagramsLeaderboard.createLeaderboardTable();
+*
+* //insertNewResult method used to add a new entry to the table
+* String word = "test";
+* int difficulty = 5;
+* int seconds_left = 10;
+* AnagramsLeaderboard.createLeaderboardTable();
+* AnagramsLeaderboard.insertNewResult(word, difficulty, seconds_left);
+*
+* //selectLeaderboardData method used to get the top scores, with no parameters the method returns the top five scores
+* //When given an number the method will return that number of scores.
+* String[][] topFiveTable = AnagramsLeaderboard.selectLeaderboardData();
+* String[][] topTenTable = AnagramsLeaderboard.selectLeaderboardData(10);
+*
+* //leaderboardIsEmpty method used to check if the leaderboard is empty
+* AnagramsLeaderboard.createLeaderboardTable();
+* boolean isBoardEmpty = AnagramsLeaderboard.leaderboardIsEmpty();
+* //isBoardEmpty contains true
+* AnagramsLeaderboard.insertNewResult("word", 5, 10);
+* isBoardEmpty = AnagramsLeaderboard.leaderboardIsEmpty();
+* //isBoardEmpty contains false
+*
+* //clearLeaderboardData method is used to clear the leaderboard of all data.
+* AnagramsLeaderboard.clearLeaderboardData();
+* boolean isBoardEmpty = AnagramsLeaderboard.leaderboardIsEmpty();
+* //isBoardEmpty contains true
+*
+* }</pre>
 */
 public class AnagramsLeaderboard {
 

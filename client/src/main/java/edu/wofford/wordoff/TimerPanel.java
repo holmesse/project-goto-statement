@@ -81,7 +81,7 @@ interface TimerListener{
 * //resetTimer method used to reset the TimerPanel countdown timer to its original starting time
 * TimerPanel panel = new TimerPanel(10);
 * panel.startTimer();
-* ... after waiting 5 seconds ...
+* //... after waiting 5 seconds ...
 * panel.stopTimer();
 * int currentPanelTime = panel.getCurrentTime();
 * //currentPanelTime contains 5

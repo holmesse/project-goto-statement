@@ -28,25 +28,25 @@ public class AnagramsGUITest {
 	}
 
   @Test
-  public void testGetButtonAndTextFieldStateReturnsCorrectValues() {
+  public void testIsButtonAndTextFieldEnabledReturnsCorrectValues() {
     JButton button = new JButton();
     JTextField guess = new JTextField();
-    assertTrue(window.getButtonAndTextFieldState(button, guess));
+    assertTrue(window.isButtonAndTextFieldEnabled(button, guess));
     button.setEnabled(false);
     guess.setEnabled(false);
-    assertFalse(window.getButtonAndTextFieldState(button, guess));
+    assertFalse(window.isButtonAndTextFieldEnabled(button, guess));
     button.setEnabled(true);
-    assertFalse(window.getButtonAndTextFieldState(button, guess));
+    assertFalse(window.isButtonAndTextFieldEnabled(button, guess));
     button.setEnabled(false);
     guess.setEnabled(true);
-    assertFalse(window.getButtonAndTextFieldState(button, guess));
+    assertFalse(window.isButtonAndTextFieldEnabled(button, guess));
   }
 
   @Test
   public void testButtonAndTextFieldAreDisabledByMethod() {
-    assertEquals(true, window.getButtonAndTextFieldState(window.getButton(), window.getTextField()));
+    assertEquals(true, window.isButtonAndTextFieldEnabled(window.getButton(), window.getTextField()));
     window.disableButtonAndTextField();
-    assertEquals(false, window.getButtonAndTextFieldState(window.getButton(), window.getTextField()));
+    assertEquals(false, window.isButtonAndTextFieldEnabled(window.getButton(), window.getTextField()));
   }
 
   @Test
@@ -72,7 +72,7 @@ public class AnagramsGUITest {
       TimeUnit.SECONDS.sleep(31);
     } catch(InterruptedException e) {}
 		assertEquals(0, window.getCurrentTime());
-    assertTrue(window.getButtonAndTextFieldState(window.getButton(), window.getTextField()) == false);
+    assertTrue(window.isButtonAndTextFieldEnabled(window.getButton(), window.getTextField()) == false);
 
   }
 
@@ -85,7 +85,7 @@ public class AnagramsGUITest {
       testField.setText(word);
       testButton.doClick();
     }
-    assertEquals(false, window.getButtonAndTextFieldState(window.getButton(), window.getTextField()));
+    assertEquals(false, window.isButtonAndTextFieldEnabled(window.getButton(), window.getTextField()));
   }
 
 }

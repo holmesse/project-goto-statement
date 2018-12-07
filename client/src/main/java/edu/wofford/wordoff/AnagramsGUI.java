@@ -70,6 +70,16 @@ import java.net.*;
 * AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
 * window.disableButtonAndTextField();
 *
+* //isButtonAndTextFieldEnabled method used to check if the given JButton and JTextField are both enabled.
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* JButton button = window.getButton();
+* JTextField field = window.getTextField();
+* boolean state = window.isButtonAndTextFieldEnabled(button, field);
+* //state contains true
+* window.disableButtonAndTextField();
+* state = window.isButtonAndTextFieldEnabled(button, field);
+* //state contains false
+*
 * //showLeaderboadDialog method used to display a leaderboard of the top five scores
 * AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
 * window.showLeaderboadDialog();
@@ -270,7 +280,7 @@ public class AnagramsGUI extends JFrame implements ActionListener, TimerListener
 	* @param jtextfield JTextField object to check to see if it is enabled
 	* @return returns true if both are enabled, returns false otherwise
 	*/
-	public boolean getButtonAndTextFieldState(JButton jbutton, JTextField jtextfield) {
+	public boolean isButtonAndTextFieldEnabled(JButton jbutton, JTextField jtextfield) {
 		return jbutton.isEnabled() && jtextfield.isEnabled();
 	}
 
