@@ -12,12 +12,24 @@ public class Feature07 {
 
     public void clearLeaderboardDatabase() {
     	leaderboard = new AnagramsLeaderboard();
-    	leaderboard.clearLeaderboardData();
+        try {
+            leaderboard.clearLeaderboardData();
+        } catch (Exception e) {
+            System.err.println("Leaderboard table was not cleared due to an error. See stack trace for details.");
+            System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public void addToLeaderboardDatabase(String word, int difficulty, int seconds_left) {
     	leaderboard = new AnagramsLeaderboard();
-    	leaderboard.insertNewResult(word, difficulty, seconds_left);
+        try {
+            leaderboard.insertNewResult(word, difficulty, seconds_left);
+        } catch (Exception e) {
+            System.err.println("Leaderboard table was not created due to an error. See stack trace for details.");
+            System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public List<String> getGuessesForWord(String word) {

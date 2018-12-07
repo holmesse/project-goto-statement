@@ -3,6 +3,7 @@ package edu.wofford.wordoff.service;
 import edu.wofford.wordoff.*;
 import java.util.*;
 import org.springframework.web.bind.annotation.*;
+import javax.json.*;
 
 @RestController
 public class AnagramsController {
@@ -119,5 +120,51 @@ public class AnagramsController {
 	public List<String> findAllAnagramsOfWord(@PathVariable String source, @PathVariable String word) {
 		initAnagramsWithSource(source);
 		return anagrams.getSubAnagramsOfWord(word);
+	}
+
+	/**
+	* Return given number of results from leaderboard database.
+	* @param number The number of results to return.
+	* @return A JSON array of the top given number of results from the leaderbaord database.
+	*/
+	@RequestMapping("/wordoff/leaderboard/top/{number}")
+	public String[][] findTopLeaderboardScores(@PathVariable int number) {
+		initAnagramsWithSource("all");
+		String[][] leaderboard = new String[1][1];
+		try{
+			AnagramsLeaderboard.createLeaderboardTable();
+			leaderboard = AnagramsLeaderboard.selectLeaderboardData(number);
+		}
+		catch(Exception e){
+			System.err.println("An error occured while selecting data");
+			System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+			e.printStackTrace();
+		}
+		return leaderboard;
+	}
+
+	/**
+	* Inserts a new result in the leaderboard database.
+	*
+	* @param word The word to be inserted in the database.
+	* @param difficulty The difficulty of the word.
+	* @param secondsleft The number of seconds remaining after all the anagrams of word were entered.
+	* @return True if inserted correctly else returns False
+	*/
+	@RequestMapping("/wordoff/leaderboard/add/{word}/{difficulty}/{secondsleft}")
+	public boolean insertNewLeaderboardResult(@PathVariable String word, @PathVariable int difficulty, @PathVariable int secondsleft) {
+		initAnagramsWithSource("all");
+		boolean recordInserted = false;
+		try {
+			AnagramsLeaderboard.createLeaderboardTable();
+			AnagramsLeaderboard.insertNewResult(word, difficulty, secondsleft);
+			recordInserted = true;
+		} catch (Exception e) {
+			recordInserted = false;
+			System.err.println("Leaderboard table was not created due to an error. See stack trace for details.");
+			System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+			e.printStackTrace();
+		}
+		return recordInserted;
 	}
 }

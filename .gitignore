@@ -254,4 +254,7 @@ gradle-app.setting
 ### Javadocs ###
 docs/
 
+### Ignore results database ###
+results.db
+
 # End of https://www.gitignore.io/api/java,macos,linux,gradle,eclipse,windows,intellij

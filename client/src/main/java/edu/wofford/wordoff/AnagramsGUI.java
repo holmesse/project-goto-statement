@@ -11,6 +11,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.Timer;
 
+import java.net.*;
 
 
 /**
@@ -18,18 +19,79 @@ import javax.swing.Timer;
 * Implements a GUI for the Anagrams game. Players are given a target
 * word with a specified number of anagrams and prompted to enter
 * anagrams of that word until all anagrams have been found.
-* <br>
-* <img src="doc-files/gui-start.png" alt="Example of playing the game.">
-* An example of the GUI with no anagrams guessed. The timer will
-* continue to decrease until it reaches 0, or until all anagrams
+* The timer will continue to decrease until it reaches 0, or until all anagrams
 * have been entered. At that point, the game will end in either a
 * loss, if not all anagrams were guessed, or a win, if all anagrams
 * were discovered in time.
 *
-* <img src="doc-files/gui-win.png" alt="Example of GUI when game is won">
-* An example of the GUI after all words have been guessed.
+* <pre>{@code
+* //Default Constructor
+* List<String> listOfAnagrams = new ArrayList<String>();
+* int difficulty = 5;
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+*
+* //Constructor with Random instance
+* Random random = new Random();
+* List<String> listOfAnagrams = new ArrayList<String>();
+* int difficulty = 5;
+* AnagramsGUI window = new AnagramsGUI(random, listOfAnagrams, difficulty);
+*
+* //startTimer method used to start the countdown timer
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* window.startTimer();
+*
+* //getStartTime method used to get the start time of the countdown timer, which is the difficulty number times ten.
+* List<String> listOfAnagrams = new ArrayList<String>();
+* int difficulty = 5;
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* int startTime = window.getStartTime();
+* //startTime contains 50, which is ten times the given difficulty of 5.
+*
+* //getCurrentTime method used to get the current time of the countdown timer.
+* List<String> listOfAnagrams = new ArrayList<String>();
+* int difficulty = 5;
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* int currentTime = window.getCurrentTime();
+* //currentTime contains 50
+* window.startTimer();
+* //...waiting ten seconds...
+* currentTime = window.getCurrentTime();
+* //currentTime contains 40
+*
+* //getButton method used to get the instance of JButton used inside the GUI
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* JButton button = window.getButton();
+*
+* //getTextField method used to get the instance of JTextField used inside the GUI
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* JTextField field = window.getTextField();
+*
+* //disableButtonAndTextField method used to disable the JButton and JTextField in the GUI
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* window.disableButtonAndTextField();
+*
+* //isButtonAndTextFieldEnabled method used to check if the given JButton and JTextField are both enabled.
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* JButton button = window.getButton();
+* JTextField field = window.getTextField();
+* boolean state = window.isButtonAndTextFieldEnabled(button, field);
+* //state contains true
+* window.disableButtonAndTextField();
+* state = window.isButtonAndTextFieldEnabled(button, field);
+* //state contains false
+*
+* //showLeaderboadDialog method used to display a leaderboard of the top five scores
+* AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+* window.showLeaderboadDialog();
+*
+* //AnagramsGUI main used to start the game
+* //Running with difficulty 4 and random seed 25.
+* String[] args = new String[]{"4", "25"};
+* AnagramsGUI.main(args);
+*
+* }</pre>
 */
-public class AnagramsGUI extends JFrame implements ActionListener {
+public class AnagramsGUI extends JFrame implements ActionListener, TimerListener{
 	private JTextField guess;
 	// dictionary:
 	//  Contains the anagram as the key and the JLabel as the value.
@@ -37,7 +99,7 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 	private JLabel target;
 	private JButton button;
 	private TimerPanel timerPanel;
-	private ModelessDialog modelessDialog;
+	private LeaderboardDialog leaderboardDialog;
 	private int difficulty;
 	private String selectedWord;
 
@@ -58,10 +120,21 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 				button.setEnabled(false);
 				guess.setEnabled(false);
 				timerPanel.stopTimer();
-				createLeaderboadDialog();
+				showLeaderboadDialog();
 			}
 			//if guess is incorrect rest the textfield to empty
 			guess.setText("");
+	}
+
+	/**
+	* Implementation of the timerExpired method from the TimerListener interface.
+	* When called the method disables the button and text field using
+	* {@code disableButtonAndTextField}, then calls the
+	* {@code showLeaderboadDialog()} method.
+	*/
+	public void timerExpired(){
+		disableButtonAndTextField();
+		showLeaderboadDialog();
 	}
 
 	/**
@@ -119,7 +192,6 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 			label.setBorder(new LineBorder(Color.BLACK));
 			label.setName("anagram" + Integer.toString(i));
 			label.setPreferredSize(preferredSize);
-			//label.setMinimumSize(preferredSize);
 			mainPanel.add(label);
 			dictionary.put(listOfAnagrams.get(i),label);
 		}
@@ -146,33 +218,77 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 		guessPanel.add(button);
 
 		int totalTime = 10 * listOfAnagrams.size();
-		timerPanel = new TimerPanel(totalTime, this);
+		timerPanel = new TimerPanel(totalTime);
+		timerPanel.addTimerListener(this);
 		add(timerPanel, BorderLayout.NORTH);
 		add(mainPanel, BorderLayout.CENTER);
 		add(guessPanel, BorderLayout.SOUTH);
 		pack();
 	}
 
-/**
-* Starts the timerPanel countdown timer
-*/
+	/**
+	* Starts the timerPanel countdown timer
+	*/
 	public void startTimer() {
 		timerPanel.startTimer();
 	}
 
-/**
-* Disables the JButton and JTextField in the GUI
-*/
+	/**
+	* Gets the starting time of the timer panel
+	* @return An int value representing the start time of the timer panel in seconds.
+	*/
+	public int getStartTime() {
+		return timerPanel.getStartTime();
+	}
+
+	/**
+	* Gets the current time of the timer panel
+	* @return An int value representing the current time of the timer panel in seconds.
+	*/
+	public int getCurrentTime() {
+		return timerPanel.getCurrentTime();
+	}
+
+	/**
+	* Returns the {@code JButton} object of the AnagramsGUI.
+	* @return The {@code JButton} object intialized by the AnagramsGUI constructor
+	*/
+	public JButton getButton(){
+		return this.button;
+	}
+
+	/**
+	* Returns the {@code JTextField} object of the AnagramsGUI.
+	* @return The {@code JTextField} object intialized by the AnagramsGUI constructor
+	*/
+	public JTextField getTextField(){
+		return this.guess;
+	}
+
+	/**
+	* Disables the JButton and JTextField in the GUI
+	*/
 	public void disableButtonAndTextField() {
 		button.setEnabled(false);
 		guess.setEnabled(false);
 	}
 
-/**
-* Creates a new instance of the {@code ModelessDialog} to display the leaderboard.
-*/
-	public void createLeaderboadDialog() {
-		modelessDialog = new ModelessDialog(this, selectedWord, difficulty, timerPanel.getCurrentTime());
+	/**
+	* Returns the current state of the given {@code JButton} and {@code JTextField}
+	* objects.
+	* @param jbutton JButton object to check to see if it is enabled
+	* @param jtextfield JTextField object to check to see if it is enabled
+	* @return returns true if both are enabled, returns false otherwise
+	*/
+	public boolean isButtonAndTextFieldEnabled(JButton jbutton, JTextField jtextfield) {
+		return jbutton.isEnabled() && jtextfield.isEnabled();
+	}
+
+	/**
+	* Creates a new instance of the {@code LeaderboardDialog} to display the leaderboard.
+	*/
+	public void showLeaderboadDialog() {
+		leaderboardDialog = new LeaderboardDialog(this, selectedWord, difficulty, timerPanel.getCurrentTime());
 	}
 
 	public static void main(String[] args) {
@@ -182,31 +298,80 @@ public class AnagramsGUI extends JFrame implements ActionListener {
 			try {
 				int difficulty = Integer.parseInt(args[0]);
 
+				String targetWord;
+				List<String> listOfAnagrams = new ArrayList<>();
+
 				//if the argument is atleast 1, find a random word with difficulty number of anagrams
 				//create a hashmap and make a new window for the word
 				if (difficulty >= 1) {
-					Anagrams anagrams;
-					Random random;
-					if (args.length > 1) {
-						long randomSeed = Long.parseLong(args[1]);
-						random = new Random(randomSeed);
-						anagrams = new Anagrams(random, "commonwords.txt");
-					} else {
-						anagrams = new Anagrams("commonwords.txt");
-						random = new Random();
-					}
-					List<String> listOfAnagrams = anagrams.getNumberOfAnagrams(difficulty + 1);
+					try {
+						URL targetUrl = new URL("http://localhost:8080/wordoff/common/wordwithanagrams/" + (difficulty + 1));
+						HttpURLConnection targetConn = (HttpURLConnection) targetUrl.openConnection();
+						targetConn.setRequestMethod("GET");
 
-					if(listOfAnagrams != null && listOfAnagrams.size() != 0) {
-						AnagramsGUI window = new AnagramsGUI(random, listOfAnagrams, difficulty);
-						window.setVisible(true);
-						window.startTimer();
+						int status = targetConn.getResponseCode();
+						if (status == 200) {
+							StringBuffer targetContent = new StringBuffer();
+							try (BufferedReader in = new BufferedReader(new InputStreamReader(targetConn.getInputStream()))) {
+								String inputLine;
+								while ((inputLine = in.readLine()) != null) {
+									targetContent.append(inputLine);
+								}
+								in.close();
+							} catch (Exception e) {
+								System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+           						e.printStackTrace();
+							}
+
+							targetWord = targetContent.toString();
+							System.out.println("Target word: " + targetWord);
+
+							URL anagramsUrl = new URL("http://localhost:8080/wordoff/common/anagrams/" + targetWord);
+							HttpURLConnection anagramsConn = (HttpURLConnection) anagramsUrl.openConnection();
+
+							status = anagramsConn.getResponseCode();
+							if (status == 200) {
+								StringBuffer anagramsContent = new StringBuffer();
+								try (BufferedReader in = new BufferedReader(new InputStreamReader(anagramsConn.getInputStream()))) {
+									String inputLine;
+									while ((inputLine = in.readLine()) != null) {
+										anagramsContent.append(inputLine);
+									}
+									in.close();
+								} catch (Exception e) {
+									System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+           							e.printStackTrace();
+								}
+
+								String anagramsString = anagramsContent.toString();
+								anagramsString = anagramsString.replace("[", "");
+								anagramsString = anagramsString.replace("]", "");
+								anagramsString = anagramsString.replace("\"", "");
+
+								listOfAnagrams = new ArrayList<String>(Arrays.asList(anagramsString.split(",")));
+
+								System.out.println("Anagrams list: " + listOfAnagrams);
+							}
+
+							anagramsConn.disconnect();
+							targetConn.disconnect();
+						}
+
+
+						if(listOfAnagrams != null && listOfAnagrams.size() != 0) {
+							AnagramsGUI window = new AnagramsGUI(listOfAnagrams, difficulty);
+							window.setVisible(true);
+							window.startTimer();
+						}
+
+					} catch (Exception e) {
+						System.err.println("ERROR: " + e.getClass().getName() + ": " + e.getMessage());
+           				e.printStackTrace();
 					}
 
 			//catch exceptions if too large, too small, or invalid input
-			}
-		}
-			catch (NumberFormatException | IndexOutOfBoundsException e){}
+				}
+			} catch (NumberFormatException | IndexOutOfBoundsException e){}
 		}
 	}
 }
